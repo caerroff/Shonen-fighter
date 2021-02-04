@@ -1,22 +1,32 @@
-﻿import pygame
+
+import pygame
+import time
 
 pygame.init()
+window_resolution = (640, 480) #Resolution de la fenêtre (Window)
+black_color = (0, 0, 0)
+red_color = (255, 0, 0)
+i = 0
 
-main = pygame.display.set_mode((300, 200))
+pygame.display.set_caption("My Game") #Titre de la fenêtre
+window_surface = pygame.display.set_mode(window_resolution) #Définition de la Surface qu'on va manipuler
 
-image = pygame.image.load("logo.png").convert()
-pygame.display.set_icon(image)
-pygame.display.set_caption("Shonen Fighter")
-naruto = pygame.image.load("pose.png").convert()
-ecran.blit(naruto, 0,0)
-
+myrect = pygame.Rect(10, 10, 250, 80)
+pygame.draw.rect(window_surface, red_color, myrect)
 pygame.display.flip()
 
-continuer = True
+while i < 500:
+    time.sleep(.050)
+    window_surface.fill(black_color)
+    myrect.x += 1
+    myrect.y += 1
+    pygame.draw.rect(window_surface, red_color, myrect)
+    pygame.display.flip()
+    i += 1
 
-while continuer:
+
+launched = True
+while launched: #Boucle permettant de garder la fenêtre ouverte tant qu'une touche (kewdown) n'est pas pressée
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
-            continuer = False
-
-pygame.quit()
+            launched= False
