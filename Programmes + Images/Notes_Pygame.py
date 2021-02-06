@@ -6,6 +6,10 @@ Rect(left, right, width, height) --> Décalage en x par rapport à la surface, I
 pygame.Rect(x, y, width, height)
 mynewrect = myrect.copy() -> Rect (Nouveau Rectangle, copie)
 Rect.move() | Rect.move_ip()s
+/// Font
+arial_font.set_bold() --> Gras
+arial_font.set_italic() --> Italique
+arial_font.set_underline() --> Sous-ligner
 """
 
 pygame.init()
