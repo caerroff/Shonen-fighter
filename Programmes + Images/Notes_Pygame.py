@@ -30,6 +30,17 @@ logo_image = pygame.image.load("uchiha_2.png") #Retourne une Surface
 logo_image.convert() #Converti l'image au bon format, convert_alpha si image transparente
 #logo_image.set_colorkey(blank_color) #Transparence d'une couleur sur une image non png
 
+""" Boucle permettant de déplacer un rectangle
+while i < 100:
+    time.sleep(.050)
+    window_surface.fill(black_color)
+    myrect.x += 1
+    myrect.y += 1
+    pygame.draw.rect(window_surface, red_color, myrect)
+    pygame.display.flip()
+    i += 1
+"""
+
 launched = True
 while launched: #Boucle permettant de garder la fenêtre ouverte tant qu'une touche (kewdown) n'est pas pressée
     for event in pygame.event.get():
@@ -39,6 +50,21 @@ while launched: #Boucle permettant de garder la fenêtre ouverte tant qu'une tou
     # Corps du programme
     #window_surface.fill(blank_color)
     #window_surface.blit(logo_image, (12, 12))  # Charge l'image --> Image, Position du coin haut gauche
+    """
+    while not myrect.colliderect(myblock): #Ajout de premières collisions
+    time.sleep(.010) #Chaque itérations de la boucle est effectuée après ce délai
+    window_surface.fill(black_color) #
+    myrect.x += 1
+    pygame.draw.rect(window_surface, red_color, myrect)
+    pygame.draw.rect(window_surface, blue_color, myblock)
+        if myrect.colliderect(myblock): #Permet de faire changer le cube de couleur à l'impact
+            time.sleep(.010)
+            window_surface.fill(black_color)
+            pygame.draw.rect(window_surface, green, myrect)
+            pygame.draw.rect(window_surface, blue_color, myblock)
+    pygame.display.flip()
+    """
     pygame.display.flip()  # Joue un rôle d'update de la fenêtre --> De l'affichage --> Display
+
 
 pygame.quit()
