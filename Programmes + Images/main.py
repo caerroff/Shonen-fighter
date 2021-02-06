@@ -15,7 +15,7 @@ myrect = pygame.Rect(10, 10, 250, 80)
 pygame.draw.rect(window_surface, red_color, myrect)
 pygame.display.flip()
 
-while i < 500:
+while i < 100:
     time.sleep(.050)
     window_surface.fill(black_color)
     myrect.x += 1
@@ -23,7 +23,6 @@ while i < 500:
     pygame.draw.rect(window_surface, red_color, myrect)
     pygame.display.flip()
     i += 1
-
 
 launched = True
 while launched: #Boucle permettant de garder la fenêtre ouverte tant qu'une touche (kewdown) n'est pas pressée
