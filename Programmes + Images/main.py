@@ -5,15 +5,14 @@ from tkinter import *
 
 pygame.init()
 window_resolution = (640, 480) #Resolution de la fenêtre (Window)
-blank = (255, 255, 255)
-black = (0, 0, 0)
-
 pygame.display.set_caption("My Game") #Titre de la fenêtre
-window_surface = pygame.display.set_mode(window_resolution) #Définition de la Surface qu'on va manipule
+window_surface = pygame.display.set_mode(window_resolution, pygame.RESIZABLE) #Définition de la Surface qu'on va manipuler
+white_color = (255, 255, 255)
 
-helvetica_font = pygame.font.Font("Helvetica.ttf", 32) #Arguments : La police (téléchargée), Taille de la police
-helvetica_text = helvetica_font.render("Bonsoir les zamis", True, blank) #Args : Text, Anti-aliasing (Bool), Color
-window_surface.blit(helvetica_text, (10, 10)) #Affiche la surface ; Args : Surface (Text), Coords(x, y)
+helvetica = pygame.font.Font("Helvetica.ttf", 32)
+text_helvetica = helvetica.render("{}".format(window_surface), True, white_color)
+window_surface.blit(text_helvetica, (10, 10))
+
 pygame.display.flip()
 
 launched = True
