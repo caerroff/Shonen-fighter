@@ -45,6 +45,16 @@ while i < 100:
     i += 1
 """
 
+arial_font = pygame.font.SysFont("arial", 32) #Afficher du texte avec police système --> Arial
+hello_text_surface = arial_font.render(" 0.80 € La Chocolatine", True, blank)  # Renvoie une surface
+window_surface.blit(hello_text_surface, (10, 10))
+
+helvetica_font = pygame.font.Font("Helvetica.ttf", 32) #Arguments : La police (téléchargée), Taille de la police
+helvetica_text = helvetica_font.render("Bonsoir les zamis", True, blank) #Args : Text, Anti-aliasing (Bool), Color
+window_surface.blit(helvetica_text, (10, 10)) #Affiche la surface ; Args : Surface (Text), Coords(x, y)
+
+pygame.display.flip()
+
 launched = True
 while launched: #Boucle permettant de garder la fenêtre ouverte tant qu'une touche (kewdown) n'est pas pressée
     for event in pygame.event.get():
