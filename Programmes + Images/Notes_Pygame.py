@@ -24,7 +24,7 @@ pygame.display.set_caption("My Game") #Titre de la fenêtre
 window_surface = pygame.display.set_mode(window_resolution) #Définition de la Surface qu'on va manipuler
 window_surface.fill(blue_color) #Fill = Remplissage de la fenêtre, couleur donnée en argument
 
-rect_form = pygame.Rect(10, 10, 150, 65) #Constructeur d'objet --> Rectangle
+rect_form = pygame.Rect(10, 10, 150, 65) #Constructeur d'objet --> Rectangle, Arg: x, y, w, h
 pygame.draw.rect(window_surface, black_color, rect_form) #Surface, Couleur (Bg), Rectangle, Remplissage-Optionnel
 
 coords = [(10, 10), (100, 10), (10, 50), (100, 50)] #Coordonnées polygone, ensemble de tuple, chaque tuple = 1 pt
@@ -77,6 +77,14 @@ while launched: #Boucle permettant de garder la fenêtre ouverte tant qu'une tou
             pygame.draw.rect(window_surface, green, myrect)
             pygame.draw.rect(window_surface, blue_color, myblock)
     pygame.display.flip()
+    """
+    """
+    elif event.type == pygame.VIDEORESIZE: #Lorsque la fenêtre est redimensionnée
+        window_surface.fill(black_color)
+        helvetica = pygame.font.Font("Helvetica.ttf", 32) #Réactualise les infos en réaffichant le text
+        text_helvetica = helvetica.render("{}x{}".format(event.w, event.h), True, white_color)
+        window_surface.blit(text_helvetica, (10, 10))
+        pygame.display.flip()
     """
     pygame.display.flip()  # Joue un rôle d'update de la fenêtre --> De l'affichage --> Display
 
