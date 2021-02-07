@@ -9,14 +9,18 @@ pygame.display.set_caption("My Game") #Titre de la fenêtre
 window_surface = pygame.display.set_mode(window_resolution, pygame.RESIZABLE) #Définition de la Surface qu'on va manipuler
 white_color = (255, 255, 255)
 black_color = (0, 0, 0)
+red_color = (255, 0, 0)
 green_color = (0, 255, 0)
+blue_color = (0, 0, 255)
 colorDef = (255, 255, 255)
+liste = [red_color, green_color, blue_color]
+i = True
 
 helvetica = pygame.font.Font("Helvetica.ttf", 32)
 text_helvetica = helvetica.render("{}".format(window_surface), True, white_color)
 window_surface.blit(text_helvetica, (10, 10))
 
-monRect = pygame.Rect(10, 100, 100, 50)
+monRect = pygame.Rect(300, 300, 100, 50)
 pygame.draw.rect(window_surface, colorDef, monRect)
 
 pygame.display.flip()
@@ -53,11 +57,18 @@ while launched: #Boucle permettant de garder la fenêtre ouverte tant qu'une tou
                 pygame.display.flip()
             elif event.key == pygame.K_RETURN:
                 launched = False
-            elif event.key == pygame.K_1:
+            elif event.key == pygame.K_g:
                 print("Green")
                 colorDef = green_color
                 window_surface.fill(black_color)
                 pygame.draw.rect(window_surface, colorDef, monRect)
                 pygame.display.flip()
+            elif event.key == pygame.K_SPACE:
+                for i in range(0, 40):
+                    time.sleep(.004)
+                    window_surface.fill(black_color)
+                    monRect.y += -1
+                    pygame.draw.rect(window_surface, colorDef, monRect)
+                    pygame.display.flip()
             else:
                 print("Autre Touche")
