@@ -53,6 +53,12 @@ helvetica_font = pygame.font.Font("Helvetica.ttf", 32) #Arguments : La police (t
 helvetica_text = helvetica_font.render("Bonsoir les zamis", True, blank) #Args : Text, Anti-aliasing (Bool), Color
 window_surface.blit(helvetica_text, (10, 10)) #Affiche la surface ; Args : Surface (Text), Coords(x, y)
 
+"""
+print(pygame.time.get_ticks())
+pygame.time.wait(5000) --> Sleep le processus
+pygame.time.delay(5000) --> Stop carrément le processus 
+"""
+
 pygame.display.flip()
 
 launched = True
