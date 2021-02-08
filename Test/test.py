@@ -5,6 +5,7 @@ pygame.init()
 winRes = (800, 600)
 surface = pygame.display.set_mode(winRes)
 black_color = (0, 0, 0)
+white_color = (255, 255, 255)
 
 spriteX = 200
 spriteY = 200
@@ -42,18 +43,27 @@ sprite_jump_4.convert()
 sprite_block = pygame.image.load("Sprite_block.png")
 sprite_block.convert()
 
+clock = pygame.time.Clock()
 
+pygame.time.set_timer(pygame.USEREVENT, 1000)
 
 surface.blit(sprite1, spriteCoords)
 pygame.display.flip()
 
 launched = True
 while launched:
+    clock.tick(60)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             launched = False
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
             launched = False
+        if event.type == pygame.USEREVENT:
+            #surface.fill(black_color)
+            arial_font = pygame.font.SysFont("arial", 32)
+            showFps = arial_font.render(f"{clock.get_fps():.2f} Fps", True, white_color)
+            surface.blit(showFps, (100, 100))
+            pygame.display.flip()
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
             surface.fill(black_color)
             surface.blit(sprite2, spriteCoords)
@@ -116,7 +126,7 @@ while launched:
             surface.blit(sprite_jump, spriteCoords)
             pygame.display.flip()
             time.sleep(.05)
-            spriteY -+ 20
+            spriteY -= 20
             spriteCoords = (spriteX, spriteY)
             surface.fill(black_color)
             surface.blit(sprite_jump_2, spriteCoords)
@@ -134,7 +144,7 @@ while launched:
             surface.blit(sprite_jump_4, spriteCoords)
             pygame.display.flip()
             time.sleep(.05)
-            for i in range(40):
+            for i in range(60):
                 spriteY += 1
                 spriteCoords = (spriteX, spriteY)
                 surface.fill(black_color)

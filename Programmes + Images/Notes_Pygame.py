@@ -59,6 +59,12 @@ pygame.time.wait(5000) --> Sleep le processus
 pygame.time.delay(5000) --> Stop carrément le processus 
 """
 
+""" Time
+clock = pygame.time.Clock() #Récupère dans une variable (clock) un objet de temps --> Manipulable avec les méthodes
+
+pygame.time.set_timer(pygame.USEREVENT, 2000) #Définit un Timer, 2000 --> 2 Secondes (2000 Millisecondes)
+"""
+
 pygame.display.flip()
 
 launched = True
@@ -92,6 +98,17 @@ while launched: #Boucle permettant de garder la fenêtre ouverte tant qu'une tou
         window_surface.blit(text_helvetica, (10, 10))
         pygame.display.flip()
     """
+    """ Time, elif dans la boucle (elif event.type...)
+            elif event.type == pygame.USEREVENT: #Après le timer, on met à jour l'affichage des fps
+            window_surface.fill(black_color)  # On affiche à l'écran (blit) le nombre de fps (get_fps)
+            clockText = helevetica_font.render(f"{clock.get_fps():.2f} FPS", True, blank_color)  #:.2f --> 2 Décimales
+            window_surface.blit(clockText, [75, 75])
+            pygame.display.flip()
+
+
+    clock.tick(60) #60 Fps (Taux de raffraichissement), Setup le nombre de raffraichissement
+    """
+
     pygame.display.flip()  # Joue un rôle d'update de la fenêtre --> De l'affichage --> Display
 
 
