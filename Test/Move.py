@@ -1,219 +1,90 @@
 import pygame, time
 
-pygame.init()
+win_res = (700, 400)
+win = pygame.display.set_mode(win_res)
+pygame.display.set_caption("Shonen Fighter")
 
-winRes = (800, 600)
-surface = pygame.display.set_mode(winRes)
-black_color = (0, 0, 0)
-white_color = (255, 255, 255)
+walkLeft = [pygame.image.load("N_L_W1.png"), pygame.image.load("N_L_W2.png"), pygame.image.load("N_L_W3.png"), pygame.image.load("N_L_W4.png"), pygame.image.load("N_L_W5.png"), pygame.image.load("N_L_W6.png"), pygame.image.load("N_L_W1.png"), pygame.image.load("N_L_W2.png"), pygame.image.load("N_L_W3.png"), ]
+walkRight = [pygame.image.load("N_R_W2.png"), pygame.image.load("N_R_W2.png"), pygame.image.load("N_R_W3.png"), pygame.image.load("N_R_W4.png"), pygame.image.load("N_R_W5.png"), pygame.image.load("N_R_W6.png"), pygame.image.load("N_R_W1.png"), pygame.image.load("N_R_W2.png"), pygame.image.load("N_R_W3.png"), pygame.image.load("N_R_W4.png"), pygame.image.load("N_R_W5.png"), pygame.image.load("N_R_W6.png")]
+bg = pygame.image.load("bg.jpg")
+naruto = pygame.image.load("N_R3.png")
 
-spriteX = 200
-spriteY = 200
-spriteCoords = (spriteX, spriteY)
-#/// Sprite Base
-sprite1 = pygame.image.load("Sprite.png")
-sprite1.convert()
-sprite2 = pygame.image.load("Sprite 2.png")
-sprite2.convert()
-sprite3 = pygame.image.load("Sprite 3.png")
-sprite3.convert()
-#/// Sprite Walk
-sprite_walk = pygame.image.load("Sprite_walk.png")
-sprite_walk.convert()
-sprite_walk_2 = pygame.image.load("Sprite_walk_2.png")
-sprite_walk_2.convert()
-sprite_walk_3 = pygame.image.load("Sprite_walk_3.png")
-sprite_walk_3.convert()
-sprite_walk_4 = pygame.image.load("Sprite_walk_4.png")
-sprite_walk_4.convert()
-sprite_walk_5 = pygame.image.load("Sprite_walk_5.png")
-sprite_walk_5.convert()
-sprite_walk_6 = pygame.image.load("Sprite_walk_6.png")
-sprite_walk_6.convert()
-#/// Jump
-sprite_jump = pygame.image.load("Sprite_jump.png")
-sprite_jump.convert()
-sprite_jump_2 = pygame.image.load("Sprite_jump_2.png")
-sprite_jump_2.convert()
-sprite_jump_3 = pygame.image.load("Sprite_jump_3.png")
-sprite_jump_3.convert()
-sprite_jump_4 = pygame.image.load("Sprite_jump_4.png")
-sprite_jump_4.convert()
-#/// Block
-sprite_block = pygame.image.load("Sprite_block.png")
-sprite_block.convert()
 
 clock = pygame.time.Clock()
 
-pygame.time.set_timer(pygame.USEREVENT, 1000)
+x = 50
+y = 300
+width = 64
+height = 64
+vel = 5
 
-air = False
+isJump = False
+jumpCount = 10
+left = False
+right = False
+walkCount = 0
+black_color = (0, 0, 0)
+green_color = (0, 255, 0)
 
-surface.blit(sprite1, spriteCoords)
-pygame.display.flip()
+def redrawGameWindow(): #Toutes les modifications visuelles se feront ici et plus dans la boucle principale
+    global walkCount
+    win.blit(bg, (0, 0)) #Black
+
+    if walkCount + 1 >= 27:
+        walkCount = 0
+    if left:
+        win.blit(walkLeft[walkCount//3], (x, y))
+        walkCount += 1
+    elif right:
+        win.blit(walkRight[walkCount//3], (x, y))
+        walkCount += 1
+    else:
+        win.blit(naruto, (x, y))
+
+    pygame.display.update()
 
 launched = True
 while launched:
-    clock.tick(60)
+    clock.tick(27)
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN or event.type == pygame.QUIT:
             launched = False
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-            launched = False
-        if event.type == pygame.USEREVENT:
-            #surface.fill(black_color)
-            arial_font = pygame.font.SysFont("arial", 32)
-            showFps = arial_font.render(f"{clock.get_fps():.2f} Fps", True, white_color)
-            surface.blit(showFps, (100, 100))
-            pygame.display.flip()
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-            surface.fill(black_color)
-            surface.blit(sprite2, spriteCoords)
-            pygame.display.flip()
-            time.sleep(.001)
-            surface.fill(black_color)
-            surface.blit(sprite3, spriteCoords)
-            pygame.display.flip()
-        if event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
-            surface.fill(black_color)
-            surface.blit(sprite2, spriteCoords)
-            pygame.display.flip()
-            time.sleep(.001)
-            surface.fill(black_color)
-            surface.blit(sprite1, spriteCoords)
-            pygame.display.flip()
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_RIGHT]: #Déplacement vers la droite
-            surface.fill(black_color)
-            surface.blit(sprite_walk, spriteCoords) #Sprite 1
-            pygame.display.flip()
-            time.sleep(.05)
-            spriteX += 2
-            spriteCoords = (spriteX, spriteY)
-            surface.fill(black_color)
-            surface.blit(sprite_walk_2, spriteCoords) #Sprite 2
-            pygame.display.flip()
-            time.sleep(.05)
-            spriteX += 2
-            spriteCoords = (spriteX, spriteY)
-            surface.fill(black_color)
-            surface.blit(sprite_walk_3, spriteCoords) #Sprite 3
-            pygame.display.flip()
-            time.sleep(.05)
-            spriteX += 2
-            spriteCoords = (spriteX, spriteY)
-            surface.fill(black_color)
-            surface.blit(sprite_walk_4, spriteCoords) #Sprite 4
-            pygame.display.flip()
-            spriteX += 2
-            spriteCoords = (spriteX, spriteY)
-            surface.fill(black_color)
-            surface.blit(sprite_walk_5, spriteCoords) #Sprite 5
-            pygame.display.flip()
-            spriteX += 2
-            spriteCoords = (spriteX, spriteY)
-            surface.fill(black_color)
-            surface.blit(sprite_walk_6, spriteCoords) #Sprite 6
-            pygame.display.flip()
-        if event.type == pygame.KEYUP and event.key == pygame.K_RIGHT:
-            surface.fill(black_color)
-            surface.blit(sprite2, spriteCoords)
-            pygame.display.flip()
-            time.sleep(.001)
-            surface.fill(black_color)
-            surface.blit(sprite1, spriteCoords)
-            pygame.display.flip()
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
-            surface.fill(black_color)
-            surface.blit(sprite_jump, spriteCoords)
-            pygame.display.flip()
-            time.sleep(.05)
-            spriteY -= 20
-            spriteCoords = (spriteX, spriteY)
-            surface.fill(black_color)
-            surface.blit(sprite_jump_2, spriteCoords)
-            pygame.display.flip()
-            time.sleep(.05)
-            spriteY -= 20
-            spriteCoords = (spriteX, spriteY)
-            surface.fill(black_color)
-            surface.blit(sprite_jump_3, spriteCoords)
-            pygame.display.flip()
-            time.sleep(.05)
-            spriteY -= 20
-            spriteCoords = (spriteX, spriteY)
-            surface.fill(black_color)
-            surface.blit(sprite_jump_4, spriteCoords)
-            for i in range(60):
-                air = False
-                spriteY += 1
-                spriteCoords = (spriteX, spriteY)
-                surface.fill(black_color)
-                surface.blit(sprite_jump_4, spriteCoords)
-                pygame.display.flip()
-            surface.fill(black_color)
-            surface.blit(sprite2, spriteCoords)
-            pygame.display.flip()
-            time.sleep(.001)
-            surface.fill(black_color)
-            surface.blit(sprite1, spriteCoords)
-            pygame.display.flip()
-        if keys[pygame.K_LEFT]:  # Déplaczement vers la gauche
-            # if event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
-            # keys = False
-            # print("Ouais mec")
-            print("Non")
-            surface.fill(black_color)
-            surface.blit(sprite_walk, spriteCoords) # Sprite 1, Gauche
-            pygame.display.flip()
-            time.sleep(.05)
-            spriteX += -2
-            spriteCoords = (spriteX, spriteY)
-            surface.fill(black_color)
-            surface.blit(sprite_walk_2, spriteCoords) # Sprite 2, Gauche
-            pygame.display.flip()
-            time.sleep(.05)
-            spriteX += -2
-            spriteCoords = (spriteX, spriteY)
-            surface.fill(black_color)
-            surface.blit(sprite_walk_3, spriteCoords) # Sprite 3, Gauche
-            pygame.display.flip()
-            time.sleep(.05)
-            spriteX += -2
-            spriteCoords = (spriteX, spriteY)
-            surface.fill(black_color)
-            surface.blit(sprite_walk_4, spriteCoords) # Sprite 4, Gauche
-            pygame.display.flip()
-            spriteX += -2
-            spriteCoords = (spriteX, spriteY)
-            surface.fill(black_color)
-            surface.blit(sprite_walk_5, spriteCoords) # Sprite 5, Gauche
-            pygame.display.flip()
-            spriteX += -2
-            spriteCoords = (spriteX, spriteY)
-            surface.fill(black_color)
-            surface.blit(sprite_walk_6, spriteCoords) # Sprite 6, Gauche
-            pygame.display.flip()
-            surface.fill(black_color)
-            surface.blit(sprite2, spriteCoords)
-            pygame.display.flip()
-            time.sleep(.001)
-            surface.fill(black_color)
-            surface.blit(sprite1, spriteCoords) #Retour en Position normal
-            pygame.display.flip()
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN: #Block Down
-            surface.fill(black_color)
-            surface.blit(sprite_block, spriteCoords)
-            pygame.display.flip()
-        if event.type == pygame.KEYUP and event.key == pygame.K_DOWN: #Block Up
-            surface.fill(black_color)
-            surface.blit(sprite1, spriteCoords)
-            pygame.display.flip()
+
+    keys = pygame.key.get_pressed() #Variable permettant de vérifier si une touché est pressée
+
+    if keys[pygame.K_LEFT] and x > vel: #///// LEFT
+        x -= vel
+        left = True
+        right = False
+    elif keys[pygame.K_RIGHT] and x < 700 - width - vel: #///// RIGHT
+        x += vel
+        right = True
+        left = False
+    else:
+        right = False
+        left = False
+        walkCount = 0
+
+    if not isJump:
+        if keys[pygame.K_SPACE]:
+            isJump = True
+            left = False
+            right = False
+            walkCount = 0
+    else:
+        if jumpCount >= -10:
+            neg = 1
+            if jumpCount < 0:
+                neg = -1
+            y -= (jumpCount ** 2) * 0.5 * neg
+            jumpCount -= 1
+        else:
+            isJump = False
+            jumpCount = 10
+
+    redrawGameWindow()
 
 
 
 
-
-
-
-
+pygame.quit()
