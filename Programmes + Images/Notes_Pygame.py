@@ -1,11 +1,11 @@
 
 import pygame
 
-"""Surface, Rect
-Rect(left, right, width, height) --> Décalage en x par rapport à la surface, Idem en Y, Largeur, Hauteur
-pygame.Rect(x, y, width, height)
+"""/// Rectangle
+pygame.Rect(left, right, width, height) --> Décalage en x par rapport à la surface, Idem en Y, Largeur, Hauteur
 mynewrect = myrect.copy() -> Rect (Nouveau Rectangle, copie)
 Rect.move() | Rect.move_ip()s
+
 /// Font
 arial_font.set_bold() --> Gras
 arial_font.set_italic() --> Italique
