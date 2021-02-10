@@ -4,11 +4,12 @@ win_res = (700, 400)
 win = pygame.display.set_mode(win_res)
 pygame.display.set_caption("Shonen Fighter")
 
-walkLeft = [pygame.image.load("N_L_W1.png"), pygame.image.load("N_L_W2.png"), pygame.image.load("N_L_W3.png"), pygame.image.load("N_L_W4.png"), pygame.image.load("N_L_W5.png"), pygame.image.load("N_L_W6.png"), pygame.image.load("N_L_W1.png"), pygame.image.load("N_L_W2.png"), pygame.image.load("N_L_W3.png"), ]
-walkRight = [pygame.image.load("N_R_W2.png"), pygame.image.load("N_R_W2.png"), pygame.image.load("N_R_W3.png"), pygame.image.load("N_R_W4.png"), pygame.image.load("N_R_W5.png"), pygame.image.load("N_R_W6.png"), pygame.image.load("N_R_W1.png"), pygame.image.load("N_R_W2.png"), pygame.image.load("N_R_W3.png"), pygame.image.load("N_R_W4.png"), pygame.image.load("N_R_W5.png"), pygame.image.load("N_R_W6.png")]
+walkRight = [pygame.image.load("naruto_walk1.png"), pygame.image.load("naruto_walk2.png"), pygame.image.load("naruto_walk3.png"), pygame.image.load("naruto_walk4.png"), pygame.image.load("naruto_walk5.png"), pygame.image.load("naruto_walk6.png"),
+             pygame.image.load("naruto_walk1.png"), pygame.image.load("naruto_walk2.png"), pygame.image.load("naruto_walk3.png"), pygame.image.load("naruto_walk4.png"), pygame.image.load("naruto_walk5.png"), pygame.image.load("naruto_walk6.png")]
+walkLeft = [pygame.transform.flip(walkRight[0], True, False), pygame.transform.flip(walkRight[1], True, False), pygame.transform.flip(walkRight[2], True, False), pygame.transform.flip(walkRight[3], True, False), pygame.transform.flip(walkRight[4], True, False), pygame.transform.flip(walkRight[5], True, False),
+            pygame.transform.flip(walkRight[0], True, False), pygame.transform.flip(walkRight[1], True, False), pygame.transform.flip(walkRight[2], True, False), pygame.transform.flip(walkRight[3], True, False), pygame.transform.flip(walkRight[4], True, False), pygame.transform.flip(walkRight[5], True, False)]
 bg = pygame.image.load("bg.jpg")
-naruto = pygame.image.load("N_R3.png")
-
+naruto = pygame.image.load("naruto_2.png")
 
 clock = pygame.time.Clock()
 
@@ -76,8 +77,10 @@ while launched:
             neg = 1
             if jumpCount < 0:
                 neg = -1
+            #print(jumpCount)
             y -= (jumpCount ** 2) * 0.5 * neg
             jumpCount -= 1
+
         else:
             isJump = False
             jumpCount = 10
