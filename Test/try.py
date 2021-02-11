@@ -19,6 +19,9 @@ combo1 = [pygame.image.load("naruto_combo1.png"), pygame.image.load("naruto_comb
           pygame.image.load("naruto_combo3.png"), pygame.image.load("naruto_combo3.png"), pygame.image.load("naruto_combo3.png")]
 bg = pygame.image.load("bg.jpg")
 narutoSprite = pygame.image.load("naruto_2.png")
+narutoSpriteLeft = pygame.transform.flip(narutoSprite, True, False)
+kunaiSprite = pygame.image.load("kunai.png")
+kunaiSpriteLeft = pygame.transform.flip(kunaiSprite, True, False)
 
 clock = pygame.time.Clock()
 
@@ -37,16 +40,18 @@ class Player(object):
         self.walkCount = 0
         self.combo1 = False
         self.comboCount = 1
+        self.standing = True
 
     def draw(self, win):
         if self.walkCount + 1 >= 27:
             self.walkCount = 0
-        if self.left:
-            win.blit(walkLeft[self.walkCount // 3], (self.x, self.y))
-            self.walkCount += 1
-        elif self.right:
-            win.blit(walkRight[self.walkCount // 3], (self.x, self.y))
-            self.walkCount += 1
+        if not self.standing:
+            if self.left:
+                win.blit(walkLeft[self.walkCount // 3], (self.x, self.y))
+                self.walkCount += 1
+            elif self.right:
+                win.blit(walkRight[self.walkCount // 3], (self.x, self.y))
+                self.walkCount += 1
         elif self.isJump:
             win.blit(spritesJump[self.jumpCount // 3], (self.x, self.y))
             self.walkCount += 1
@@ -62,9 +67,14 @@ class Player(object):
             self.walkCount += 1
             self.combo1 = False
         else:
-            win.blit(narutoSprite, (self.x, self.y))
+            if self.right:
+                win.blit(narutoSprite, (self.x, self.y))
+            elif self.left:
+                win.blit(narutoSpriteLeft, (self.x, self.y))
+            else:
+                win.blit(narutoSprite, (self.x, self.y))
 
-def projectile(object):
+class projectile(object):
     def __init__(self, x, y, radius, color, facing):
         self.x = x
         self.y = y
@@ -73,15 +83,21 @@ def projectile(object):
         self.facing = facing
         self.vel = 8 * facing
 
-    def draw(win):
-        pygame.draw.circle(win, self.color, (self.x, self.y), self.radius)
+    def draw(self, win):
+        if facing == 1:
+            win.blit(kunaiSprite, (self.x, self.y))
+        else:
+            win.blit(kunaiSpriteLeft, self.x, self.y)
 
 def redrawGameWindow(): #Toutes les modifications visuelles se feront ici et plus dans la boucle principale
     win.blit(bg, (0, 0))  # Black
     naruto.draw(win)
+    for kunai in kunais:
+        kunai.draw(win)
     pygame.display.update()
 
 naruto = Player(300, 300, 64, 64)
+kunais = [] #Kunaï --> Kunai --> Kunais
 launched = True
 while launched:
     clock.tick(27)
@@ -89,30 +105,46 @@ while launched:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN or event.type == pygame.QUIT:
             launched = False
 
+    for kunai in kunais:
+        if 500 > kunai.x > 0:
+            kunai.x += kunai.vel
+        else:
+            kunais.pop(kunais.index(kunai))
     keys = pygame.key.get_pressed() #Variable permettant de vérifier si une touché est pressée
 
+    if keys[pygame.K_SPACE]:
+        if naruto.left:
+            facing = -1
+        elif naruto.right:
+            facing = 1
+        else:
+            facing = 1
+        if len(kunais) < 3:
+            if facing == 1:
+                kunais.append(projectile(round(naruto.x + naruto.width // 2), round(naruto.y + naruto.height //4), 6, (0, 0, 0), facing))
+            else:
+                kunais.append(projectile(round(naruto.x + naruto.width // 2), round(naruto.y + naruto.height // 4), 6, (0, 0, 0), facing))
     if keys[pygame.K_LEFT] and naruto.x > naruto.vel: #///// LEFT
         naruto.x -= naruto.vel
         naruto.left = True
         naruto.right = False
+        naruto.standing = False
     elif keys[pygame.K_RIGHT] and naruto.x < 700 - naruto.width - naruto.vel: #///// RIGHT
         naruto.x += naruto.vel
         naruto.right = True
         naruto.left = False
+        naruto.standing = False
     elif keys[pygame.K_DOWN]: #/// DOWN
         naruto.isBlock = True
         naruto.left = False
         naruto.right = False
-    elif keys[pygame.K_SPACE] and naruto.right == True:
-        print("Condition : Réussi")
+    elif keys[pygame.K_i] and naruto.right == True: #/// Combo 1
         naruto.right = False
         naruto.combo1 = True
-    elif keys[pygame.K_SPACE]:
-        print("Condition : Echec")
+    elif keys[pygame.K_i]:
         naruto.combo1 = True
     else:
-        naruto.right = False
-        naruto.left = False
+        naruto.standing = True
         naruto.isBlock = False
         naruto.walkCount = 0
 
