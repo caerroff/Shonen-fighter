@@ -34,13 +34,13 @@ class Player(object):
         if self.walkCount + 1 >= 27:
             self.walkCount = 0
         if self.left:
-            win.blit(walkLeft[self.walkCount // 3], (naruto.x, naruto.y))
+            win.blit(walkLeft[self.walkCount // 3], (self.x, self.y))
             self.walkCount += 1
         elif self.right:
-            win.blit(walkRight[self.walkCount // 3], (naruto.x, naruto.y))
+            win.blit(walkRight[self.walkCount // 3], (self.x, self.y))
             self.walkCount += 1
         else:
-            win.blit(narutoSprite, (naruto.x, naruto.y))
+            win.blit(narutoSprite, (self.x, self.y))
 
 def redrawGameWindow(): #Toutes les modifications visuelles se feront ici et plus dans la boucle principale
     win.blit(bg, (0, 0))  # Black

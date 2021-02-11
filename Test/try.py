@@ -14,6 +14,9 @@ spritesJump = [pygame.image.load("naruto_jump1.png"), pygame.image.load("naruto_
 block = [pygame.image.load("naruto_block.png"), pygame.image.load("naruto_block.png"), pygame.image.load("naruto_block.png"),
          pygame.image.load("naruto_block.png"), pygame.image.load("naruto_block.png"), pygame.image.load("naruto_block.png"),
          pygame.image.load("naruto_block.png"), pygame.image.load("naruto_block.png"), pygame.image.load("naruto_block.png")]
+combo1 = [pygame.image.load("naruto_combo1.png"), pygame.image.load("naruto_combo2.png"), pygame.image.load("naruto_combo3.png"),
+          pygame.image.load("naruto_combo3.png"), pygame.image.load("naruto_combo3.png"), pygame.image.load("naruto_combo3.png"),
+          pygame.image.load("naruto_combo3.png"), pygame.image.load("naruto_combo3.png"), pygame.image.load("naruto_combo3.png")]
 bg = pygame.image.load("bg.jpg")
 narutoSprite = pygame.image.load("naruto_2.png")
 
@@ -32,30 +35,46 @@ class Player(object):
         self.left = False
         self.right = False
         self.walkCount = 0
+        self.combo1 = False
+        self.comboCount = 1
 
     def draw(self, win):
-
         if self.walkCount + 1 >= 27:
             self.walkCount = 0
         if self.left:
-            win.blit(walkLeft[self.walkCount // 3], (naruto.x, naruto.y))
+            win.blit(walkLeft[self.walkCount // 3], (self.x, self.y))
             self.walkCount += 1
         elif self.right:
-            win.blit(walkRight[self.walkCount // 3], (naruto.x, naruto.y))
+            win.blit(walkRight[self.walkCount // 3], (self.x, self.y))
             self.walkCount += 1
-        elif naruto.isJump:
-            win.blit(spritesJump[self.jumpCount // 3], (naruto.x, naruto.y))
+        elif self.isJump:
+            win.blit(spritesJump[self.jumpCount // 3], (self.x, self.y))
             self.walkCount += 1
-        elif naruto.isJump and naruto.right\
-                :
-            win.blit(spritesJump[self.jumpCount // 3], (naruto.x, naruto.y))
+        elif self.isJump and self.right:
+            win.blit(spritesJump[self.jumpCount // 3], (self.x, self.y))
             self.walkCount += 1
-        elif naruto.isBlock:
-            win.blit(block[self.walkCount //3], (naruto.x, naruto.y))
+        elif self.isBlock:
+            win.blit(block[self.walkCount // 3], (self.x, self.y))
             self.walkCount += 1
             self.isBlock = False
+        elif self.combo1:
+            win.blit(combo1[self.walkCount // 3], (self.x, self.y))
+            self.walkCount += 1
+            self.combo1 = False
         else:
-            win.blit(narutoSprite, (naruto.x, naruto.y))
+            win.blit(narutoSprite, (self.x, self.y))
+
+def projectile(object):
+    def __init__(self, x, y, radius, color, facing):
+        self.x = x
+        self.y = y
+        self.radius = radius
+        self.color = color
+        self.facing = facing
+        self.vel = 8 * facing
+
+    def draw(win):
+        pygame.draw.circle(win, self.color, (self.x, self.y), self.radius)
 
 def redrawGameWindow(): #Toutes les modifications visuelles se feront ici et plus dans la boucle principale
     win.blit(bg, (0, 0))  # Black
@@ -80,21 +99,28 @@ while launched:
         naruto.x += naruto.vel
         naruto.right = True
         naruto.left = False
-    elif keys[pygame.K_DOWN]:
+    elif keys[pygame.K_DOWN]: #/// DOWN
         naruto.isBlock = True
         naruto.left = False
         naruto.right = False
+    elif keys[pygame.K_SPACE] and naruto.right == True:
+        print("Condition : Réussi")
+        naruto.right = False
+        naruto.combo1 = True
+    elif keys[pygame.K_SPACE]:
+        print("Condition : Echec")
+        naruto.combo1 = True
     else:
-        #naruto.right = False
-        #naruto.left = False
+        naruto.right = False
+        naruto.left = False
         naruto.isBlock = False
         naruto.walkCount = 0
 
     if not naruto.isJump:
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_UP]:
             naruto.isJump = True
-            #naruto.left = False
-            #naruto.right = False
+            naruto.left = False
+            naruto.right = False
             naruto.isBlock = False
             naruto.walkCount = 0
     else:
