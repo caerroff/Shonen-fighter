@@ -87,7 +87,7 @@ class projectile(object):
         if facing == 1:
             win.blit(kunaiSprite, (self.x, self.y))
         else:
-            win.blit(kunaiSpriteLeft, self.x, self.y)
+            win.blit(kunaiSpriteLeft, (self.x, self.y))
 
 def redrawGameWindow(): #Toutes les modifications visuelles se feront ici et plus dans la boucle principale
     win.blit(bg, (0, 0))  # Black
@@ -119,11 +119,11 @@ while launched:
             facing = 1
         else:
             facing = 1
-        if len(kunais) < 3:
+        if len(kunais) < 10:
             if facing == 1:
                 kunais.append(projectile(round(naruto.x + naruto.width // 2), round(naruto.y + naruto.height //4), 6, (0, 0, 0), facing))
             else:
-                kunais.append(projectile(round(naruto.x + naruto.width // 2), round(naruto.y + naruto.height // 4), 6, (0, 0, 0), facing))
+                kunais.append(projectile(round(naruto.x), round(naruto.y + naruto.height // 4), 6, (0, 0, 0), facing))
     if keys[pygame.K_LEFT] and naruto.x > naruto.vel: #///// LEFT
         naruto.x -= naruto.vel
         naruto.left = True
