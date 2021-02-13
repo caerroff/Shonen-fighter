@@ -106,7 +106,7 @@ class projectile(object):
         self.radius = radius
         self.color = color
         self.facing = facing
-        self.vel = 8 * facing
+        self.vel = 15 * facing
 
     def draw(self, win):
         if facing == 1:
@@ -131,7 +131,7 @@ while launched:
             launched = False
 
     for kunai in kunais:
-        if 500 > kunai.x > 0:
+        if 670 > kunai.x > 0:
             kunai.x += kunai.vel
         else:
             kunais.pop(kunais.index(kunai))
@@ -144,7 +144,7 @@ while launched:
             facing = 1
         else:
             facing = 1
-        if len(kunais) < 10:
+        if len(kunais) < 3:
             if facing == 1:
                 kunais.append(projectile(round(naruto.x + naruto.width // 2), round(naruto.y + naruto.height //4), 6, (0, 0, 0), facing))
             else:
