@@ -1,4 +1,5 @@
 import pygame, time
+pygame.init()
 pygame.font.init()
 
 win_res = (700, 400)
@@ -33,6 +34,12 @@ kunaiSprite = pygame.image.load("kunai.png")
 kunaiSpriteLeft = pygame.transform.flip(kunaiSprite, True, False)
 
 clock = pygame.time.Clock()
+
+kunaiSound = pygame.mixer.Sound("kunai_flying.wav")
+kunaiImpactSound = pygame.mixer.Sound("kunai_impact.wav")
+
+#music = pygame.mixer.music.load('naruto_theme.mp3')
+#pygame.mixer.music.play(-1)
 
 font = pygame.font.Font("Helvetica.ttf", 30) #Font importé pour le score
 score = 0
@@ -156,7 +163,6 @@ class Enemy(object):
             #pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
 
     def move(self):
-        pass
         if self.vel > 0:
             if self.x + self.vel < self.path[1]:
                 self.x += self.vel
@@ -211,6 +217,7 @@ while launched:
         if 670 > kunai.x > 0:
             if kunai.y - kunai.radius < goblin.hitbox[1] + goblin.hitbox[3] and kunai.y + kunai.radius > goblin.hitbox[1]:
                 if kunai.x + kunai.radius > goblin.hitbox[0] and kunai.x - kunai.radius < goblin.hitbox[0] + goblin.hitbox[2]:
+                    kunaiImpactSound.play()
                     goblin.hit()
                     score += 1
                     kunais.pop(kunais.index(kunai))
@@ -222,6 +229,7 @@ while launched:
     keys = pygame.key.get_pressed() #Variable permettant de vérifier si une touché est pressée
 
     if keys[pygame.K_i] and shootLoop == 0:
+        kunaiSound.play()
         if naruto.left:
             facing = -1
         elif naruto.right:
