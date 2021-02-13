@@ -1,9 +1,9 @@
 import pygame, time
+pygame.font.init()
 
 win_res = (700, 400)
 win = pygame.display.set_mode(win_res)
 pygame.display.set_caption("Shonen Fighter")
-
 walkRight = [pygame.image.load("naruto_walk1.png"), pygame.image.load("naruto_walk2.png"), pygame.image.load("naruto_walk3.png"), pygame.image.load("naruto_walk4.png"), pygame.image.load("naruto_walk5.png"), pygame.image.load("naruto_walk6.png"),
              pygame.image.load("naruto_walk1.png"), pygame.image.load("naruto_walk2.png"), pygame.image.load("naruto_walk3.png"), pygame.image.load("naruto_walk4.png"), pygame.image.load("naruto_walk5.png"), pygame.image.load("naruto_walk6.png")]
 walkLeft = [pygame.transform.flip(walkRight[0], True, False), pygame.transform.flip(walkRight[1], True, False), pygame.transform.flip(walkRight[2], True, False), pygame.transform.flip(walkRight[3], True, False), pygame.transform.flip(walkRight[4], True, False), pygame.transform.flip(walkRight[5], True, False),
@@ -34,6 +34,9 @@ kunaiSpriteLeft = pygame.transform.flip(kunaiSprite, True, False)
 
 clock = pygame.time.Clock()
 
+font = pygame.font.Font("Helvetica.ttf", 30) #Font importé pour le score
+score = 0
+
 class Player(object):
     def __init__(self, x, y, width, height):
         self.x = x
@@ -50,6 +53,7 @@ class Player(object):
         self.combo1 = False
         self.comboCount = 1
         self.standing = True
+        self.hitbox = (self.x, self.y, 47, 60)
 
     def draw(self, win):
         if self.walkCount + 1 >= 27:
@@ -98,6 +102,8 @@ class Player(object):
                 win.blit(narutoSpriteLeft, (self.x, self.y))
             else:
                 win.blit(narutoSprite, (self.x, self.y))
+        self.hitbox = (self.x, self.y, 47, 60)
+        #pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
 
 class projectile(object):
     def __init__(self, x, y, radius, color, facing):
@@ -107,18 +113,13 @@ class projectile(object):
         self.color = color
         self.facing = facing
         self.vel = 15 * facing
-
     def draw(self, win):
         if facing == 1:
             win.blit(kunaiSprite, (self.x, self.y))
         else:
             win.blit(kunaiSpriteLeft, (self.x, self.y))
 
-<<<<<<< HEAD
-class ennemy(object):
-=======
-class enemy(object):
->>>>>>> parent of f108f10 (Yes sir)
+class Enemy(object):
     walkRight = [pygame.image.load("R1E.png"), pygame.image.load("R2E.png"), pygame.image.load("R3E.png"), pygame.image.load("R4E.png"), pygame.image.load("R5E.png"), pygame.image.load("R6E.png"), pygame.image.load("R7E.png"), pygame.image.load("R8E.png"), pygame.image.load("R9E.png"), pygame.image.load("R10E.png"), pygame.image.load("R11E.png")]
     walkLeft = [pygame.image.load("L1E.png"), pygame.image.load("L2E.png"), pygame.image.load("L3E.png"), pygame.image.load("L4E.png"), pygame.image.load("L5E.png"), pygame.image.load("L6E.png"), pygame.image.load("L7E.png"), pygame.image.load("L8E.png"), pygame.image.load("L9E.png"), pygame.image.load("L10E.png"), pygame.image.load("L11E.png")]
 
@@ -128,40 +129,99 @@ class enemy(object):
         self.width = width
         self.height = height
         self.end = end
+        self.path = [self.x, self.end]
         self.walkCount = 0
         self.vel = 3
+        self.hitbox = (self.x + 17, self.y + 2, 31, 57)
+        self.health = 100
+        self.visible = True
 
     def draw(self, win):
         pass
+        self.move()
+        if self.visible:
+            if self.walkCount + 1 > 33:
+                self.walkCount = 0
+
+            if self.vel > 0:
+                win.blit(self.walkRight[self.walkCount //3], (self.x, self.y))
+                self.walkCount += 1
+            else:
+                win.blit(self.walkLeft[self.walkCount // 3], (self.x, self.y))
+                self.walkCount += 1
+
+            pygame.draw.rect(win, (255, 0, 0), (self.hitbox[0], self.hitbox[1] - 20, 50, 10))
+            pygame.draw.rect(win, (0, 160, 0), (self.hitbox[0], self.hitbox[1] - 20, 50 - ((50/100) * (100 - self.health)), 10))
+            self.hitbox = (self.x + 17, self.y + 2, 31, 57)
+            #pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
 
     def move(self):
         pass
+        if self.vel > 0:
+            if self.x + self.vel < self.path[1]:
+                self.x += self.vel
+            else:
+                self.vel = self.vel * -1
+                self.walkCount = 0
+        else:
+            if self.x + self.vel > self.path[0]:
+                self.x += self.vel
+            else:
+                self.vel = self.vel * -1
+                self.walkCount = 0
+
+    def hit(self):
+            if self.health > 0:
+                self.health -= 10
+                print("Hp : ", self.health)
+            else:
+                self.visible = False
+            print("Touché")
 
 def redrawGameWindow(): #Toutes les modifications visuelles se feront ici et plus dans la boucle principale
     win.blit(bg, (-3, 0))  # Black
+    text = font.render("Score :" + str(score), 1, (0, 0, 0))
+    win.blit(text, (570, 25))
     naruto.draw(win)
+    goblin.draw(win)
     for kunai in kunais:
         kunai.draw(win)
     pygame.display.update()
 
+#MAINLOOP
 naruto = Player(300, 300, 64, 64)
 sasuke = Player(500, 300, 64, 64)
+goblin = Enemy(0, 300, 64, 64, 655)
+shootLoop = 0 # "Timer" Kunai (Voir plus bas) --> Permet de ne pas tirer plusieurs kunai pile en même temps
 kunais = [] #Kunaï --> Kunai --> Kunais
 launched = True
 while launched:
     clock.tick(27)
+
+    if shootLoop > 0: # Permet de faire fonctionner la shootLoop
+        shootLoop += 1
+    if shootLoop > 3:
+        shootLoop = 0
+
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN or event.type == pygame.QUIT:
             launched = False
 
     for kunai in kunais:
         if 670 > kunai.x > 0:
+            if kunai.y - kunai.radius < goblin.hitbox[1] + goblin.hitbox[3] and kunai.y + kunai.radius > goblin.hitbox[1]:
+                if kunai.x + kunai.radius > goblin.hitbox[0] and kunai.x - kunai.radius < goblin.hitbox[0] + goblin.hitbox[2]:
+                    goblin.hit()
+                    score += 1
+                    kunais.pop(kunais.index(kunai))
+        if 665 > kunai.x > 0:
             kunai.x += kunai.vel
         else:
             kunais.pop(kunais.index(kunai))
+
     keys = pygame.key.get_pressed() #Variable permettant de vérifier si une touché est pressée
 
-    if keys[pygame.K_i]:
+    if keys[pygame.K_i] and shootLoop == 0:
         if naruto.left:
             facing = -1
         elif naruto.right:
@@ -173,6 +233,8 @@ while launched:
                 kunais.append(projectile(round(naruto.x + naruto.width // 2), round(naruto.y + naruto.height //4), 6, (0, 0, 0), facing))
             else:
                 kunais.append(projectile(round(naruto.x), round(naruto.y + naruto.height // 4), 6, (0, 0, 0), facing))
+        shootLoop = 1
+
     if keys[pygame.K_LEFT] and naruto.x > naruto.vel: #///// LEFT
         naruto.x -= naruto.vel
         naruto.left = True
