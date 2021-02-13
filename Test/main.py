@@ -136,7 +136,6 @@ class enemy(object):
 def redrawGameWindow(): #Toutes les modifications visuelles se feront ici et plus dans la boucle principale
     win.blit(bg, (-3, 0))  # Black
     naruto.draw(win)
-    sasuke.draw(win)
     for kunai in kunais:
         kunai.draw(win)
     pygame.display.update()
@@ -145,8 +144,12 @@ naruto = Player(300, 300, 64, 64)
 sasuke = Player(500, 300, 64, 64)
 kunais = [] #Kunaï --> Kunai --> Kunais
 launched = True
+while launched:
+    clock.tick(27)
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN or event.type == pygame.QUIT:
+            launched = False
 
-def player1Movement():
     for kunai in kunais:
         if 670 > kunai.x > 0:
             kunai.x += kunai.vel
@@ -154,7 +157,6 @@ def player1Movement():
             kunais.pop(kunais.index(kunai))
     keys = pygame.key.get_pressed() #Variable permettant de vérifier si une touché est pressée
 
-    global facing
     if keys[pygame.K_i]:
         if naruto.left:
             facing = -1
@@ -206,76 +208,6 @@ def player1Movement():
         else:
             naruto.isJump = False
             naruto.jumpCount = 10
-
-def player2Movement():
-    for kunai in kunais:
-        if 670 > kunai.x > 0:
-            kunai.x += kunai.vel
-        else:
-            kunais.pop(kunais.index(kunai))
-    keys = pygame.key.get_pressed() #Variable permettant de vérifier si une touché est pressée
-
-    global facing
-    if keys[pygame.K_g]:
-        if sasuke.left:
-            facing = -1
-        elif sasuke.right:
-            facing = 1
-        else:
-            facing = 1
-        if len(kunais) < 3:
-            if facing == 1:
-                kunais.append(projectile(round(sasuke.x + sasuke.width // 2), round(sasuke.y + sasuke.height //4), 6, (0, 0, 0), facing))
-            else:
-                kunais.append(projectile(round(sasuke.x), round(sasuke.y + sasuke.height // 4), 6, (0, 0, 0), facing))
-    if keys[pygame.K_q] and sasuke.x > sasuke.vel: #///// LEFT
-        sasuke.x -= sasuke.vel
-        sasuke.left = True
-        sasuke.right = False
-        sasuke.standing = False
-    elif keys[pygame.K_d] and sasuke.x < 700 - sasuke.width - sasuke.vel: #///// RIGHT
-        sasuke.x += sasuke.vel
-        sasuke.right = True
-        sasuke.left = False
-        sasuke.standing = False
-    elif keys[pygame.K_s]: #/// DOWN
-        sasuke.isBlock = True
-        sasuke.left = False
-        sasuke.right = False
-    elif keys[pygame.K_f]:
-        sasuke.combo1 = True
-    else:
-        sasuke.standing = True
-        sasuke.isBlock = False
-        sasuke.walkCount = 0
-
-    if not sasuke.isJump:
-        if keys[pygame.K_z]:
-            sasuke.isJump = True
-            sasuke.left = False
-            sasuke.right = False
-            sasuke.isBlock = False
-            sasuke.walkCount = 0
-    else:
-        if sasuke.jumpCount >= -10:
-            neg = 1
-            if sasuke.jumpCount < 0:
-                neg = -1
-            sasuke.y -= (sasuke.jumpCount ** 2) * 0.5 * neg
-            sasuke.jumpCount -= 1
-
-        else:
-            sasuke.isJump = False
-            sasuke.jumpCount = 10
-
-while launched:
-    clock.tick(27)
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN or event.type == pygame.QUIT:
-            launched = False
-
-    player1Movement()
-    player2Movement()
 
     redrawGameWindow()
 
