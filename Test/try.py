@@ -50,6 +50,7 @@ class Player(object):
         self.combo1 = False
         self.comboCount = 1
         self.standing = True
+        self.facing = -1
 
     def draw(self, win):
         if self.walkCount + 1 >= 27:
@@ -70,14 +71,16 @@ class Player(object):
         elif self.isJump:
             win.blit(spritesJump[self.jumpCount // 3], (self.x, self.y))
             self.walkCount += 1
-        elif self.isJump and self.right:
-            win.blit(spritesJump[self.jumpCount // 3], (self.x, self.y))
+        elif self.isJump and self.left:
+            while self.isJump:
+                win.blit(spritesJump[self.jumpCount // 3], (self.x, self.y))
             self.walkCount += 1
         elif self.isBlock:
-            if self.right:
-                win.blit(blockLeft[self.walkCount // 3], (self.x, self.y))
-            elif self.right:
+            print(self.facing)
+            if self.facing == 1:
                 win.blit(block[self.walkCount // 3], (self.x, self.y))
+            elif self.facing == -1:
+                win.blit(blockLeft[self.walkCount // 3], (self.x, self.y))
             else:
                 win.blit(block[self.walkCount // 3], (self.x, self.y))
             self.walkCount += 1
@@ -94,10 +97,13 @@ class Player(object):
         else:
             if self.right:
                 win.blit(narutoSprite, (self.x, self.y))
+                self.facing = 1
             elif self.left:
                 win.blit(narutoSpriteLeft, (self.x, self.y))
+                self.facing = -1
             else:
                 win.blit(narutoSprite, (self.x, self.y))
+                self.facing = 1
 
 class projectile(object):
     def __init__(self, x, y, radius, color, facing):
@@ -106,7 +112,7 @@ class projectile(object):
         self.radius = radius
         self.color = color
         self.facing = facing
-        self.vel = 15 * facing
+        self.vel = 11 * facing
 
     def draw(self, win):
         if facing == 1:
@@ -114,7 +120,7 @@ class projectile(object):
         else:
             win.blit(kunaiSpriteLeft, (self.x, self.y))
 
-class enemy(object):
+class ennemy(object):
     walkRight = [pygame.image.load("R1E.png"), pygame.image.load("R2E.png"), pygame.image.load("R3E.png"), pygame.image.load("R4E.png"), pygame.image.load("R5E.png"), pygame.image.load("R6E.png"), pygame.image.load("R7E.png"), pygame.image.load("R8E.png"), pygame.image.load("R9E.png"), pygame.image.load("R10E.png"), pygame.image.load("R11E.png")]
     walkLeft = [pygame.image.load("L1E.png"), pygame.image.load("L2E.png"), pygame.image.load("L3E.png"), pygame.image.load("L4E.png"), pygame.image.load("L5E.png"), pygame.image.load("L6E.png"), pygame.image.load("L7E.png"), pygame.image.load("L8E.png"), pygame.image.load("L9E.png"), pygame.image.load("L10E.png"), pygame.image.load("L11E.png")]
 
@@ -147,13 +153,16 @@ kunais = [] #Kunaï --> Kunai --> Kunais
 launched = True
 
 def player1Movement():
+    """ Movements settings for the first player """
+    # Setup Kunai
     for kunai in kunais:
         if 670 > kunai.x > 0:
             kunai.x += kunai.vel
         else:
             kunais.pop(kunais.index(kunai))
-    keys = pygame.key.get_pressed() #Variable permettant de vérifier si une touché est pressée
+    keys = pygame.key.get_pressed()  # Variable permettant de vérifier si une touché est pressée
 
+    #I
     global facing
     if keys[pygame.K_i]:
         if naruto.left:
@@ -164,23 +173,32 @@ def player1Movement():
             facing = 1
         if len(kunais) < 3:
             if facing == 1:
-                kunais.append(projectile(round(naruto.x + naruto.width // 2), round(naruto.y + naruto.height //4), 6, (0, 0, 0), facing))
+                kunais.append(
+                    projectile(round(naruto.x + naruto.width // 2), round(naruto.y + naruto.height // 4), 6, (0, 0, 0),
+                               facing))
             else:
                 kunais.append(projectile(round(naruto.x), round(naruto.y + naruto.height // 4), 6, (0, 0, 0), facing))
-    if keys[pygame.K_LEFT] and naruto.x > naruto.vel: #///// LEFT
+
+    # Left
+    if keys[pygame.K_LEFT] and naruto.x > naruto.vel:
         naruto.x -= naruto.vel
         naruto.left = True
         naruto.right = False
         naruto.standing = False
-    elif keys[pygame.K_RIGHT] and naruto.x < 700 - naruto.width - naruto.vel: #///// RIGHT
+
+    # Right
+    elif keys[pygame.K_RIGHT] and naruto.x < 700 - naruto.width - naruto.vel:
         naruto.x += naruto.vel
         naruto.right = True
         naruto.left = False
         naruto.standing = False
-    elif keys[pygame.K_DOWN]: #/// DOWN
+
+    # Down
+    elif keys[pygame.K_DOWN]:
         naruto.isBlock = True
         naruto.left = False
         naruto.right = False
+    # O
     elif keys[pygame.K_o]:
         naruto.combo1 = True
     else:
@@ -188,6 +206,7 @@ def player1Movement():
         naruto.isBlock = False
         naruto.walkCount = 0
 
+    # Up
     if not naruto.isJump:
         if keys[pygame.K_UP]:
             naruto.isJump = True
@@ -208,15 +227,18 @@ def player1Movement():
             naruto.jumpCount = 10
 
 def player2Movement():
+    """ Movements settings for the second player """
+    # Setup Kunai
     for kunai in kunais:
         if 670 > kunai.x > 0:
             kunai.x += kunai.vel
         else:
             kunais.pop(kunais.index(kunai))
-    keys = pygame.key.get_pressed() #Variable permettant de vérifier si une touché est pressée
+    keys = pygame.key.get_pressed()  # Variable permettant de vérifier si une touché est pressée
 
+    # F
     global facing
-    if keys[pygame.K_g]:
+    if keys[pygame.K_f]:
         if sasuke.left:
             facing = -1
         elif sasuke.right:
@@ -225,30 +247,40 @@ def player2Movement():
             facing = 1
         if len(kunais) < 3:
             if facing == 1:
-                kunais.append(projectile(round(sasuke.x + sasuke.width // 2), round(sasuke.y + sasuke.height //4), 6, (0, 0, 0), facing))
+                kunais.append(
+                    projectile(round(sasuke.x + sasuke.width // 2), round(sasuke.y + sasuke.height // 4), 6, (0, 0, 0),
+                               facing))
             else:
                 kunais.append(projectile(round(sasuke.x), round(sasuke.y + sasuke.height // 4), 6, (0, 0, 0), facing))
-    if keys[pygame.K_q] and sasuke.x > sasuke.vel: #///// LEFT
+
+    # Left (Q)
+    if keys[pygame.K_q] and sasuke.x > sasuke.vel:
         sasuke.x -= sasuke.vel
         sasuke.left = True
         sasuke.right = False
         sasuke.standing = False
-    elif keys[pygame.K_d] and sasuke.x < 700 - sasuke.width - sasuke.vel: #///// RIGHT
+
+    # Right (D)
+    elif keys[pygame.K_d] and sasuke.x < 700 - sasuke.width - sasuke.vel:
         sasuke.x += sasuke.vel
         sasuke.right = True
         sasuke.left = False
         sasuke.standing = False
-    elif keys[pygame.K_s]: #/// DOWN
+
+    # Down (S)
+    elif keys[pygame.K_s]:
         sasuke.isBlock = True
         sasuke.left = False
         sasuke.right = False
-    elif keys[pygame.K_f]:
+    # G
+    elif keys[pygame.K_g]:
         sasuke.combo1 = True
     else:
         sasuke.standing = True
         sasuke.isBlock = False
         sasuke.walkCount = 0
 
+    # Up (Z)
     if not sasuke.isJump:
         if keys[pygame.K_z]:
             sasuke.isJump = True
