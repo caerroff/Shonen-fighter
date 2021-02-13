@@ -150,8 +150,13 @@ player2 = Player(500, 300, 64, 64)
 shootLoop = 0 # "Timer" Kunai (Voir plus bas) --> Permet de ne pas tirer plusieurs kunai pile en même temps
 kunais = [] #Kunaï --> Kunai --> Kunais
 
-def player1Movement():
-    global score, shootLoop, facing, kunais, kunai
+launched = True
+while launched:
+    clock.tick(27)
+
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN or event.type == pygame.QUIT:
+            launched = False
 
     if shootLoop > 0: # Permet de faire fonctionner la shootLoop
         shootLoop += 1
@@ -160,17 +165,16 @@ def player1Movement():
 
     for kunai in kunais:
         if 670 > kunai.x > 0:
-            if kunai.y - kunai.radius < player2.hitbox[1] + player2.hitbox[3] and kunai.y + kunai.radius > player2.hitbox[1]:
-                if kunai.x + kunai.radius > player2.hitbox[0] and kunai.x - kunai.radius < player2.hitbox[0] + player2.hitbox[2]:
                     #kunaiImpactSound.play()
-                    #player2.hit()
                     score += 1
                     kunais.pop(kunais.index(kunai))
-
+        if 665 > kunai.x > 0:
+            kunai.x += kunai.vel
+        else:
+            kunais.pop(kunais.index(kunai))
 
     keys = pygame.key.get_pressed() #Variable permettant de vérifier si une touché est pressée
 
-    #I (Kunaï)
     if keys[pygame.K_i] and shootLoop == 0:
         #kunaiSound.play()
         if naruto.left:
@@ -232,9 +236,6 @@ def player1Movement():
         else:
             naruto.isJump = False
             naruto.jumpCount = 10
-
-def player2Movement():
-    global score, shootLoop, facing, kunais, kunai
 
     for kunai in kunais:
         if 670 > kunai.x > 0:
@@ -316,17 +317,6 @@ def player2Movement():
         else:
             player2.isJump = False
             player2.jumpCount = 10
-
-launched = True
-while launched:
-    clock.tick(27)
-
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN or event.type == pygame.QUIT:
-            launched = False
-
-    player1Movement()
-    player2Movement()
 
     redrawGameWindow()
 
