@@ -35,8 +35,8 @@ kunaiSpriteLeft = pygame.transform.flip(kunaiSprite, True, False)
 
 clock = pygame.time.Clock()
 
-kunaiSound = pygame.mixer.Sound("kunai_flying.wav")
-kunaiImpactSound = pygame.mixer.Sound("kunai_impact.wav")
+#kunaiSound = pygame.mixer.Sound("kunai_flying.wav")
+#kunaiImpactSound = pygame.mixer.Sound("kunai_impact.wav")
 
 #music = pygame.mixer.music.load('naruto_theme.mp3')
 #pygame.mixer.music.play(-1)
@@ -112,6 +112,24 @@ class Player(object):
         self.hitbox = (self.x, self.y, 47, 60)
         #pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
 
+    def hit(self):
+        self.x = 300
+        self.y = 300
+        self.walkCount = 0
+        font1 = pygame.font.Font("Helvetica.ttf", 100)
+        text = font1.render("-5", 1, (255, 0, 0))
+        win.blit(text, (250 - (text.get_width()/2), 200))
+        pygame.display.update()
+        i = 0
+        while i < 300:
+            pygame.time.delay(1)
+            i += 1
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    i = 301
+                    pygame.quit()
+
+
 class projectile(object):
     def __init__(self, x, y, radius, color, facing):
         self.x = x
@@ -144,7 +162,6 @@ class Enemy(object):
         self.visible = True
 
     def draw(self, win):
-        pass
         self.move()
         if self.visible:
             if self.walkCount + 1 > 33:
@@ -189,6 +206,7 @@ def redrawGameWindow(): #Toutes les modifications visuelles se feront ici et plu
     text = font.render("Score :" + str(score), 1, (0, 0, 0))
     win.blit(text, (570, 25))
     naruto.draw(win)
+    player2.draw(win)
     goblin.draw(win)
     for kunai in kunais:
         kunai.draw(win)
@@ -196,13 +214,18 @@ def redrawGameWindow(): #Toutes les modifications visuelles se feront ici et plu
 
 #MAINLOOP
 naruto = Player(300, 300, 64, 64)
-sasuke = Player(500, 300, 64, 64)
+player2 = Player(500, 300, 64, 64)
 goblin = Enemy(0, 300, 64, 64, 655)
 shootLoop = 0 # "Timer" Kunai (Voir plus bas) --> Permet de ne pas tirer plusieurs kunai pile en même temps
 kunais = [] #Kunaï --> Kunai --> Kunais
 launched = True
 while launched:
     clock.tick(27)
+
+    if naruto.hitbox[1] < goblin.hitbox[1] + goblin.hitbox[3] and naruto.hitbox[1] + naruto.hitbox[3] > goblin.hitbox[1]:
+        if naruto.hitbox[0] + naruto.hitbox[2] > goblin.hitbox[0] and naruto.hitbox[0] < goblin.hitbox[0] + goblin.hitbox[2]:
+            naruto.hit()
+            score -= 5
 
     if shootLoop > 0: # Permet de faire fonctionner la shootLoop
         shootLoop += 1
@@ -217,7 +240,7 @@ while launched:
         if 670 > kunai.x > 0:
             if kunai.y - kunai.radius < goblin.hitbox[1] + goblin.hitbox[3] and kunai.y + kunai.radius > goblin.hitbox[1]:
                 if kunai.x + kunai.radius > goblin.hitbox[0] and kunai.x - kunai.radius < goblin.hitbox[0] + goblin.hitbox[2]:
-                    kunaiImpactSound.play()
+                    #kunaiImpactSound.play()
                     goblin.hit()
                     score += 1
                     kunais.pop(kunais.index(kunai))
@@ -229,7 +252,7 @@ while launched:
     keys = pygame.key.get_pressed() #Variable permettant de vérifier si une touché est pressée
 
     if keys[pygame.K_i] and shootLoop == 0:
-        kunaiSound.play()
+        #kunaiSound.play()
         if naruto.left:
             facing = -1
         elif naruto.right:
