@@ -68,9 +68,8 @@ class Player(object):
         self.walkCount = 0
         self.combo1 = False
         self.comboCount = 1
-        self.standing = True
-        self.standingRight = False
         self.standingLeft = False
+        self.standingRight = False
         self.facingLeft = False
         self.facingRight = False
         self.hitbox = (self.x, self.y, 47, 60)
@@ -80,72 +79,53 @@ class Player(object):
     def draw(self, win):
         if self.walkCount + 1 >= 27:
             self.walkCount = 0
-        if not self.standing:
-            if self.left:
-                if self.isJump:
-                    win.blit(spritesJumpLeft[self.jumpCount // 3], (self.x, self.y))
-                else:
-                    win.blit(walkLeft[self.walkCount // 3], (self.x, self.y))
-                self.walkCount += 1
-            elif self.right:
-                if self.isJump:
-                    win.blit(spritesJump[self.jumpCount // 3], (self.x, self.y))
-                else:
-                    win.blit(walkRight[self.walkCount // 3], (self.x, self.y))
-                self.walkCount += 1
-        elif self.isJump:
-            print("Non")
-            if self.standingRight:
-                win.blit(spritesJump[self.jumpCount // 3], (self.x, self.y))
-                self.walkCount += 1
-            if self.standingLeft:
-                win.blit(spritesJumpLeft[self.jumpCount // 3], (self.x, self.y))
-                self.walkCount += 1
-        elif self.isJump:
-            win.blit(spritesJump[self.jumpCount // 3], (self.x, self.y))
-            self.walkCount += 1
-        elif self.isBlock:
-            if self.right:
+
+        if self.standingLeft:
+            win.blit(narutoSpriteLeft, (self.x, self.y))
+
+        if self.standingRight:
+            win.blit(narutoSprite, (self.x, self.y))
+
+        if self.left:
+            win.blit(walkLeft[self.walkCount // 3], (self.x, self.y))
+        self.walkCount += 1
+
+        if self.right:
+            win.blit(walkRight[self.walkCount // 3], (self.x, self.y))
+        self.walkCount += 1
+
+        if self.isBlock:
+            if self.facingLeft:
                 win.blit(blockLeft[self.walkCount // 3], (self.x, self.y))
-            elif self.right:
+            elif self.facingRight:
                 win.blit(block[self.walkCount // 3], (self.x, self.y))
+
+        if self.facingLeft:
+            if self.isJump:
+                win.blit(spritesJumpLeft[self.jumpCount // 3], (self.x, self.y))
             else:
-                win.blit(block[self.walkCount // 3], (self.x, self.y))
+                win.blit(walkLeft[self.walkCount // 3], (self.x, self.y))
             self.walkCount += 1
-            self.isBlock = False
-        elif self.combo1:
-            if self.right:
-                win.blit(combo1[self.walkCount // 3], (self.x, self.y))
-            elif self.left:
-                win.blit(combo1Left[self.walkCount // 3], (self.x, self.y))
+        elif self.facingRight:
+            if self.isJump:
+                win.blit(spritesJump[self.jumpCount // 3], (self.x, self.y))
             else:
-                win.blit(combo1[self.walkCount // 3], (self.x, self.y))
+                win.blit(walkRight[self.walkCount // 3], (self.x, self.y))
             self.walkCount += 1
-            self.combo1 = False
-        elif self.playerNumber == 1:
-            if self.right:
-                win.blit(narutoSprite, (self.x, self.y))
-            elif self.left:
-                win.blit(narutoSpriteLeft, (self.x, self.y))
+
+        if self.left:
+            if self.isJump:
+                win.blit(spritesJumpLeft[self.jumpCount // 3], (self.x, self.y))
             else:
-                win.blit(narutoSprite, (self.x, self.y))
-        elif self.playerNumber == 2:
-            if self.right:
-                win.blit(narutoSprite, (self.x, self.y))
-            elif self.left:
-                win.blit(narutoSpriteLeft, (self.x, self.y))
+                win.blit(walkLeft[self.walkCount // 3], (self.x, self.y))
+            self.walkCount += 1
+        elif self.right:
+            if self.isJump:
+                win.blit(spritesJump[self.jumpCount // 3], (self.x, self.y))
             else:
-                win.blit(narutoSpriteLeft, (self.x, self.y))
-        else:
-            if self.right:
-                win.blit(narutoSprite, (self.x, self.y))
-                self.standingRight = True
-            elif self.left:
-                win.blit(narutoSpriteLeft, (self.x, self.y))
-                self.standingLeft = True
-            else:
-                win.blit(narutoSprite, (self.x, self.y))
-                self.standingRight = True
+                win.blit(walkRight[self.walkCount // 3], (self.x, self.y))
+            self.walkCount += 1
+
 
         if self.playerNumber == 1: # Jauge de vie du Joueur 1
             pygame.draw.rect(win, red, (20, 22, 200, 10))
@@ -194,6 +174,8 @@ def redrawGameWindow(): #Toutes les modifications visuelles se feront ici et plu
 #MAINLOOP
 naruto = Player(100, 300, 64, 64, 1)
 player2 = Player(550, 300, 64, 64, 2)
+naruto.standingRight, naruto.facingRight = True, True
+player2.standingLeft, naruto.facingLeft = True, True
 kunais = [] # Liste des Kunais --> Joueur 1
 kunaiLoop = 0 # Permet d'ajouter un "Cooldown" aux kunais, un seul peut être lancer à la fois --> Joueur 1
 kunais2 = [] # Liste des Kunais --> Joueur 2
@@ -206,12 +188,6 @@ while launched:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN or event.type == pygame.QUIT:
             launched = False
-
-    if naruto.combo1:
-        print(True)
-
-    if naruto.standingRight:
-        print('Standing Right')
 
     # Hitbox collision --> Pour Combo
     if naruto.hitbox[1] < player2.hitbox[1] + player2.hitbox[3] and naruto.hitbox[1] + naruto.hitbox[3] > player2.hitbox[1]:
@@ -275,26 +251,33 @@ while launched:
     # Left Movement --> Player 1 (Left)
     elif keys[pygame.K_LEFT] and naruto.x > naruto.vel:
         naruto.x -= naruto.vel
-        naruto.left = True
-        naruto.right = False
-        naruto.standing = False
+        naruto.left, naruto.facingLeft = True, True
+        naruto.right, naruto.facingRight = False, False
         naruto.standingLeft = False
         naruto.standingRight = False
+        naruto.isBlock = False
+        naruto.isJump = False
+        naruto.combo1 = False
 
     # Right Movement --> Player 1 (Right)
     elif keys[pygame.K_RIGHT] and naruto.x < 700 - naruto.width - naruto.vel:
         naruto.x += naruto.vel
-        naruto.right = True
-        naruto.left = False
-        naruto.standing = False
+        naruto.left, naruto.facingLeft = False, False
+        naruto.right, naruto.facingRight = True, True
         naruto.standingLeft = False
         naruto.standingRight = False
+        naruto.isBlock = False
+        naruto.isJump = False
+        naruto.combo1 = False
 
     # Down Movement --> Player 1 (Down)
     elif keys[pygame.K_DOWN]:
         naruto.isBlock = True
         naruto.left = False
         naruto.right = False
+        naruto.standingLeft = False
+        naruto.standingRight = False
+        naruto.isJump = False
 
     # Combo 1 Movement --> Player 1 (O)
     elif keys[pygame.K_o]:
@@ -308,20 +291,25 @@ while launched:
     if not naruto.isJump:
         if keys[pygame.K_UP]:
             naruto.isJump = True
-            naruto.left = False
-            naruto.right = False
-            naruto.isBlock = False
             naruto.walkCount = 0
     else:
+        naruto.left = False
+        naruto.right = False
+        naruto.standingLeft = False
+        naruto.standingRight = False
+        naruto.isBlock = False
         if naruto.jumpCount >= -10:
             neg = 1
             if naruto.jumpCount < 0:
                 neg = -1
             naruto.y -= (naruto.jumpCount ** 2) * 0.5 * neg
             naruto.jumpCount -= 1
-
         else:
             naruto.isJump = False
+            if naruto.facingLeft:
+                naruto.standingLeft = True
+            if naruto.facingRight:
+                naruto.standingRight = True
             naruto.jumpCount = 10
 
     # ////////////// Player 2 //////////////
@@ -384,14 +372,12 @@ while launched:
         player2.x -= player2.vel
         player2.left = True
         player2.right = False
-        player2.standing = False
 
     # Right Movement --> Player 2 (D)
     elif keys[pygame.K_d] and player2.x < 700 - player2.width - player2.vel:
         player2.x += player2.vel
         player2.right = True
         player2.left = False
-        player2.standing = False
 
     # Down Movement --> Player 2 (S)
     elif keys[pygame.K_s]:
@@ -403,7 +389,6 @@ while launched:
     elif keys[pygame.K_g]:
         player2.combo1 = True
     else:
-        player2.standing = True
         player2.isBlock = False
         player2.walkCount = 0
 
