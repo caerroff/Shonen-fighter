@@ -291,12 +291,8 @@ while launched:
         naruto.isBlock = True
 
     # Combo 1 Movement --> Player 1 (O) ---> Objectif : Interrompre la marche pour utiliser le combo
-    #if keys[pygame.K_o] and naruto.right:
-        #print("Yes man")
-        #naruto.right = False
-        #naruto.combo1 = True
-
     elif keys[pygame.K_o]:
+        print("Yes")
         naruto.combo1 = True
     else:
         naruto.standing = True
