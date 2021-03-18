@@ -1,5 +1,6 @@
 ﻿from tkinter import *
 
+
 #Création de la fênetre de lancement du jeu
 main = Tk()
 main.title("Shonen Fighter")

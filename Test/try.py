@@ -214,7 +214,7 @@ while launched:
         naruto.isContact = False
 
     #print(naruto.isContact)
-    print(naruto.combo1)
+    #print(naruto.combo1)
     #print(naruto.isBlock)
 
     # Hitbox collision --> Pour Combo
@@ -254,11 +254,11 @@ while launched:
     # Variable permettant de vérifier si une touché est pressée
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_KP0]:
+    if keys[pygame.K_b]:
         soundActivated = True
         soundsFunction()
 
-    if keys[pygame.K_KP1]:
+    if keys[pygame.K_n]:
         if soundActivated:
             soundActivated = False
             pygame.mixer.music.stop()
@@ -318,6 +318,13 @@ while launched:
         naruto.standing = True
         naruto.isBlock = False
         naruto.walkCount = 0
+
+    #Combo 1 --> Damages
+    if naruto.isContact:
+        if naruto.combo1:
+            print("Non")
+            player2.hit()
+            narutoScore += 1
 
     # Jump Movement --> Player 1 (Space)
     if not naruto.isJump:
