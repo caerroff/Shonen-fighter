@@ -1,4 +1,77 @@
+from tkinter import *
 import pygame, time
+#from gui import *
+
+#Création de la fênetre de lancement du jeu
+main = Tk()
+main.title("Shonen Fighter")
+main.geometry("1023x682")
+main.minsize(1023, 682)
+main.maxsize(1023, 682)
+
+musicActivated = False
+
+def settings():
+    frameSettings = Frame(main, bg="grey", width=450, height=450, bd=3, relief=SUNKEN)
+    frameSettings.place(relx=0.25, rely=0.1, anchor=N)
+
+    buttonClose = Button(frameSettings, text="Fermer",bg="lightgrey", font=("Helvetica", 10), width=15, command=frameSettings.destroy)
+    buttonClose.place(relx=0.66, rely=0.9)
+
+def playMusic():
+    pygame.mixer.music.load('naruto_theme.mp3')
+    pygame.mixer.music.play(-1)
+
+def musicFunction():
+    global musicActivated
+    musicActivated = True
+
+def selectCharacter():
+    global winSelect
+    main.destroy()
+
+    winSelect = Tk()
+    winSelect.title("Shonen Fighter - Select Character")
+    winSelect.geometry("1023x682")
+    winSelect.minsize(1023, 682)
+    winSelect.maxsize(1023, 682)
+
+    buttonPlay = Button(winSelect, text='Play', bg='lightgrey', font=("Helvetica", 10), width=15, command=launchGame)
+    buttonPlay.place(relx=0.8, rely=0.7)
+
+    buttonMusic = Button(winSelect, text='Music', bg='lightgrey', font=("Helvetica", 10), width=15, command=musicFunction)
+    buttonMusic.place(relx=0.5, rely=0.7)
+
+    winSelect.mainloop()
+
+#global launched
+launched = False
+def launchGame():
+    global launched
+    launched = True
+    winSelect.destroy()
+
+#Importation et affichage de l'image de fond d'écran de la fênetre
+shonen = PhotoImage(file='naruto_bg.png')
+labelShonen = Label(main, image=shonen)
+labelShonen.place(x=0, y=0, relwidth=1, relheight=1)
+
+#Bouton Jouer
+buttonJouer = Button(main, text="Jouer", font=("Helvetica", 22), bg="white", bd=3, relief=SUNKEN, width=10, command=selectCharacter)
+buttonJouer.place(x=120, y=85)
+
+#Bouton Settings
+buttonSettings = Button(main, text="Options", font=("Helvetica", 22), bg="white", bd=3, relief=SUNKEN, width=10, command=settings)
+buttonSettings.place(x=120, y=175)
+
+#Bouton Quitter
+buttonLeave = Button(main, text="Quitter", font=("Helvetica", 22), bg="white", bd=3, relief=SUNKEN, width=10, command=main.destroy)
+buttonLeave.place(x=120, y=265)
+
+main.mainloop()
+
+#///////////// PYGAME
+
 pygame.init()
 pygame.font.init()
 
@@ -35,15 +108,20 @@ kunaiSpriteLeft = pygame.transform.flip(kunaiSprite, True, False)
 
 clock = pygame.time.Clock()
 
+'''
 soundActivated = False
+musicActivated = False
 
 def soundsFunction():
-    global kunaiSound, kunaiImpactSound, music
+    global kunaiSound, kunaiImpactSound
     kunaiSound = pygame.mixer.Sound("kunai_flying.wav")
     kunaiImpactSound = pygame.mixer.Sound("kunai_impact.wav")
 
+def musicFunction():
+    global music
     music = pygame.mixer.music.load('naruto_theme.mp3')
     pygame.mixer.music.play(-1)
+'''
 
 font = pygame.font.Font("Helvetica.ttf", 30) #Font importé pour le score
 narutoScore = 0
@@ -199,7 +277,6 @@ kunais = [] # Liste des Kunais --> Joueur 1
 kunaiLoop = 0 # Permet d'ajouter un "Cooldown" aux kunais, un seul peut être lancer à la fois --> Joueur 1
 kunais2 = [] # Liste des Kunais --> Joueur 2
 kunaiLoop2 = 0 # Permet d'ajouter un "Cooldown" aux kunais, un seul peut être lancer à la fois --> Joueur 2
-launched = True
 while launched:
     clock.tick(27)
 
@@ -208,23 +285,15 @@ while launched:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN or event.type == pygame.QUIT:
             launched = False
 
+    if musicActivated:
+        print("Iyi")
+        playMusic()
+
+
     if naruto.hitbox[1] < player2.hitbox[1] + player2.hitbox[3] and naruto.hitbox[1] + naruto.hitbox[3] > player2.hitbox[1] and naruto.hitbox[0] + naruto.hitbox[2] > player2.hitbox[0] and naruto.hitbox[0] < player2.hitbox[0] + player2.hitbox[2]:
         naruto.isContact = True
     else:
         naruto.isContact = False
-
-    #print(naruto.isContact)
-    #print(naruto.combo1)
-    #print(naruto.isBlock)
-
-    # Hitbox collision --> Pour Combo
-    if naruto.isContact:
-        if naruto.combo1:
-            print("Dégâts Sur Combo")
-            player2.hit()
-            narutoScore += 1
-        else:
-            narutoScore = narutoScore
 
     # Permet de faire fonctionner la kunaiLoop, fonctionne sur plusieurs itérations de la mainloop
     if kunaiLoop > 0:
@@ -241,8 +310,8 @@ while launched:
                         print("Bloqué !!")
                         kunais.pop(kunais.index(kunai))
                     else:
-                        if soundActivated:
-                            kunaiImpactSound.play()
+                        #if soundActivated:
+                        #    kunaiImpactSound.play()
                         player2.hit()
                         narutoScore += 1
                         kunais.pop(kunais.index(kunai))
@@ -253,6 +322,8 @@ while launched:
 
     # Variable permettant de vérifier si une touché est pressée
     keys = pygame.key.get_pressed()
+
+    soundActivated = False
 
     if keys[pygame.K_b]:
         soundActivated = True
@@ -322,7 +393,7 @@ while launched:
     #Combo 1 --> Damages
     if naruto.isContact:
         if naruto.combo1:
-            print("Non")
+            print("Dégâts Sur Combo")
             player2.hit()
             narutoScore += 1
 
@@ -352,8 +423,9 @@ while launched:
                 naruto.hitbox[1]:
             if player2.hitbox[0] + player2.hitbox[2] > naruto.hitbox[0] and player2.hitbox[0] < naruto.hitbox[0] + \
                     naruto.hitbox[2]:
-                naruto.hit()
-                player2Score += 1
+                pass
+                #naruto.hit()
+                #player2Score += 1
 
     # Permet de faire fonctionner la kunaiLoop2, fonctionne sur plusieurs itérations de la mainloop
     if kunaiLoop2 > 0:
