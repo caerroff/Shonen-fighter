@@ -27,6 +27,9 @@ def selectCharacter():
     buttonPlay = Button(winSelect, text='Play', bg='lightgrey', font=("Helvetica", 10), width=15, command=launchGame)
     buttonPlay.place(relx=0.8, rely=0.7)
 
+    buttonSounds = Button(winSelect, text='Sounds', bg='lightgrey', font=("Helvetica", 10), width=15, command=soundsFunction)
+    buttonSounds.place(relx=0.6, rely=0.7)
+
     winSelect.mainloop()
 
 global launched
