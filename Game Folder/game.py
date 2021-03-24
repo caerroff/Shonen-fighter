@@ -161,6 +161,7 @@ class Player(object):
     def hit(self):
         if self.health > 0:
             self.health -= 1
+            win.blit(bg, (-3, 0))
             print("Touché !", "Hp : ", self.health)
 
 class projectile(object):
@@ -171,19 +172,24 @@ class projectile(object):
         self.color = color
         self.facing = facing
         self.vel = 15 * facing
+        self.hitbox = (self.x, self.y, 20, 15)
 
     def draw(self, win):
         if facing == 1:
             win.blit(kunaiSprite, (self.x, self.y))
+            self.hitbox = (self.x, self.y, 20, 15)
+            pygame.draw.rect(win, blue, self.hitbox, 2)
         else:
             win.blit(kunaiSpriteLeft, (self.x, self.y))
+            self.hitbox = (self.x, self.y, 20, 15)
+            pygame.draw.rect(win, blue, self.hitbox, 2)
 
 def redrawGameWindow(): #Toutes les modifications visuelles se feront ici et plus dans la boucle principale
     win.blit(bg, (-3, 0))  # Black
-    text = font.render("Score :" + str(narutoScore), 1, (0, 0, 0))
-    win.blit(text, (100, 55))
-    text = font.render("Score :" + str(player2Score), 1, (0, 0, 0))
-    win.blit(text, (400, 55))
+    score1 = font.render("Score :" + str(narutoScore), 1, (0, 0, 0))
+    win.blit(score1, (100, 55))
+    score2 = font.render("Score :" + str(player2Score), 1, (0, 0, 0))
+    win.blit(score2, (400, 55))
     naruto.draw(win)
     player2.draw(win)
     for kunai in kunais:
@@ -231,6 +237,7 @@ while launched:
 
     # Kunai collision --> Pour attaque avec kunai
     for kunai in kunais:
+        #for kunai2 in kunais2:
         if 670 > kunai.x > 0:
             if kunai.y - kunai.radius < player2.hitbox[1] + player2.hitbox[3] and kunai.y + kunai.radius > player2.hitbox[1]:
                 if kunai.x + kunai.radius > player2.hitbox[0] and kunai.x - kunai.radius < player2.hitbox[0] + player2.hitbox[2]:
@@ -243,6 +250,16 @@ while launched:
                         player2.hit()
                         narutoScore += 1
                         kunais.pop(kunais.index(kunai))
+
+    for kunai in kunais:
+        for kunai2 in kunais2:
+            if 670 > kunai.x > 0:
+                if 670 > kunai.x > 0:
+                    if kunai.y - kunai.radius < kunai2.hitbox[1] + kunai2.hitbox[3] and kunai.y + kunai.radius > kunai2.hitbox[1]:
+                        if kunai.x + kunai.radius > kunai2.hitbox[0] and kunai.x - kunai.radius < kunai2.hitbox[0] + kunai2.hitbox[2]:
+                            kunais.pop(kunais.index(kunai))
+                            kunais2.pop(kunais2.index(kunai2))
+
         if 670 > kunai.x > 0:
             kunai.x += kunai.vel
         else:
