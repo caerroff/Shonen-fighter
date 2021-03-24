@@ -1,5 +1,5 @@
 import pygame, time
-from gui import *
+#from gui import *
 
 pygame.init()
 pygame.font.init()
@@ -207,6 +207,7 @@ kunais = [] # Liste des Kunais --> Joueur 1
 kunaiLoop = 0 # Permet d'ajouter un "Cooldown" aux kunais, un seul peut être lancer à la fois --> Joueur 1
 kunais2 = [] # Liste des Kunais --> Joueur 2
 kunaiLoop2 = 0 # Permet d'ajouter un "Cooldown" aux kunais, un seul peut être lancer à la fois --> Joueur 2
+launched = True
 while launched:
     clock.tick(27)
 
