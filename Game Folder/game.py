@@ -29,6 +29,10 @@ combo1 = [pygame.image.load("naruto_combo3.png"), pygame.image.load("naruto_comb
 combo1Left = [pygame.transform.flip(combo1[0], True, False), pygame.transform.flip(combo1[1], True, False), pygame.transform.flip(combo1[2], True, False),
               pygame.transform.flip(combo1[2], True, False), pygame.transform.flip(combo1[2], True, False), pygame.transform.flip(combo1[2], True, False),
               pygame.transform.flip(combo1[2], True, False), pygame.transform.flip(combo1[2], True, False), pygame.transform.flip(combo1[2], True, False)]
+kunaiThrow = [pygame.image.load("kunai_throw1.png"), pygame.image.load("kunai_throw1.png"), pygame.image.load("kunai_throw1.png"),
+              pygame.image.load("kunai_throw2.png"), pygame.image.load("kunai_throw2.png"), pygame.image.load("kunai_throw2.png"),
+              pygame.image.load("kunai_throw3.png"), pygame.image.load("kunai_throw3.png"), pygame.image.load("kunai_throw3.png")]
+kunaiThrowLeft = [pygame.transform.flip(kunaiThrow[0], True, False), pygame.transform.flip(kunaiThrow[1], True, False), pygame.transform.flip(kunaiThrow[2], True, False)]
 bg = pygame.image.load("bg.jpg")
 narutoSprite = pygame.image.load("naruto_2.png")
 narutoSpriteLeft = pygame.transform.flip(narutoSprite, True, False)
@@ -70,6 +74,8 @@ class Player(object):
         self.walkCount = 0
         self.combo1 = False
         self.comboCount = 1
+        self.throw = False
+        self.throwCount = 3
         self.standing = True
         self.standingRight = False
         self.standingLeft = False
@@ -114,6 +120,13 @@ class Player(object):
                 win.blit(combo1Left[self.walkCount // 3], (self.x, self.y))
             self.walkCount += 1
             self.combo1 = False
+        elif self.throw:
+            if self.facingRight:
+                win.blit(kunaiThrow[self.walkCount // 3], (self.x, self.y))
+                self.walkCount += 1
+            if self.facingLeft:
+                win.blit(kunaiThrowLeft[self.walkCount // 3], (self.x, self.y))
+                self.walkCount += 1
         elif self.isJump:
             if self.facingRight:
                 win.blit(spritesJump[self.jumpCount // 3], (self.x, self.y))
@@ -281,6 +294,7 @@ while launched:
 
     # Kunai Throw --> I (Player 1)
     if keys[pygame.K_i] and kunaiLoop == 0:
+        naruto.throw = True
         if soundActivated:
             kunaiSound.play()
         if naruto.facingLeft:
@@ -308,6 +322,8 @@ while launched:
         naruto.facingRight = False
         naruto.isBlock = False
         naruto.combo1 = False
+        naruto.throw = False
+
 
     # Right Movement --> Player 1 (Right)
     elif keys[pygame.K_RIGHT] and naruto.x < 700 - naruto.width - naruto.vel:
@@ -321,6 +337,8 @@ while launched:
         naruto.facingRight = True
         naruto.isBlock = False
         naruto.combo1 = False
+        naruto.throw = False
+
 
     # Down Movement --> Player 1 (Down)
     elif keys[pygame.K_DOWN]:
