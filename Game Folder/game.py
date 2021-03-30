@@ -59,12 +59,9 @@ combo1Left = [pygame.transform.flip(combo1Right[0], True, False), pygame.transfo
               pygame.transform.flip(combo1Right[2], True, False),
               pygame.transform.flip(combo1Right[2], True, False), pygame.transform.flip(combo1Right[2], True, False),
               pygame.transform.flip(combo1Right[2], True, False)]
-kunaiThrowRight = [pygame.image.load("kunai_throw1.png"), pygame.image.load("kunai_throw2.png"),
-              pygame.image.load("kunai_throw3.png"),
-              pygame.image.load("kunai_throw2.png"), pygame.image.load("kunai_throw2.png"),
-              pygame.image.load("kunai_throw2.png"),
-              pygame.image.load("kunai_throw3.png"), pygame.image.load("kunai_throw3.png"),
-              pygame.image.load("kunai_throw3.png")]
+kunaiThrowRight = [pygame.image.load("kunai_throw1.png"), pygame.image.load("kunai_throw2.png"), pygame.image.load("kunai_throw3.png")]
+                   #pygame.image.load("kunai_throw2.png"), pygame.image.load("kunai_throw2.png"), pygame.image.load("kunai_throw2.png"),
+                   #pygame.image.load("kunai_throw3.png"), pygame.image.load("kunai_throw3.png"), pygame.image.load("kunai_throw3.png")]
 kunaiThrowLeft = [pygame.transform.flip(kunaiThrowRight[0], True, False), pygame.transform.flip(kunaiThrowRight[1], True, False),
                   pygame.transform.flip(kunaiThrowRight[2], True, False)]
 spell1Right = [pygame.image.load('rasengan1.png'), pygame.image.load('rasengan1.png'), pygame.image.load('rasengan1.png'),
@@ -125,7 +122,7 @@ class Player(object):
         self.combo1 = False
         self.comboCount = 1
         self.throw = False
-        self.throwCount = 3
+        self.throwCount = 0
         self.spell1 = False
         self.standing = True
         self.standingRight = False
@@ -135,13 +132,15 @@ class Player(object):
         self.hitbox = (self.x, self.y, 47, 60)
         self.health = 100
         self.mana = 0
-        self.powerUp = 0
+        self.awakening = 0
         self.playerNumber = playerNumber
         self.isContact = False
 
     def draw(self, win):
         if self.walkCount + 1 >= 27:
             self.walkCount = 0
+        if self.throwCount + 1 >= 27:
+            self.throwCount = 0
         if not self.standing:
             if self.left:
                 if self.isJump:
@@ -229,7 +228,7 @@ class Player(object):
             pygame.draw.rect(win, grey, (20, 35, 200, 10))
             pygame.draw.rect(win, blue_mana, (20, 35, 0 + self.mana, 10))
             pygame.draw.rect(win, grey, (20, 50, 200, 10))
-            pygame.draw.rect(win, yellow, (20, 50, 0 + self.powerUp, 10))
+            pygame.draw.rect(win, yellow, (20, 50, 0 + self.awakening, 10))
 
         if self.playerNumber == 2:  # Jauge de vie du Joueur 2
             pygame.draw.rect(win, red, (475, 22, 200, 10))
@@ -264,7 +263,6 @@ class projectile(object):
             win.blit(kunaiSpriteLeft, (self.x, self.y))
             self.hitbox = (self.x, self.y, 20, 15)
             pygame.draw.rect(win, blue, self.hitbox, 2)
-
 
 def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et plus dans la boucle principale
     win.blit(bg, (-3, 0))  # Black
@@ -313,7 +311,7 @@ while launched:
             print("Dégâts Sur Combo")
             player2.hit()
             narutoScore += 1
-            naruto.powerUp += 1
+            naruto.awakening += 1
         else:
             narutoScore = narutoScore'''
 
@@ -339,7 +337,7 @@ while launched:
                             kunaiImpactSound.play()
                         player2.hit()
                         narutoScore += 1
-                        naruto.powerUp += 1
+                        naruto.awakening += 1
                         kunais.pop(kunais.index(kunai))
 
     for kunai in kunais:
@@ -447,7 +445,7 @@ while launched:
         if naruto.combo1:
             player2.hit()
             narutoScore += 1
-            naruto.powerUp += 1
+            naruto.awakening += 1
         else:
             narutoScore = narutoScore
 
