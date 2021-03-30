@@ -1,5 +1,6 @@
 import pygame, time
-#from gui import *
+
+# from gui import *
 
 pygame.init()
 pygame.font.init()
@@ -7,38 +8,74 @@ pygame.font.init()
 win_res = (700, 400)
 win = pygame.display.set_mode(win_res)
 pygame.display.set_caption("Shonen Fighter")
-walkRight = [pygame.image.load("naruto_walk1.png"), pygame.image.load("naruto_walk2.png"), pygame.image.load("naruto_walk3.png"), pygame.image.load("naruto_walk4.png"), pygame.image.load("naruto_walk5.png"), pygame.image.load("naruto_walk6.png"),
-             pygame.image.load("naruto_walk1.png"), pygame.image.load("naruto_walk2.png"), pygame.image.load("naruto_walk3.png"), pygame.image.load("naruto_walk4.png"), pygame.image.load("naruto_walk5.png"), pygame.image.load("naruto_walk6.png")]
-walkLeft = [pygame.transform.flip(walkRight[0], True, False), pygame.transform.flip(walkRight[1], True, False), pygame.transform.flip(walkRight[2], True, False), pygame.transform.flip(walkRight[3], True, False), pygame.transform.flip(walkRight[4], True, False), pygame.transform.flip(walkRight[5], True, False),
-            pygame.transform.flip(walkRight[0], True, False), pygame.transform.flip(walkRight[1], True, False), pygame.transform.flip(walkRight[2], True, False), pygame.transform.flip(walkRight[3], True, False), pygame.transform.flip(walkRight[4], True, False), pygame.transform.flip(walkRight[5], True, False)]
-spritesJump = [pygame.image.load("naruto_jump1.png"), pygame.image.load("naruto_jump1.png"), pygame.image.load("naruto_jump1.png"),
-               pygame.image.load("naruto_jump1.png"), pygame.image.load("naruto_jump1.png"), pygame.image.load("naruto_jump1.png"),
-               pygame.image.load("naruto_jump1.png"), pygame.image.load("naruto_jump1.png"), pygame.image.load("naruto_jump1.png")]
-spritesJumpLeft = [pygame.transform.flip(spritesJump[0], True, False), pygame.transform.flip(spritesJump[0], True, False), pygame.transform.flip(spritesJump[0], True, False),
-                   pygame.transform.flip(spritesJump[0], True, False), pygame.transform.flip(spritesJump[0], True, False), pygame.transform.flip(spritesJump[0], True, False),
-                   pygame.transform.flip(spritesJump[0], True, False), pygame.transform.flip(spritesJump[0], True, False), pygame.transform.flip(spritesJump[0], True, False)]
-block = [pygame.image.load("naruto_block.png"), pygame.image.load("naruto_block.png"), pygame.image.load("naruto_block.png"),
-         pygame.image.load("naruto_block.png"), pygame.image.load("naruto_block.png"), pygame.image.load("naruto_block.png"),
-         pygame.image.load("naruto_block.png"), pygame.image.load("naruto_block.png"), pygame.image.load("naruto_block.png")]
-blockLeft = [pygame.transform.flip(block[0], True, False), pygame.transform.flip(block[0], True, False), pygame.transform.flip(block[0], True, False),
-             pygame.transform.flip(block[0], True, False), pygame.transform.flip(block[0], True, False), pygame.transform.flip(block[0], True, False),
-             pygame.transform.flip(block[0], True, False), pygame.transform.flip(block[0], True, False), pygame.transform.flip(block[0], True, False)]
-combo1 = [pygame.image.load("naruto_combo3.png"), pygame.image.load("naruto_combo3.png"), pygame.image.load("naruto_combo3.png"),
-          pygame.image.load("naruto_combo3.png"), pygame.image.load("naruto_combo3.png"), pygame.image.load("naruto_combo3.png"),
-          pygame.image.load("naruto_combo3.png"), pygame.image.load("naruto_combo3.png"), pygame.image.load("naruto_combo3.png")]
-combo1Left = [pygame.transform.flip(combo1[0], True, False), pygame.transform.flip(combo1[1], True, False), pygame.transform.flip(combo1[2], True, False),
-              pygame.transform.flip(combo1[2], True, False), pygame.transform.flip(combo1[2], True, False), pygame.transform.flip(combo1[2], True, False),
-              pygame.transform.flip(combo1[2], True, False), pygame.transform.flip(combo1[2], True, False), pygame.transform.flip(combo1[2], True, False)]
-kunaiThrow = [pygame.image.load("kunai_throw1.png"), pygame.image.load("kunai_throw2.png"), pygame.image.load("kunai_throw3.png"),
-              pygame.image.load("kunai_throw2.png"), pygame.image.load("kunai_throw2.png"), pygame.image.load("kunai_throw2.png"),
-              pygame.image.load("kunai_throw3.png"), pygame.image.load("kunai_throw3.png"), pygame.image.load("kunai_throw3.png")]
-kunaiThrowLeft = [pygame.transform.flip(kunaiThrow[0], True, False), pygame.transform.flip(kunaiThrow[1], True, False), pygame.transform.flip(kunaiThrow[2], True, False)]
-spell1 = [pygame.image.load('rasengan1.png'), pygame.image.load('rasengan1.png'), pygame.image.load('rasengan1.png'),
+walkRight = [pygame.image.load("naruto_walk1.png"), pygame.image.load("naruto_walk2.png"),
+             pygame.image.load("naruto_walk3.png"), pygame.image.load("naruto_walk4.png"),
+             pygame.image.load("naruto_walk5.png"), pygame.image.load("naruto_walk6.png"),
+             pygame.image.load("naruto_walk1.png"), pygame.image.load("naruto_walk2.png"),
+             pygame.image.load("naruto_walk3.png"), pygame.image.load("naruto_walk4.png"),
+             pygame.image.load("naruto_walk5.png"), pygame.image.load("naruto_walk6.png")]
+walkLeft = [pygame.transform.flip(walkRight[0], True, False), pygame.transform.flip(walkRight[1], True, False),
+            pygame.transform.flip(walkRight[2], True, False), pygame.transform.flip(walkRight[3], True, False),
+            pygame.transform.flip(walkRight[4], True, False), pygame.transform.flip(walkRight[5], True, False),
+            pygame.transform.flip(walkRight[0], True, False), pygame.transform.flip(walkRight[1], True, False),
+            pygame.transform.flip(walkRight[2], True, False), pygame.transform.flip(walkRight[3], True, False),
+            pygame.transform.flip(walkRight[4], True, False), pygame.transform.flip(walkRight[5], True, False)]
+spritesJumpRight = [pygame.image.load("naruto_jump1.png"), pygame.image.load("naruto_jump1.png"),
+               pygame.image.load("naruto_jump1.png"),
+               pygame.image.load("naruto_jump1.png"), pygame.image.load("naruto_jump1.png"),
+               pygame.image.load("naruto_jump1.png"),
+               pygame.image.load("naruto_jump1.png"), pygame.image.load("naruto_jump1.png"),
+               pygame.image.load("naruto_jump1.png")]
+spritesJumpLeft = [pygame.transform.flip(spritesJumpRight[0], True, False),
+                   pygame.transform.flip(spritesJumpRight[0], True, False),
+                   pygame.transform.flip(spritesJumpRight[0], True, False),
+                   pygame.transform.flip(spritesJumpRight[0], True, False),
+                   pygame.transform.flip(spritesJumpRight[0], True, False),
+                   pygame.transform.flip(spritesJumpRight[0], True, False),
+                   pygame.transform.flip(spritesJumpRight[0], True, False),
+                   pygame.transform.flip(spritesJumpRight[0], True, False),
+                   pygame.transform.flip(spritesJumpRight[0], True, False)]
+blockRight = [pygame.image.load("naruto_block.png"), pygame.image.load("naruto_block.png"),
+         pygame.image.load("naruto_block.png"),
+         pygame.image.load("naruto_block.png"), pygame.image.load("naruto_block.png"),
+         pygame.image.load("naruto_block.png"),
+         pygame.image.load("naruto_block.png"), pygame.image.load("naruto_block.png"),
+         pygame.image.load("naruto_block.png")]
+blockLeft = [pygame.transform.flip(blockRight[0], True, False), pygame.transform.flip(blockRight[0], True, False),
+             pygame.transform.flip(blockRight[0], True, False),
+             pygame.transform.flip(blockRight[0], True, False), pygame.transform.flip(blockRight[0], True, False),
+             pygame.transform.flip(blockRight[0], True, False),
+             pygame.transform.flip(blockRight[0], True, False), pygame.transform.flip(blockRight[0], True, False),
+             pygame.transform.flip(blockRight[0], True, False)]
+combo1Right = [pygame.image.load("naruto_combo3.png"), pygame.image.load("naruto_combo3.png"),
+          pygame.image.load("naruto_combo3.png"),
+          pygame.image.load("naruto_combo3.png"), pygame.image.load("naruto_combo3.png"),
+          pygame.image.load("naruto_combo3.png"),
+          pygame.image.load("naruto_combo3.png"), pygame.image.load("naruto_combo3.png"),
+          pygame.image.load("naruto_combo3.png")]
+combo1Left = [pygame.transform.flip(combo1Right[0], True, False), pygame.transform.flip(combo1Right[1], True, False),
+              pygame.transform.flip(combo1Right[2], True, False),
+              pygame.transform.flip(combo1Right[2], True, False), pygame.transform.flip(combo1Right[2], True, False),
+              pygame.transform.flip(combo1Right[2], True, False),
+              pygame.transform.flip(combo1Right[2], True, False), pygame.transform.flip(combo1Right[2], True, False),
+              pygame.transform.flip(combo1Right[2], True, False)]
+kunaiThrowRight = [pygame.image.load("kunai_throw1.png"), pygame.image.load("kunai_throw2.png"),
+              pygame.image.load("kunai_throw3.png"),
+              pygame.image.load("kunai_throw2.png"), pygame.image.load("kunai_throw2.png"),
+              pygame.image.load("kunai_throw2.png"),
+              pygame.image.load("kunai_throw3.png"), pygame.image.load("kunai_throw3.png"),
+              pygame.image.load("kunai_throw3.png")]
+kunaiThrowLeft = [pygame.transform.flip(kunaiThrowRight[0], True, False), pygame.transform.flip(kunaiThrowRight[1], True, False),
+                  pygame.transform.flip(kunaiThrowRight[2], True, False)]
+spell1Right = [pygame.image.load('rasengan1.png'), pygame.image.load('rasengan1.png'), pygame.image.load('rasengan1.png'),
           pygame.image.load('rasengan1.png'), pygame.image.load('rasengan1.png'), pygame.image.load('rasengan1.png'),
           pygame.image.load('rasengan1.png'), pygame.image.load('rasengan1.png'), pygame.image.load('rasengan1.png')]
-spell1Left = [pygame.transform.flip(spell1[0], True, False), pygame.transform.flip(spell1[0], True, False), pygame.transform.flip(spell1[0], True, False),
-              pygame.transform.flip(spell1[0], True, False), pygame.transform.flip(spell1[0], True, False), pygame.transform.flip(spell1[0], True, False),
-              pygame.transform.flip(spell1[0], True, False), pygame.transform.flip(spell1[0], True, False), pygame.transform.flip(spell1[0], True, False)]
+spell1Left = [pygame.transform.flip(spell1Right[0], True, False), pygame.transform.flip(spell1Right[0], True, False),
+              pygame.transform.flip(spell1Right[0], True, False),
+              pygame.transform.flip(spell1Right[0], True, False), pygame.transform.flip(spell1Right[0], True, False),
+              pygame.transform.flip(spell1Right[0], True, False),
+              pygame.transform.flip(spell1Right[0], True, False), pygame.transform.flip(spell1Right[0], True, False),
+              pygame.transform.flip(spell1Right[0], True, False)]
 bg = pygame.image.load("bg.jpg")
 narutoSprite = pygame.image.load("naruto_2.png")
 narutoSpriteLeft = pygame.transform.flip(narutoSprite, True, False)
@@ -57,7 +94,7 @@ def soundsFunction():
     pygame.mixer.music.load('naruto_theme.mp3')
     pygame.mixer.music.play(-1)
 
-font = pygame.font.Font("Helvetica.ttf", 30) #Font importé pour le score
+font = pygame.font.Font("Helvetica.ttf", 30)  # Font importé pour le score
 narutoScore = 0
 player2Score = 0
 
@@ -69,6 +106,7 @@ green = (0, 255, 0)
 blue = (0, 0, 255)
 grey = (109, 111, 111)
 blue_mana = (0, 186, 240)
+yellow = (255, 232, 1)
 
 class Player(object):
     def __init__(self, x, y, width, height, playerNumber):
@@ -96,6 +134,7 @@ class Player(object):
         self.hitbox = (self.x, self.y, 47, 60)
         self.health = 100
         self.mana = 0
+        self.powerUp = 0
         self.playerNumber = playerNumber
         self.isContact = False
 
@@ -111,45 +150,45 @@ class Player(object):
                 self.walkCount += 1
             elif self.right:
                 if self.isJump:
-                    win.blit(spritesJump[self.jumpCount // 3], (self.x, self.y))
+                    win.blit(spritesJumpRight[self.jumpCount // 3], (self.x, self.y))
                 else:
                     win.blit(walkRight[self.walkCount // 3], (self.x, self.y))
                 self.walkCount += 1
         elif self.isBlock:
             if self.left:
-                #self.isBlock = True
+                # self.isBlock = True
                 win.blit(blockLeft[self.walkCount // 3], (self.x, self.y))
             elif self.right:
-                win.blit(block[self.walkCount // 3], (self.x, self.y))
-                #self.isBlock = True
+                win.blit(blockRight[self.walkCount // 3], (self.x, self.y))
+                # self.isblockRight = True
             else:
-                win.blit(block[self.walkCount // 3], (self.x, self.y))
+                win.blit(blockRight[self.walkCount // 3], (self.x, self.y))
             self.walkCount += 1
-            #self.isBlock = False
+            # self.isblockRight = False
         elif self.combo1:
             if self.facingRight:
-                win.blit(combo1[self.walkCount // 3], (self.x, self.y))
+                win.blit(combo1Right[self.walkCount // 3], (self.x, self.y))
             elif self.facingLeft:
                 win.blit(combo1Left[self.walkCount // 3], (self.x, self.y))
             self.walkCount += 1
             self.combo1 = False
         elif self.throw:
             if self.facingRight:
-                win.blit(kunaiThrow[self.walkCount // 3], (self.x, self.y))
+                win.blit(kunaiThrowRight[self.walkCount // 3], (self.x, self.y))
             if self.facingLeft:
                 win.blit(kunaiThrowLeft[self.walkCount // 3], (self.x, self.y))
             self.walkCount += 1
             self.throw = False
         elif self.spell1:
             if self.facingRight:
-                win.blit(spell1[self.walkCount // 3], (self.x, self.y))
+                win.blit(spell1Right[self.walkCount // 3], (self.x, self.y))
                 self.walkCount += 1
             if self.facingLeft:
                 win.blit(spell1Left[self.walkCount // 3], (self.x, self.y))
                 self.walkCount += 1
         elif self.isJump:
             if self.facingRight:
-                win.blit(spritesJump[self.jumpCount // 3], (self.x, self.y))
+                win.blit(spritesJumpRight[self.jumpCount // 3], (self.x, self.y))
                 self.walkCount += 1
             if self.facingLeft:
                 win.blit(spritesJumpLeft[self.jumpCount // 3], (self.x, self.y))
@@ -183,13 +222,15 @@ class Player(object):
                 win.blit(narutoSprite, (self.x, self.y))
                 self.standingRight = True
 
-        if self.playerNumber == 1: # Jauge de vie du Joueur 1
+        if self.playerNumber == 1:  # Jauge de vie du Joueur 1
             pygame.draw.rect(win, red, (20, 22, 200, 10))
             pygame.draw.rect(win, green, (20, 22, 200 - (2 * (100 - self.health)), 10))
             pygame.draw.rect(win, grey, (20, 35, 200, 10))
             pygame.draw.rect(win, blue_mana, (20, 35, 0 + self.mana, 10))
+            pygame.draw.rect(win, grey, (20, 50, 200, 10))
+            pygame.draw.rect(win, yellow, (20, 50, 0 + self.powerUp, 10))
 
-        if self.playerNumber == 2: # Jauge de vie du Joueur 2
+        if self.playerNumber == 2:  # Jauge de vie du Joueur 2
             pygame.draw.rect(win, red, (475, 22, 200, 10))
             pygame.draw.rect(win, green, (475, 22, 200 - (2 * (100 - self.health)), 10))
 
@@ -201,6 +242,7 @@ class Player(object):
             self.health -= 1
             win.blit(bg, (-3, 0))
             print("Touché !", "Hp : ", self.health)
+
 
 class projectile(object):
     def __init__(self, x, y, radius, color, facing):
@@ -222,12 +264,13 @@ class projectile(object):
             self.hitbox = (self.x, self.y, 20, 15)
             pygame.draw.rect(win, blue, self.hitbox, 2)
 
-def redrawGameWindow(): #Toutes les modifications visuelles se feront ici et plus dans la boucle principale
+
+def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et plus dans la boucle principale
     win.blit(bg, (-3, 0))  # Black
     score1 = font.render("Score :" + str(narutoScore), 1, (0, 0, 0))
-    win.blit(score1, (100, 55))
+    win.blit(score1, (20, 65))
     score2 = font.render("Score :" + str(player2Score), 1, (0, 0, 0))
-    win.blit(score2, (400, 55))
+    win.blit(score2, (565, 65))
     naruto.draw(win)
     player2.draw(win)
     for kunai in kunais:
@@ -236,15 +279,15 @@ def redrawGameWindow(): #Toutes les modifications visuelles se feront ici et plu
         kunai.draw(win)
     pygame.display.update()
 
-#MAINLOOP
+# MAINLOOP
 naruto = Player(100, 300, 64, 64, 1)
 naruto.facingRight = True
 player2 = Player(550, 300, 64, 64, 2)
 player2.facingLeft = True
-kunais = [] # Liste des Kunais --> Joueur 1
-kunaiLoop = 0 # Permet d'ajouter un "Cooldown" aux kunais, un seul peut être lancer à la fois --> Joueur 1
-kunais2 = [] # Liste des Kunais --> Joueur 2
-kunaiLoop2 = 0 # Permet d'ajouter un "Cooldown" aux kunais, un seul peut être lancer à la fois --> Joueur 2
+kunais = []  # Liste des Kunais --> Joueur 1
+kunaiLoop = 0  # Permet d'ajouter un "Cooldown" aux kunais, un seul peut être lancer à la fois --> Joueur 1
+kunais2 = []  # Liste des Kunais --> Joueur 2
+kunaiLoop2 = 0  # Permet d'ajouter un "Cooldown" aux kunais, un seul peut être lancer à la fois --> Joueur 2
 launched = True
 playerSelect = True
 launchGame = False
@@ -256,19 +299,22 @@ while launched:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN or event.type == pygame.QUIT:
             launched = False
 
-    if naruto.hitbox[1] < player2.hitbox[1] + player2.hitbox[3] and naruto.hitbox[1] + naruto.hitbox[3] > player2.hitbox[1] and naruto.hitbox[0] + naruto.hitbox[2] > player2.hitbox[0] and naruto.hitbox[0] < player2.hitbox[0] + player2.hitbox[2]:
+    if naruto.hitbox[1] < player2.hitbox[1] + player2.hitbox[3] and naruto.hitbox[1] + naruto.hitbox[3] > \
+            player2.hitbox[1] and naruto.hitbox[0] + naruto.hitbox[2] > player2.hitbox[0] and naruto.hitbox[0] < \
+            player2.hitbox[0] + player2.hitbox[2]:
         naruto.isContact = True
     else:
         naruto.isContact = False
 
-    # Hitbox collision --> Pour Combo
+    ''''# Hitbox collision --> Pour Combo
     if naruto.isContact:
         if naruto.combo1:
             print("Dégâts Sur Combo")
             player2.hit()
             narutoScore += 1
+            naruto.powerUp += 1
         else:
-            narutoScore = narutoScore
+            narutoScore = narutoScore'''
 
     # Permet de faire fonctionner la kunaiLoop, fonctionne sur plusieurs itérations de la mainloop
     if kunaiLoop > 0:
@@ -278,10 +324,12 @@ while launched:
 
     # Kunai collision --> Pour attaque avec kunai
     for kunai in kunais:
-        #for kunai2 in kunais2:
+        # for kunai2 in kunais2:
         if 670 > kunai.x > 0:
-            if kunai.y - kunai.radius < player2.hitbox[1] + player2.hitbox[3] and kunai.y + kunai.radius > player2.hitbox[1]:
-                if kunai.x + kunai.radius > player2.hitbox[0] and kunai.x - kunai.radius < player2.hitbox[0] + player2.hitbox[2]:
+            if kunai.y - kunai.radius < player2.hitbox[1] + player2.hitbox[3] and kunai.y + kunai.radius > \
+                    player2.hitbox[1]:
+                if kunai.x + kunai.radius > player2.hitbox[0] and kunai.x - kunai.radius < player2.hitbox[0] + \
+                        player2.hitbox[2]:
                     if player2.isBlock:
                         print("Bloqué !!")
                         kunais.pop(kunais.index(kunai))
@@ -290,21 +338,24 @@ while launched:
                             kunaiImpactSound.play()
                         player2.hit()
                         narutoScore += 1
+                        naruto.powerUp += 1
                         kunais.pop(kunais.index(kunai))
 
     for kunai in kunais:
         for kunai2 in kunais2:
             if 670 > kunai.x > 0:
                 if 670 > kunai.x > 0:
-                    if kunai.y - kunai.radius < kunai2.hitbox[1] + kunai2.hitbox[3] and kunai.y + kunai.radius > kunai2.hitbox[1]:
-                        if kunai.x + kunai.radius > kunai2.hitbox[0] and kunai.x - kunai.radius < kunai2.hitbox[0] + kunai2.hitbox[2]:
+                    if kunai.y - kunai.radius < kunai2.hitbox[1] + kunai2.hitbox[3] and kunai.y + kunai.radius > \
+                            kunai2.hitbox[1]:
+                        if kunai.x + kunai.radius > kunai2.hitbox[0] and kunai.x - kunai.radius < kunai2.hitbox[0] + \
+                                kunai2.hitbox[2]:
                             kunais.pop(kunais.index(kunai))
                             kunais2.pop(kunais2.index(kunai2))
-                            #while kunai.y > 300:
-                                #print(kunai.y)
-                                #print(kunai.distGround)
-                                #kunai.y += 1
-                                #kunai2.y += 1
+                            # while kunai.y > 300:
+                            # print(kunai.y)
+                            # print(kunai.distGround)
+                            # kunai.y += 1
+                            # kunai2.y += 1
 
         if 670 > kunai.x > 0:
             kunai.x += kunai.vel
@@ -337,7 +388,9 @@ while launched:
             facing = 1
         if len(kunais) < 3:
             if facing == 1:
-                kunais.append(projectile(round(naruto.x + naruto.width // 2), round(naruto.y + naruto.height //4), 6, (0, 0, 0), facing))
+                kunais.append(
+                    projectile(round(naruto.x + naruto.width // 2), round(naruto.y + naruto.height // 4), 6, (0, 0, 0),
+                               facing))
             else:
                 kunais.append(projectile(round(naruto.x), round(naruto.y + naruto.height // 4), 6, (0, 0, 0), facing))
         kunaiLoop = 1
@@ -377,8 +430,8 @@ while launched:
     # Test
     elif keys[pygame.K_p]:
         if naruto.mana < 200:
-            naruto.mana += 1
-        #naruto.spell1 = True
+            naruto.mana += 2.25
+        # naruto.spell1 = True
 
     # Combo 1 Movement --> Player 1 (O) ---> Objectif : Interrompre la marche pour utiliser le combo
     elif keys[pygame.K_o]:
@@ -388,11 +441,14 @@ while launched:
         naruto.isBlock = False
         naruto.walkCount = 0
 
-    #Combo 1 --> Damages
+    # Combo 1 --> Damages
     if naruto.isContact:
         if naruto.combo1:
             player2.hit()
             narutoScore += 1
+            naruto.powerUp += 1
+        else:
+            narutoScore = narutoScore
 
     # Jump Movement --> Player 1 (Space)
     if not naruto.isJump:
@@ -421,8 +477,8 @@ while launched:
             if player2.hitbox[0] + player2.hitbox[2] > naruto.hitbox[0] and player2.hitbox[0] < naruto.hitbox[0] + \
                     naruto.hitbox[2]:
                 pass
-                #naruto.hit()
-                #player2Score += 1
+                # naruto.hit()
+                # player2Score += 1
 
     # Permet de faire fonctionner la kunaiLoop2, fonctionne sur plusieurs itérations de la mainloop
     if kunaiLoop2 > 0:
@@ -433,8 +489,10 @@ while launched:
     # Kunai collision --> Pour attaque avec kunai
     for kunai in kunais2:
         if 670 > kunai.x > 0:
-            if kunai.y - kunai.radius < naruto.hitbox[1] + naruto.hitbox[3] and kunai.y + kunai.radius > naruto.hitbox[1]:
-                if kunai.x + kunai.radius > naruto.hitbox[0] and kunai.x - kunai.radius < naruto.hitbox[0] +naruto.hitbox[2]:
+            if kunai.y - kunai.radius < naruto.hitbox[1] + naruto.hitbox[3] and kunai.y + kunai.radius > naruto.hitbox[
+                1]:
+                if kunai.x + kunai.radius > naruto.hitbox[0] and kunai.x - kunai.radius < naruto.hitbox[0] + \
+                        naruto.hitbox[2]:
                     if naruto.isBlock:
                         print("Bloqué !!")
                         kunais2.pop(kunais2.index(kunai))
@@ -533,7 +591,7 @@ while launched:
         pygame.display.flip()
 
     if launchGame:'''
-    
+
     redrawGameWindow()
 
 pygame.quit()
