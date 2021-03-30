@@ -86,6 +86,7 @@ clock = pygame.time.Clock()
 
 soundActivated = False
 
+
 def soundsFunction():
     global kunaiSound, kunaiImpactSound
     kunaiSound = pygame.mixer.Sound("kunai_flying.wav")
