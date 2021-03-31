@@ -1,0 +1,13 @@
+- Ajouter le personnage de Sasuke : Tous ses sprites et ses capacités, il doit être complet pour être le model de 
+référence
+
+- S'occuper de Naruto : En fonction des ajouts à effectuer, ajouter / modifier / supprimer des sprites pour obtenir
+un personnage complet et cohérant (pas de sprites différents et / ou trop visible) 
+
+- Ajouter une fonction de 'cooldown' (délai de récupération) permettant notamment de réguler le nombre d'utilisation 
+de kunai (remplacera donc la limite de kunai par joueur à l'écran) et d'autres tels qu'une limite pour l'utilisation
+des sorts du personnage (couplé avec le mana)
+
+- Implémenter la fin des combats : Lorsqu'un joueur atteint 0 Pv et / ou, une fois le timer ajouter au programme, 
+lorsque la limite de temps est atteinte. 
+On pourra éventuellement plus tard proposer au joueur le nombre de rounds et de définir la limite de temps (Only Later)

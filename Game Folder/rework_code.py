@@ -143,8 +143,8 @@ class Player(object):
         self.health = 100
         self.mana = 0
         self.awakening = 0
-        self.playerNumber = playerNumber
         self.isContact = False
+        self.playerNumber = playerNumber
 
     def draw_naruto(self, win):
         if self.walkCount + 1 >= 27:
@@ -300,7 +300,7 @@ def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et p
     score2 = font.render("Score :" + str(player2Score), 1, (0, 0, 0))
     win.blit(score2, (565, 65))
     naruto.draw_naruto(win)
-    player2.draw_sasuke(win)
+    player2.draw_naruto(win)
     for kunai in kunais:
         kunai.draw(win)
     for kunai in kunais2:
