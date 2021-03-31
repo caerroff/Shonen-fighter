@@ -1,0 +1,28 @@
+Le Code doit être drastiquement modifié et amélioré notamment pour clarifier les distinctions à faire entre 
+les différents Players (1 & 2) et différents Characters (Naruto, Sasuke, Goku...), liste des modifications nécessaires:
+
+// Chaque modifications peut avoir de grosses conséquences dans le code car beaucoup de variable sont à prendre en 
+compte et à ne pas confondre, il faut donc être sûr de se lancer totalement dans les modifications avant de les avoir 
+entamées
+
+- Revoir les moments où l'objet 'Naruto' de la classe Player est appelé et le transformer en 'Player1' à l'instar de 
+ce qui est déjà fait avec le 'Player2' 
+
+- Créer le lien entre le Module 'Game' et le Module 'Perso' (à renommer) afin que le premier module puisse importer les 
+différentes images, sprites et autres à partir de l'autre
+
+- Dans le module permettant les imports, renommer les noms de liste pour qu'elles soit unique et identifiable à 
+chaques personnages, par exemple, 'walkRight' correspondant aux Sprites de Marche de 'Naruto' pourrait devenir 
+'NarutoWalkRight' et ainsi de suite.. On pourra d'ailleurs en profiter pour modifier dans l'ensemble du code 
+les variables 'Walk' par 'Run' étant donné que les personnages seront uniquement capable de courir 
+
+- Dans la boucle While principale (Lauched), aller dans la partie dédiée au 'Player2' (Représenté par les
+'# ////////////// Player 2 //////////////' et, à partir de la partie dédiée au 'Player1', refaire le code afin que
+les mêmes intéractions se produisent (changements d'états de bouléens, intéractions...) mais en restant adapté
+au 'Player2' : Touche correspondante, ne pas confondre 'Player1' à 'Player2'...
+
+- Revoir la Classe Player afin de pouvoir dissocier le 'Player1' et 'Player2' ; chaque Player doit avoir sa fonction
+Draw (représentant les différents Sprites du personnage en fonction des actions effectuées) et surtout en fonction du
+personnage choisie (Le programme devrait s'adapter à certains cas où par exemple 'Player1' Joue 'Sasuke' et 'Player2'
+joue 'Naruto'). On pourrait envisager un système de sous-classe ou un attribut (entier) en fonction de si on est 
+le 'Player1' ou le 'Player2' et qui intéragirait directement avec le personnage sélectionné. 
