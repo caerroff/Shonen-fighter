@@ -73,16 +73,25 @@ spell1Left = [pygame.transform.flip(spell1Right[0], True, False), pygame.transfo
               pygame.transform.flip(spell1Right[0], True, False),
               pygame.transform.flip(spell1Right[0], True, False), pygame.transform.flip(spell1Right[0], True, False),
               pygame.transform.flip(spell1Right[0], True, False)]
+
+sasukeWalkRight = [pygame.image.load("../Sprite/Sasuke/Run/Run 1.png"),
+                   pygame.image.load("../Sprite/Sasuke/Run/Run 2.png"),
+                   pygame.image.load("../Sprite/Sasuke/Run/Run 3.png"),
+                   pygame.image.load("../Sprite/Sasuke/Run/Run 4.png"),
+                   pygame.image.load("../Sprite/Sasuke/Run/Run 5.png"),
+                   pygame.image.load("../Sprite/Sasuke/Run/Run 6.png")]
+
 bg = pygame.image.load("bg.jpg")
 narutoSprite = pygame.image.load("naruto_2.png")
 narutoSpriteLeft = pygame.transform.flip(narutoSprite, True, False)
+sasukeSprite = pygame.image.load("../Sprite/Sasuke/Stand/Sprite 1.png")
+sasukeSpriteLeft = pygame.transform.flip(sasukeSprite, True, False)
 kunaiSprite = pygame.image.load("kunai.png")
 kunaiSpriteLeft = pygame.transform.flip(kunaiSprite, True, False)
 
 clock = pygame.time.Clock()
 
 soundActivated = False
-
 
 def soundsFunction():
     global kunaiSound, kunaiImpactSound
@@ -119,6 +128,7 @@ class Player(object):
         self.left = False
         self.right = False
         self.walkCount = 0
+        self.sasukeWalkCount = 0
         self.combo1 = False
         self.comboCount = 1
         self.throw = False
@@ -133,10 +143,10 @@ class Player(object):
         self.health = 100
         self.mana = 0
         self.awakening = 0
-        self.playerNumber = playerNumber
         self.isContact = False
+        self.playerNumber = playerNumber
 
-    def draw(self, win):
+    def draw_naruto(self, win):
         if self.walkCount + 1 >= 27:
             self.walkCount = 0
         if self.throwCount + 1 >= 27:
@@ -237,6 +247,25 @@ class Player(object):
         self.hitbox = (self.x, self.y, 47, 60)
         pygame.draw.rect(win, blue, self.hitbox, 2)
 
+    def draw_sasuke(self, win):
+        if self.walkCount + 1 >= 27:
+            self.walkCount = 0
+        if self.facingRight:
+            win.blit(sasukeSprite, (self.x, self.y))
+        if self.facingLeft:
+            win.blit(sasukeSpriteLeft, (self.x, self.y))
+        if not self.standing:
+            if self.right:
+                win.blit(sasukeWalkRight[self.walkCount // 3], (self.x, self.y))
+            else:
+                win.blit(sasukeSprite, (self.x, self.y))
+            self.walkCount += 1
+
+            '''elif self.right:
+                win.blit(sasukeWalkRight[self.walkCount // 3], (self.x, self.y))
+                self.walkCount += 1'''
+
+
     def hit(self):
         if self.health > 0:
             self.health -= 1
@@ -270,8 +299,8 @@ def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et p
     win.blit(score1, (20, 65))
     score2 = font.render("Score :" + str(player2Score), 1, (0, 0, 0))
     win.blit(score2, (565, 65))
-    naruto.draw(win)
-    player2.draw(win)
+    naruto.draw_naruto(win)
+    player2.draw_naruto(win)
     for kunai in kunais:
         kunai.draw(win)
     for kunai in kunais2:
