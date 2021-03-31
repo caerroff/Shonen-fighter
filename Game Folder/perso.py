@@ -110,8 +110,18 @@ spell1Left = [pygame.transform.flip(spell1Right[0], True, False),
               pygame.transform.flip(spell1Right[0], True, False),
               pygame.transform.flip(spell1Right[0], True, False),
               pygame.transform.flip(spell1Right[0], True, False)]
-bg = pygame.image.load("../Sprite/bg.jpg")
-narutoSprite = pygame.image.load("../Sprite/Naruto/Stand/Sprite 2.png")
+
+sasukeWalkRight = [pygame.image.load("../Sprite/Sasuke/Run/Run 1.png"),
+                   pygame.image.load("../Sprite/Sasuke/Run/Run 2.png"),
+                   pygame.image.load("../Sprite/Sasuke/Run/Run 3.png"),
+                   pygame.image.load("../Sprite/Sasuke/Run/Run 4.png"),
+                   pygame.image.load("../Sprite/Sasuke/Run/Run 5.png"),
+                   pygame.image.load("../Sprite/Sasuke/Run/Run 6.png")]
+
+bg = pygame.image.load("bg.jpg")
+narutoSprite = pygame.image.load("naruto_2.png")
 narutoSpriteLeft = pygame.transform.flip(narutoSprite, True, False)
-kunaiSprite = pygame.image.load("../Sprite/Kunai/sprite.png")
+sasukeSprite = pygame.image.load("../Sprite/Sasuke/Stand/Sprite 1.png")
+sasukeSpriteLeft = pygame.transform.flip(sasukeSprite, True, False)
+kunaiSprite = pygame.image.load("kunai.png")
 kunaiSpriteLeft = pygame.transform.flip(kunaiSprite, True, False)

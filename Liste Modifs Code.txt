@@ -5,6 +5,8 @@ les différents Players (1 & 2) et différents Characters (Naruto, Sasuke, Goku.
 compte et à ne pas confondre, il faut donc être sûr de se lancer totalement dans les modifications avant de les avoir 
 entamées
 
+Toutes les choses qui ont été faites sur cette liste sont marqués avec un "*" au début
+
 - Revoir les moments où l'objet 'Naruto' de la classe Player est appelé et le transformer en 'Player1' à l'instar de 
 ce qui est déjà fait avec le 'Player2' 
 
