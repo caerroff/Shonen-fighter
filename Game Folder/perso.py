@@ -2,12 +2,6 @@ import pygame
 
 # from gui import *
 
-pygame.init()
-pygame.font.init()
-
-win_res = (700, 400)
-win = pygame.display.set_mode(win_res)
-pygame.display.set_caption("Shonen Fighter")
 walkRight = [pygame.image.load("../Sprite/Naruto/Walk/Sprite 1.png"),
              pygame.image.load("../Sprite/Naruto/Walk/Sprite 2.png"),
              pygame.image.load("../Sprite/Naruto/Walk/Sprite 3.png"),
@@ -98,17 +92,26 @@ kunaiThrowRight = [pygame.image.load("../Sprite/Naruto/Throw/Sprite 1.png"),
 kunaiThrowLeft = [pygame.transform.flip(kunaiThrowRight[0], True, False),
                   pygame.transform.flip(kunaiThrowRight[1], True, False),
                   pygame.transform.flip(kunaiThrowRight[2], True, False)]
-spell1Right = [pygame.image.load('rasengan1.png'), pygame.image.load('rasengan1.png'), pygame.image.load('rasengan1.png'),
-          pygame.image.load('rasengan1.png'), pygame.image.load('rasengan1.png'), pygame.image.load('rasengan1.png'),
-          pygame.image.load('rasengan1.png'), pygame.image.load('rasengan1.png'), pygame.image.load('rasengan1.png')]
-spell1Left = [pygame.transform.flip(spell1Right[0], True, False), pygame.transform.flip(spell1Right[0], True, False),
+spell1Right = [pygame.image.load('../Sprite/Naruto/Rasengan/Sprite 3.png'),
+               pygame.image.load('../Sprite/Naruto/Rasengan/Sprite 3.png'),
+               pygame.image.load('../Sprite/Naruto/Rasengan/Sprite 3.png'),
+               pygame.image.load('../Sprite/Naruto/Rasengan/Sprite 3.png'),
+               pygame.image.load('../Sprite/Naruto/Rasengan/Sprite 3.png'),
+               pygame.image.load('../Sprite/Naruto/Rasengan/Sprite 3.png'),
+               pygame.image.load('../Sprite/Naruto/Rasengan/Sprite 3.png'),
+               pygame.image.load('../Sprite/Naruto/Rasengan/Sprite 3.png'),
+               pygame.image.load('../Sprite/Naruto/Rasengan/Sprite 3.png')]
+spell1Left = [pygame.transform.flip(spell1Right[0], True, False),
               pygame.transform.flip(spell1Right[0], True, False),
-              pygame.transform.flip(spell1Right[0], True, False), pygame.transform.flip(spell1Right[0], True, False),
               pygame.transform.flip(spell1Right[0], True, False),
-              pygame.transform.flip(spell1Right[0], True, False), pygame.transform.flip(spell1Right[0], True, False),
+              pygame.transform.flip(spell1Right[0], True, False),
+              pygame.transform.flip(spell1Right[0], True, False),
+              pygame.transform.flip(spell1Right[0], True, False),
+              pygame.transform.flip(spell1Right[0], True, False),
+              pygame.transform.flip(spell1Right[0], True, False),
               pygame.transform.flip(spell1Right[0], True, False)]
-bg = pygame.image.load("bg.jpg")
-narutoSprite = pygame.image.load("naruto_2.png")
+bg = pygame.image.load("../Sprite/bg.jpg")
+narutoSprite = pygame.image.load("../Sprite/Naruto/Stand/Sprite 2.png")
 narutoSpriteLeft = pygame.transform.flip(narutoSprite, True, False)
-kunaiSprite = pygame.image.load("kunai.png")
+kunaiSprite = pygame.image.load("../Sprite/Kunai/sprite.png")
 kunaiSpriteLeft = pygame.transform.flip(kunaiSprite, True, False)
