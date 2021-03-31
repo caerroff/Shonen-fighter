@@ -73,7 +73,6 @@ spell1Left = [pygame.transform.flip(spell1Right[0], True, False), pygame.transfo
               pygame.transform.flip(spell1Right[0], True, False),
               pygame.transform.flip(spell1Right[0], True, False), pygame.transform.flip(spell1Right[0], True, False),
               pygame.transform.flip(spell1Right[0], True, False)]
-
 sasukeWalkRight = [pygame.image.load("../Sprite/Sasuke/Run/Run 1.png"),
                    pygame.image.load("../Sprite/Sasuke/Run/Run 2.png"),
                    pygame.image.load("../Sprite/Sasuke/Run/Run 3.png"),
