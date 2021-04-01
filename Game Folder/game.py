@@ -87,15 +87,12 @@ class Player(object):
                 self.walkCount += 1
         elif self.isBlock:
             if self.left:
-                # self.isBlock = True
                 win.blit(NarutoBlockLeft[self.walkCount // 3], (self.x, self.y))
             elif self.right:
                 win.blit(NarutoBlockRight[self.walkCount // 3], (self.x, self.y))
-                # self.isNarutoBlockRight = True
             else:
                 win.blit(NarutoBlockRight[self.walkCount // 3], (self.x, self.y))
             self.walkCount += 1
-            # self.isNarutoBlockRight = False
         elif self.combo1:
             if self.facingRight:
                 win.blit(NarutoCombo1Right[self.walkCount // 3], (self.x, self.y))
