@@ -13,6 +13,7 @@ clock = pygame.time.Clock()
 
 soundActivated = False
 
+
 def soundsFunction():
     global kunaiSound, kunaiImpactSound
     kunaiSound = pygame.mixer.Sound("kunai_flying.wav")
@@ -21,8 +22,9 @@ def soundsFunction():
     pygame.mixer.music.load('naruto_theme.mp3')
     pygame.mixer.music.play(-1)
 
+
 font = pygame.font.Font("Helvetica.ttf", 30)  # Font importé pour le score
-narutoScore = 0
+player1Score = 0
 player2Score = 0
 
 rect1 = pygame.Rect(250, 70, 65, 65)  # Constructeur d'objet --> Rectangle, Arg: x, y, w, h
@@ -35,8 +37,9 @@ grey = (109, 111, 111)
 blue_mana = (0, 186, 240)
 yellow = (255, 232, 1)
 
+
 class Player(object):
-    def __init__(self, x, y, width, height, playerNumber, character):
+    def __init__(self, x, y, width, height, playerNumber):
         self.x = x
         self.y = y
         self.width = width
@@ -65,7 +68,6 @@ class Player(object):
         self.awakening = 0
         self.isContact = False
         self.playerNumber = playerNumber
-        self.character = character
 
     def draw_naruto(self, win):
         if self.walkCount + 1 >= 27:
@@ -75,24 +77,29 @@ class Player(object):
         if not self.standing:
             if self.left:
                 if self.isJump:
-                    win.blit(NarutoJumpLeft[self.jumpCount // 3], (self.x, self.y))
+                    win.blit(NarutoJumpLeft[self.jumpCount // 3], \
+                             (self.x, self.y))
                 else:
                     win.blit(NarutoWalkLeft[self.walkCount // 3], (self.x, self.y))
                 self.walkCount += 1
             elif self.right:
                 if self.isJump:
-                    win.blit(NarutoJumpRight[self.jumpCount // 3], (self.x, self.y))
+                    win.blit(NarutoJumpRight[self.jumpCount // 3], \
+                             (self.x, self.y))
                 else:
                     win.blit(NarutoWalkRight[self.walkCount // 3], (self.x, self.y))
                 self.walkCount += 1
         elif self.isBlock:
             if self.left:
+                # self.isBlock = True
                 win.blit(NarutoBlockLeft[self.walkCount // 3], (self.x, self.y))
             elif self.right:
                 win.blit(NarutoBlockRight[self.walkCount // 3], (self.x, self.y))
+                # self.isNarutoBlockRight = True
             else:
                 win.blit(NarutoBlockRight[self.walkCount // 3], (self.x, self.y))
             self.walkCount += 1
+            # self.isNarutoBlockRight = False
         elif self.combo1:
             if self.facingRight:
                 win.blit(NarutoCombo1Right[self.walkCount // 3], (self.x, self.y))
@@ -102,7 +109,8 @@ class Player(object):
             self.combo1 = False
         elif self.throw:
             if self.facingRight:
-                win.blit(NarutoKunaiThrowRight[self.walkCount // 3], (self.x, self.y))
+                win.blit(NarutoKunaiThrowRight[self.walkCount // 3], \
+                         (self.x, self.y))
             if self.facingLeft:
                 win.blit(NarutoKunaiThrowLeft[self.walkCount // 3], (self.x, self.y))
             self.walkCount += 1
@@ -169,40 +177,26 @@ class Player(object):
         if self.walkCount + 1 >= 27:
             self.walkCount = 0
         if self.facingRight:
-            win.blit(SasukeSprite, (self.x, self.y))
+            win.blit(sasukeSprite, (self.x, self.y))
         if self.facingLeft:
-            win.blit(SasukeSpriteLeft, (self.x, self.y))
+            win.blit(sasukeSpriteLeft, (self.x, self.y))
         if not self.standing:
             if self.right:
                 win.blit(SasukeWalkRight[self.walkCount // 3], (self.x, self.y))
             else:
-                win.blit(SasukeSprite, (self.x, self.y))
+                win.blit(sasukeSprite, (self.x, self.y))
             self.walkCount += 1
 
             '''elif self.right:
                 win.blit(SasukeWalkRight[self.walkCount // 3], (self.x, self.y))
                 self.walkCount += 1'''
 
-        if self.playerNumber == 1:  # Jauge de vie du Joueur 1
-            pygame.draw.rect(win, red, (20, 22, 200, 10))
-            pygame.draw.rect(win, green, (20, 22, 200 - (2 * (100 - self.health)), 10))
-            pygame.draw.rect(win, grey, (20, 35, 200, 10))
-            pygame.draw.rect(win, blue_mana, (20, 35, 0 + self.mana, 10))
-            pygame.draw.rect(win, grey, (20, 50, 200, 10))
-            pygame.draw.rect(win, yellow, (20, 50, 0 + self.awakening, 10))
-
-        if self.playerNumber == 2:  # Jauge de vie du Joueur 2
-            pygame.draw.rect(win, red, (475, 22, 200, 10))
-            pygame.draw.rect(win, green, (475, 22, 200 - (2 * (100 - self.health)), 10))
-
-        self.hitbox = (self.x, self.y, 47, 60)
-        pygame.draw.rect(win, blue, self.hitbox, 2)
-
     def hit(self):
         if self.health > 0:
             self.health -= 1
             win.blit(bg, (-3, 0))
             print("Touché !", "Hp : ", self.health)
+
 
 class projectile(object):
     def __init__(self, x, y, radius, color, facing):
@@ -224,20 +218,15 @@ class projectile(object):
             self.hitbox = (self.x, self.y, 20, 15)
             pygame.draw.rect(win, blue, self.hitbox, 2)
 
+
 def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et plus dans la boucle principale
     win.blit(bg, (-3, 0))  # Black
-    score1 = font.render("Score :" + str(narutoScore), 1, (0, 0, 0))
+    score1 = font.render("Score :" + str(player1Score), 1, (0, 0, 0))
     win.blit(score1, (20, 65))
     score2 = font.render("Score :" + str(player2Score), 1, (0, 0, 0))
     win.blit(score2, (565, 65))
-    if naruto.character == 1:
-        naruto.draw_naruto(win)
-    else:
-        naruto.draw_sasuke(win)
-    if player2.character == 1:
-        player2.draw_naruto(win)
-    else:
-        player2.draw_sasuke(win)
+    player1.draw_naruto(win)
+    player2.draw_naruto(win)
     for kunai in kunais:
         kunai.draw(win)
     for kunai in kunais2:
@@ -245,9 +234,9 @@ def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et p
     pygame.display.update()
 
 # MAINLOOP
-naruto = Player(100, 300, 64, 64, 1, 1)
-naruto.facingRight = True
-player2 = Player(550, 300, 64, 64, 2, 2)
+player1 = Player(100, 300, 64, 64, 1)
+player1.facingRight = True
+player2 = Player(550, 300, 64, 64, 2)
 player2.facingLeft = True
 kunais = []  # Liste des Kunais --> Joueur 1
 kunaiLoop = 0  # Permet d'ajouter un "Cooldown" aux kunais, un seul peut être lancer à la fois --> Joueur 1
@@ -264,22 +253,22 @@ while launched:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN or event.type == pygame.QUIT:
             launched = False
 
-    if naruto.hitbox[1] < player2.hitbox[1] + player2.hitbox[3] and naruto.hitbox[1] + naruto.hitbox[3] > \
-            player2.hitbox[1] and naruto.hitbox[0] + naruto.hitbox[2] > player2.hitbox[0] and naruto.hitbox[0] < \
+    if player1.hitbox[1] < player2.hitbox[1] + player2.hitbox[3] and player1.hitbox[1] + player1.hitbox[3] > \
+            player2.hitbox[1] and player1.hitbox[0] + player1.hitbox[2] > player2.hitbox[0] and player1.hitbox[0] < \
             player2.hitbox[0] + player2.hitbox[2]:
-        naruto.isContact = True
+        player1.isContact = True
     else:
-        naruto.isContact = False
+        player1.isContact = False
 
     ''''# Hitbox collision --> Pour Combo
-    if naruto.isContact:
-        if naruto.combo1:
+    if player1.isContact:
+        if player1.combo1:
             print("Dégâts Sur Combo")
             player2.hit()
-            narutoScore += 1
-            naruto.awakening += 1
+            player1Score += 1
+            player1.awakening += 1
         else:
-            narutoScore = narutoScore'''
+            player1Score = player1Score'''
 
     # Permet de faire fonctionner la kunaiLoop, fonctionne sur plusieurs itérations de la mainloop
     if kunaiLoop > 0:
@@ -302,8 +291,8 @@ while launched:
                         if soundActivated:
                             kunaiImpactSound.play()
                         player2.hit()
-                        narutoScore += 1
-                        naruto.awakening += 1
+                        player1Score += 1
+                        player1.awakening += 1
                         kunais.pop(kunais.index(kunai))
 
     for kunai in kunais:
@@ -342,107 +331,107 @@ while launched:
 
     # Kunai Throw --> I (Player 1)
     if keys[pygame.K_i] and kunaiLoop == 0:
-        naruto.throw = True
+        player1.throw = True
         if soundActivated:
             kunaiSound.play()
-        if naruto.facingLeft:
+        if player1.facingLeft:
             facing = -1
-        elif naruto.facingRight:
+        elif player1.facingRight:
             facing = 1
         else:
             facing = 1
         if len(kunais) < 3:
             if facing == 1:
                 kunais.append(
-                    projectile(round(naruto.x + naruto.width // 2), round(naruto.y + naruto.height // 4), 6, (0, 0, 0),
+                    projectile(round(player1.x + player1.width // 2), round(player1.y + player1.height // 4), 6, (0, 0, 0),
                                facing))
             else:
-                kunais.append(projectile(round(naruto.x), round(naruto.y + naruto.height // 4), 6, (0, 0, 0), facing))
+                kunais.append(projectile(round(player1.x), round(player1.y + player1.height // 4), 6, (0, 0, 0), facing))
         kunaiLoop = 1
 
     # Left Movement --> Player 1 (Left)
-    elif keys[pygame.K_LEFT] and naruto.x > naruto.vel:
-        naruto.x -= naruto.vel
-        naruto.left = True
-        naruto.right = False
-        naruto.standing = False
-        naruto.standingLeft = False
-        naruto.standingRight = False
-        naruto.facingLeft = True
-        naruto.facingRight = False
-        naruto.isBlock = False
-        naruto.combo1 = False
-        naruto.throw = False
+    elif keys[pygame.K_LEFT] and player1.x > player1.vel:
+        player1.x -= player1.vel
+        player1.left = True
+        player1.right = False
+        player1.standing = False
+        player1.standingLeft = False
+        player1.standingRight = False
+        player1.facingLeft = True
+        player1.facingRight = False
+        player1.isBlock = False
+        player1.combo1 = False
+        player1.throw = False
 
     # Right Movement --> Player 1 (Right)
-    elif keys[pygame.K_RIGHT] and naruto.x < 700 - naruto.width - naruto.vel:
-        naruto.x += naruto.vel
-        naruto.right = True
-        naruto.left = False
-        naruto.standing = False
-        naruto.standingLeft = False
-        naruto.standingRight = False
-        naruto.facingLeft = False
-        naruto.facingRight = True
-        naruto.isBlock = False
-        naruto.combo1 = False
-        naruto.throw = False
+    elif keys[pygame.K_RIGHT] and player1.x < 700 - player1.width - player1.vel:
+        player1.x += player1.vel
+        player1.right = True
+        player1.left = False
+        player1.standing = False
+        player1.standingLeft = False
+        player1.standingRight = False
+        player1.facingLeft = False
+        player1.facingRight = True
+        player1.isBlock = False
+        player1.combo1 = False
+        player1.throw = False
 
     # Down Movement --> Player 1 (Down)
     elif keys[pygame.K_DOWN]:
-        naruto.isBlock = True
+        player1.isBlock = True
 
     # Test
     elif keys[pygame.K_p]:
-        if naruto.mana < 200:
-            naruto.mana += 2.25
-        # naruto.spell1 = True
+        if player1.mana < 200:
+            player1.mana += 2.25
+        # player1.spell1 = True
 
     # Combo 1 Movement --> Player 1 (O) ---> Objectif : Interrompre la marche pour utiliser le combo
     elif keys[pygame.K_o]:
-        naruto.combo1 = True
+        player1.combo1 = True
     else:
-        naruto.standing = True
-        naruto.isBlock = False
-        naruto.walkCount = 0
+        player1.standing = True
+        player1.isBlock = False
+        player1.walkCount = 0
 
     # Combo 1 --> Damages
-    if naruto.isContact:
-        if naruto.combo1:
+    if player1.isContact:
+        if player1.combo1:
             player2.hit()
-            narutoScore += 1
-            naruto.awakening += 1
+            player1Score += 1
+            player1.awakening += 1
         else:
-            narutoScore = narutoScore
+            player1Score = player1Score
 
     # Jump Movement --> Player 1 (Space)
-    if not naruto.isJump:
+    if not player1.isJump:
         if keys[pygame.K_UP]:
-            naruto.isJump = True
-            naruto.isBlock = False
-            naruto.walkCount = 0
+            player1.isJump = True
+            player1.isBlock = False
+            player1.walkCount = 0
     else:
-        if naruto.jumpCount >= -10:
+        if player1.jumpCount >= -10:
             neg = 1
-            if naruto.jumpCount < 0:
+            if player1.jumpCount < 0:
                 neg = -1
-            naruto.y -= (naruto.jumpCount ** 2) * 0.5 * neg
-            naruto.jumpCount -= 1
+            player1.y -= (player1.jumpCount ** 2) * 0.5 * neg
+            player1.jumpCount -= 1
 
         else:
-            naruto.isJump = False
-            naruto.jumpCount = 10
+            player1.isJump = False
+            player1.jumpCount = 10
 
     # ////////////// Player 2 //////////////
 
     # Hitbox collision --> Pour Combo
     if soundActivated:
-        if player2.hitbox[1] < naruto.hitbox[1] + naruto.hitbox[3] and player2.hitbox[1] + player2.hitbox[3] > \
-                naruto.hitbox[1]:
-            if player2.hitbox[0] + player2.hitbox[2] > naruto.hitbox[0] and player2.hitbox[0] < naruto.hitbox[0] + \
-                    naruto.hitbox[2]:
+        if player1.hitbox[1] < player1.hitbox[1] + player1.hitbox[3] and player2.hitbox[1] + player2.hitbox[3] > \
+                player1.hitbox[1]:
+            if player2.hitbox[0] + player2.hitbox[2] > player1.hitbox[0] and player2.hitbox[0] < player1.hitbox[0] + \
+                    player1.hitbox[2]:
                 pass
-                # naruto.hit()
+                # player1.hit()
                 # player2Score += 1
 
     # Permet de faire fonctionner la kunaiLoop2, fonctionne sur plusieurs itérations de la mainloop
@@ -454,17 +443,17 @@ while launched:
     # Kunai collision --> Pour attaque avec kunai
     for kunai in kunais2:
         if 670 > kunai.x > 0:
-            if kunai.y - kunai.radius < naruto.hitbox[1] + naruto.hitbox[3] and kunai.y + kunai.radius > naruto.hitbox[
+            if kunai.y - kunai.radius < player1.hitbox[1] + player1.hitbox[3] and kunai.y + kunai.radius > player1.hitbox[
                 1]:
-                if kunai.x + kunai.radius > naruto.hitbox[0] and kunai.x - kunai.radius < naruto.hitbox[0] + \
-                        naruto.hitbox[2]:
-                    if naruto.isBlock:
+                if kunai.x + kunai.radius > player1.hitbox[0] and kunai.x - kunai.radius < player1.hitbox[0] + \
+                        player1.hitbox[2]:
+                    if player1.isBlock:
                         print("Bloqué !!")
                         kunais2.pop(kunais2.index(kunai))
                     else:
                         if soundActivated:
                             kunaiImpactSound.play()
-                        naruto.hit()
+                        player1.hit()
                         player2Score += 1
                         kunais2.pop(kunais2.index(kunai))
         if 670 > kunai.x > 0:
