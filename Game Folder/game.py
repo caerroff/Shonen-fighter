@@ -46,6 +46,8 @@ class Player(object):
         self.height = height
         self.vel = 5
         self.isJump = False
+        self.isFalling = False
+        #self.isFalling = False
         self.isBlock = False
         self.jumpCount = 10
         self.left = False
@@ -55,7 +57,6 @@ class Player(object):
         self.combo1 = False
         self.comboCount = 1
         self.throw = False
-        self.throwCount = 0
         self.spell1 = False
         self.standing = True
         self.standingRight = False
@@ -68,67 +69,62 @@ class Player(object):
         self.awakening = 0
         self.isContact = False
         self.playerNumber = playerNumber
+        self.current_sprite = 0
+
+    def animator(self, liste, increm):
+        win.blit(liste[int(self.current_sprite)], (self.x, self.y))
+        self.current_sprite += increm
+        if self.current_sprite >= len(liste):
+            self.current_sprite = 0
+        #print("Len(Liste):", len(liste))
+        #print("Current_Sprite:", self.current_sprite)
+        #print('Increm :', increm)
+
+
+    #def complexAnimator(self, liste, ):
 
     def draw_naruto(self, win):
-        if self.walkCount + 1 >= 27:
-            self.walkCount = 0
-        if self.throwCount + 1 >= 27:
-            self.throwCount = 0
         if not self.standing:
             if self.left:
                 if self.isJump:
-                    win.blit(NarutoJumpLeft[self.jumpCount // 3], \
-                             (self.x, self.y))
+                    self.animator(NarutoJumpLeft, 0.3)
                 else:
-                    win.blit(NarutoWalkLeft[self.walkCount // 3], (self.x, self.y))
-                self.walkCount += 1
+                    self.animator(NarutoWalkLeft, 1)
             elif self.right:
                 if self.isJump:
-                    win.blit(NarutoJumpRight[self.jumpCount // 3], \
-                             (self.x, self.y))
+                    self.animator(NarutoJumpRight, 0.3)
                 else:
-                    win.blit(NarutoWalkRight[self.walkCount // 3], (self.x, self.y))
-                self.walkCount += 1
+                    self.animator(NarutoWalkRight, 1)
         elif self.isBlock:
             if self.left:
-                # self.isBlock = True
-                win.blit(NarutoBlockLeft[self.walkCount // 3], (self.x, self.y))
+                self.animator(NarutoBlockLeft, 1)
             elif self.right:
-                win.blit(NarutoBlockRight[self.walkCount // 3], (self.x, self.y))
-                # self.isNarutoBlockRight = True
+                self.animator(NarutoBlockRight, 1)
             else:
-                win.blit(NarutoBlockRight[self.walkCount // 3], (self.x, self.y))
-            self.walkCount += 1
-            # self.isNarutoBlockRight = False
+                self.animator(NarutoBlockRight, 1)
         elif self.combo1:
             if self.facingRight:
-                win.blit(NarutoCombo1Right[self.walkCount // 3], (self.x, self.y))
+                self.animator(NarutoCombo1Right, 0.4)
             elif self.facingLeft:
-                win.blit(NarutoCombo1Left[self.walkCount // 3], (self.x, self.y))
-            self.walkCount += 1
+                self.animator(NarutoCombo1Left, 0.4)
             self.combo1 = False
         elif self.throw:
             if self.facingRight:
-                win.blit(NarutoKunaiThrowRight[self.walkCount // 3], \
-                         (self.x, self.y))
+                print(True)
+                self.animator(NarutoKunaiThrowRight, 1)
             if self.facingLeft:
-                win.blit(NarutoKunaiThrowLeft[self.walkCount // 3], (self.x, self.y))
-            self.walkCount += 1
+                self.animator(NarutoKunaiThrowLeft, 1)
             self.throw = False
         elif self.spell1:
             if self.facingRight:
-                win.blit(NarutoSpell1Right[self.walkCount // 3], (self.x, self.y))
-                self.walkCount += 1
+                self.animator(NarutoSpell1Right, 1)
             if self.facingLeft:
-                win.blit(NarutoSpell1Left[self.walkCount // 3], (self.x, self.y))
-                self.walkCount += 1
+                self.animator(NarutoSpell1Left, 1)
         elif self.isJump:
             if self.facingRight:
-                win.blit(NarutoJumpRight[self.jumpCount // 3], (self.x, self.y))
-                self.walkCount += 1
+                self.animator(NarutoJumpRight, 1)
             if self.facingLeft:
-                win.blit(NarutoJumpLeft[self.jumpCount // 3], (self.x, self.y))
-                self.walkCount += 1
+                self.animator(NarutoJumpLeft, 1)
         elif self.playerNumber == 1:
             if self.right:
                 win.blit(NarutoSprite, (self.x, self.y))
@@ -149,13 +145,13 @@ class Player(object):
                 win.blit(NarutoSpriteLeft, (self.x, self.y))
         else:
             if self.right:
-                win.blit(NarutoSprite, (self.x, self.y))
+                win.blit(NarutoSpriteRight, (self.x, self.y))
                 self.standingRight = True
             elif self.left:
                 win.blit(NarutoSpriteLeft, (self.x, self.y))
                 self.standingLeft = True
             else:
-                win.blit(NarutoSprite, (self.x, self.y))
+                win.blit(SasukeSpriteRight, (self.x, self.y))
                 self.standingRight = True
 
         if self.playerNumber == 1:  # Jauge de vie du Joueur 1
@@ -169,6 +165,10 @@ class Player(object):
         if self.playerNumber == 2:  # Jauge de vie du Joueur 2
             pygame.draw.rect(win, red, (475, 22, 200, 10))
             pygame.draw.rect(win, green, (475, 22, 200 - (2 * (100 - self.health)), 10))
+            pygame.draw.rect(win, grey, (475, 35, 200, 10))
+            pygame.draw.rect(win, blue_mana, (475, 35, 0 + self.mana, 10))
+            pygame.draw.rect(win, grey, (475, 50, 200, 10))
+            pygame.draw.rect(win, yellow, (475, 50, 0 + self.awakening, 10))
 
         self.hitbox = (self.x, self.y, 47, 60)
         pygame.draw.rect(win, blue, self.hitbox, 2)
@@ -176,20 +176,50 @@ class Player(object):
     def draw_sasuke(self, win):
         if self.walkCount + 1 >= 27:
             self.walkCount = 0
-        if self.facingRight:
-            win.blit(sasukeSprite, (self.x, self.y))
-        if self.facingLeft:
-            win.blit(sasukeSpriteLeft, (self.x, self.y))
         if not self.standing:
             if self.right:
-                win.blit(SasukeWalkRight[self.walkCount // 3], (self.x, self.y))
+                if self.isJump:
+                    self.animator(SasukeJumpRight, 1)
+                else:
+                    self.animator(SasukeRunRight, 0.35)
+            if self.left:
+                if self.isJump:
+                    self.animator(SasukeJumpLeft, 1)
+                else:
+                    self.animator(SasukeRunLeft, 0.35)
+        elif self.isBlock:
+            if self.left:
+                self.animator(SasukeBlockLeft, 1)
+            elif self.right:
+                self.animator(SasukeBlockRight, 1)
             else:
-                win.blit(sasukeSprite, (self.x, self.y))
-            self.walkCount += 1
+                self.animator(SasukeBlockRight, 1)
+        else:
+            if self.right:
+                win.blit(SasukeSpriteRight, (self.x, self.y))
+                self.standingRight = True
+            elif self.left:
+                win.blit(SasukeSpriteLeft, (self.x, self.y))
+                self.standingLeft = True
+            else:
+                win.blit(SasukeSpriteRight, (self.x, self.y))
+                self.standingRight = True
 
-            '''elif self.right:
-                win.blit(SasukeWalkRight[self.walkCount // 3], (self.x, self.y))
-                self.walkCount += 1'''
+        if self.playerNumber == 1:  # Jauge de vie du Joueur 1
+            pygame.draw.rect(win, red, (20, 22, 200, 10))
+            pygame.draw.rect(win, green, (20, 22, 200 - (2 * (100 - self.health)), 10))
+            pygame.draw.rect(win, grey, (20, 35, 200, 10))
+            pygame.draw.rect(win, blue_mana, (20, 35, 0 + self.mana, 10))
+            pygame.draw.rect(win, grey, (20, 50, 200, 10))
+            pygame.draw.rect(win, yellow, (20, 50, 0 + self.awakening, 10))
+
+        if self.playerNumber == 2:  # Jauge de vie du Joueur 2
+            pygame.draw.rect(win, red, (475, 22, 200, 10))
+            pygame.draw.rect(win, green, (475, 22, 200 - (2 * (100 - self.health)), 10))
+            pygame.draw.rect(win, grey, (20, 35, 200, 10))
+            pygame.draw.rect(win, blue_mana, (20, 35, 0 + self.mana, 10))
+            pygame.draw.rect(win, grey, (20, 50, 200, 10))
+            pygame.draw.rect(win, yellow, (20, 50, 0 + self.awakening, 10))
 
     def hit(self):
         if self.health > 0:
@@ -225,7 +255,7 @@ def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et p
     win.blit(score1, (20, 65))
     score2 = font.render("Score :" + str(player2Score), 1, (0, 0, 0))
     win.blit(score2, (565, 65))
-    player1.draw_naruto(win)
+    player1.draw_sasuke(win)
     player2.draw_naruto(win)
     for kunai in kunais:
         kunai.draw(win)
