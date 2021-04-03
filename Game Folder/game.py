@@ -66,15 +66,19 @@ class Player(object):
         self.health = 100
         self.mana = 0
         self.awakening = 0
+        self.awaken = False
         self.isContact = False
         self.playerNumber = playerNumber
         self.current_sprite = 0
 
-    def animator(self, liste, increm):
-        if self.current_sprite >= len(liste):
+    def animator(self, list, increm):
+        if self.current_sprite >= len(list):
             self.current_sprite = 0
-        win.blit(liste[int(self.current_sprite)], (self.x, self.y))
+        win.blit(list[int(self.current_sprite)], (self.x, self.y))
         self.current_sprite += increm
+
+    def effectAnimator(self, list):
+        win.blit(list[0], (self.x, self.y))
 
     def draw_ath(self, win):
         if self.playerNumber == 1:  # Jauge de vie du Joueur 1
@@ -133,6 +137,12 @@ class Player(object):
                 self.animator(NarutoSpell1Right, 1)
             if self.facingLeft:
                 self.animator(NarutoSpell1Left, 1)
+        elif self.mana >= 20:
+            self.awaken = True
+            if self.facingRight:
+                self.animator(NarutoSprite, 0.2)
+            if self.facingLeft:
+                self.animator(NarutoSpriteLeft, 0.2)
         elif self.isJump:
             if self.facingRight:
                 if self.isFalling:
@@ -173,8 +183,12 @@ class Player(object):
                 win.blit(NarutoSpriteRight, (self.x, self.y))
                 self.standingRight = True
 
-        self.hitbox = (self.x, self.y, 47, 60)
-        pygame.draw.rect(win, blue, self.hitbox, 2)
+        if not self.awaken:
+            self.hitbox = (self.x, self.y, 47, 60)
+            pygame.draw.rect(win, blue, self.hitbox, 2)
+        else:
+            self.hitbox = (self.x, self.y, 65, 80)
+            pygame.draw.rect(win, red, self.hitbox, 2)
 
     def draw_sasuke(self, win):
         if not self.standing:
@@ -213,9 +227,16 @@ class Player(object):
             self.throw = False
         elif self.spell1:
             if self.facingRight:
-                self.animator(NarutoSpell1Right, 1)
+                self.animator(SasukeSpell1Right, 0.1)
             if self.facingLeft:
-                self.animator(NarutoSpell1Left, 1)
+                self.animator(SasukeSpell1Left, 0.1)
+            self.spell1 = False
+        elif self.awaken:
+            if self.facingRight:
+                self.animator(SasukeAwakeningRight, 0.2)
+            if self.facingLeft:
+                self.animator(SasukeAwakeningLeft, 0.2)
+            self.awaken = False
         elif self.isJump:
             if self.facingRight:
                 if self.isFalling:
@@ -256,8 +277,12 @@ class Player(object):
                 win.blit(SasukeSpriteRight, (self.x, self.y))
                 self.standingRight = True
 
-        self.hitbox = (self.x, self.y, 47, 60)
-        pygame.draw.rect(win, blue, self.hitbox, 2)
+        if not self.awaken:
+            self.hitbox = (self.x, self.y, 47, 60)
+            pygame.draw.rect(win, blue, self.hitbox, 2)
+        else:
+            self.hitbox = (self.x, self.y, 65, 80)
+            pygame.draw.rect(win, red, self.hitbox, 2)
 
     def hit(self):
         if self.health > 0:
@@ -285,6 +310,25 @@ class projectile(object):
             self.hitbox = (self.x, self.y, 20, 15)
             pygame.draw.rect(win, blue, self.hitbox, 2)
 
+class playerProjectile(object):
+    def __init__(self, x, y, radius, color, facing):
+        self.x = x
+        self.y = y
+        self.radius = radius
+        self.color = color
+        self.facing = facing
+        self.vel = 15 * facing
+        self.hitbox = (self.x, self.y, 20, 15)
+
+    def draw_fireball(self, win):
+        if facing == 1:
+            win.blit(SasukeFireballRight[0], (self.x, self.y))
+            self.hitbox = (self.x, self.y, 20, 15)
+            pygame.draw.rect(win, blue, self.hitbox, 2)
+        else:
+            win.blit(SasukeFireballLeft[0], (self.x, self.y))
+            self.hitbox = (self.x, self.y, 20, 15)
+            pygame.draw.rect(win, blue, self.hitbox, 2)
 
 def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et plus dans la boucle principale
     win.blit(bg, (-3, 0))  # Black
@@ -530,11 +574,11 @@ while launched:
             facing = 1
         if len(kunais2) < 3:
             if facing == 1:
-                kunais2.append(
-                    projectile(round(player2.x + player2.width // 2), round(player2.y + player2.height // 4), 6, (0, 0, 0),
-                               facing))
+                kunais2.append(projectile(round(player2.x + player2.width // 2), round(player2.y + player2.height // 4),
+                                          6, (0, 0, 0), facing))
             else:
-                kunais2.append(projectile(round(player2.x), round(player2.y + player2.height // 4), 6, (0, 0, 0), facing))
+                kunais2.append(projectile(round(player2.x), round(player2.y + player2.height // 4), 6,
+                                          (0, 0, 0), facing))
         kunaiLoop2= 1
 
     # Left Movement --> Player 2 (Q)
@@ -573,6 +617,10 @@ while launched:
     elif keys[pygame.K_h]:
         if player2.mana < 200:
             player2.mana += 2.25
+
+    elif keys[pygame.K_c]:
+        player2.spell1 = True
+        #player2.awaken = True
 
     # Combo 1 Movement --> Player 2 (G) ---> Objectif : Interrompre la marche pour utiliser le combo
     elif keys[pygame.K_g]:

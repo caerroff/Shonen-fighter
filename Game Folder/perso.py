@@ -102,6 +102,32 @@ SasukeCombo1Left = [pygame.transform.flip(SasukeCombo1Right[0], True, False),
                     pygame.transform.flip(SasukeCombo1Right[2], True, False),
                     pygame.transform.flip(SasukeCombo1Right[3], True, False),
                     pygame.transform.flip(SasukeCombo1Right[4], True, False)]
+SasukeAwakeningRight = [pygame.image.load("../Sprite/Sasuke/Awakening/Sprite 1.png"),
+                        pygame.image.load("../Sprite/Sasuke/Awakening/Sprite 2.png"),
+                        pygame.image.load("../Sprite/Sasuke/Awakening/Sprite 3.png"),
+                        pygame.image.load("../Sprite/Sasuke/Awakening/Sprite 4.png"),
+                        pygame.image.load("../Sprite/Sasuke/Awakening/Sprite 5.png"),
+                        pygame.image.load("../Sprite/Sasuke/Awakening/Sprite 6.png"),
+                        pygame.image.load("../Sprite/Sasuke/Awakening/Sprite 7.png"),
+                        pygame.image.load("../Sprite/Sasuke/Awakening/Sprite 8.png"),
+                        pygame.image.load("../Sprite/Sasuke/Awakening/Sprite 9.png")]
+SasukeAwakeningLeft = [pygame.transform.flip(SasukeAwakeningRight[0], True, False),
+                       pygame.transform.flip(SasukeAwakeningRight[1], True, False),
+                       pygame.transform.flip(SasukeAwakeningRight[2], True, False),
+                       pygame.transform.flip(SasukeAwakeningRight[3], True, False),
+                       pygame.transform.flip(SasukeAwakeningRight[4], True, False),
+                       pygame.transform.flip(SasukeAwakeningRight[5], True, False),
+                       pygame.transform.flip(SasukeAwakeningRight[6], True, False),
+                       pygame.transform.flip(SasukeAwakeningRight[7], True, False),
+                       pygame.transform.flip(SasukeAwakeningRight[8], True, False)]
+SasukeSpell1Right = [pygame.image.load("../Sprite/Sasuke/Spell 1/Sprite 1.png"),
+                     pygame.image.load("../Sprite/Sasuke/Spell 1/Sprite 2.png"),
+                     pygame.image.load("../Sprite/Sasuke/Spell 1/Sprite 3.png")]
+SasukeSpell1Left = [pygame.transform.flip(SasukeSpell1Right[0], True, False),
+                    pygame.transform.flip(SasukeSpell1Right[1], True, False),
+                    pygame.transform.flip(SasukeSpell1Right[2], True, False)]
+SasukeFireballRight = [pygame.image.load("../Sprite/Sasuke/Effect/Sprite 1.png")]
+SasukeFireballLeft = [pygame.transform.flip(SasukeFireballRight[0], True, False)]
 
 bg = pygame.image.load("bg.jpg")
 NarutoSprite = pygame.image.load("naruto_2.png")
