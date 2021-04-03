@@ -79,6 +79,10 @@ class Player(object):
         #print("Len(Liste):", len(liste))
         #print("Current_Sprite:", self.current_sprite)
         #print('Increm :', increm)
+        #KANKURO
+        #YAOURT AU MIEL
+        #VANILLE BLEUE
+        #CHAKRA
 
 
     #def complexAnimator(self, liste, ):
