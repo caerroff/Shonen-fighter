@@ -65,6 +65,7 @@ class Player(object):
         self.hitbox = (self.x, self.y, 47, 60)
         self.health = 100
         self.mana = 0
+        self.molding = False
         self.awakening = 0
         self.awaken = False
         self.isContact = False
@@ -227,16 +228,22 @@ class Player(object):
             self.throw = False
         elif self.spell1:
             if self.facingRight:
-                self.animator(SasukeSpell1Right, 0.1)
+                self.draw_effect()
             if self.facingLeft:
                 self.animator(SasukeSpell1Left, 0.1)
-            self.spell1 = False
+            #self.spell1 = False
         elif self.awaken:
             if self.facingRight:
                 self.animator(SasukeAwakeningRight, 0.2)
             if self.facingLeft:
                 self.animator(SasukeAwakeningLeft, 0.2)
             self.awaken = False
+        elif self.molding:
+            if self.facingRight:
+                win.blit(SasukeAwakeningRight[0], (self.x, self.y))
+            if self.facingLeft:
+                win.blit(SasukeAwakeningLeft[0], (self.x, self.y))
+            self.molding = False
         elif self.isJump:
             if self.facingRight:
                 if self.isFalling:
@@ -311,22 +318,13 @@ class projectile(object):
             pygame.draw.rect(win, blue, self.hitbox, 2)
 
 class playerProjectile(object):
-    def __init__(self, x, y, radius, color, facing):
+    def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.radius = radius
-        self.color = color
-        self.facing = facing
-        self.vel = 15 * facing
         self.hitbox = (self.x, self.y, 20, 15)
 
     def draw_fireball(self, win):
-        if facing == 1:
             win.blit(SasukeFireballRight[0], (self.x, self.y))
-            self.hitbox = (self.x, self.y, 20, 15)
-            pygame.draw.rect(win, blue, self.hitbox, 2)
-        else:
-            win.blit(SasukeFireballLeft[0], (self.x, self.y))
             self.hitbox = (self.x, self.y, 20, 15)
             pygame.draw.rect(win, blue, self.hitbox, 2)
 
@@ -617,9 +615,11 @@ while launched:
     elif keys[pygame.K_h]:
         if player2.mana < 200:
             player2.mana += 2.25
+            player2.molding = True
 
     elif keys[pygame.K_c]:
         player2.spell1 = True
+        playerProjectile(player2.x, player2.y)
         #player2.awaken = True
 
     # Combo 1 Movement --> Player 2 (G) ---> Objectif : Interrompre la marche pour utiliser le combo
