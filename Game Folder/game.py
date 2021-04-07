@@ -72,14 +72,17 @@ class Player(object):
         self.playerNumber = playerNumber
         self.current_sprite = 0
 
-    def animator(self, list, increm):
+    def animator(self, list, increm, iter = 0):
+        if iter == 1:
+            if self.current_sprite >= len(list):
+                self.spell1 = False
+            else:
+                win.blit(list[int(self.current_sprite)], (self.x, self.y))
+                self.current_sprite += increm
         if self.current_sprite >= len(list):
             self.current_sprite = 0
         win.blit(list[int(self.current_sprite)], (self.x, self.y))
         self.current_sprite += increm
-
-    def effectAnimator(self, list):
-        win.blit(list[0], (self.x, self.y))
 
     def draw_ath(self, win):
         if self.playerNumber == 1:  # Jauge de vie du Joueur 1
@@ -138,12 +141,18 @@ class Player(object):
                 self.animator(NarutoSpell1Right, 1)
             if self.facingLeft:
                 self.animator(NarutoSpell1Left, 1)
-        elif self.mana >= 20:
-            self.awaken = True
+        elif self.awaken:
             if self.facingRight:
-                self.animator(NarutoSprite, 0.2)
+                self.animator(SasukeAwakeningRight, 0.2)
             if self.facingLeft:
-                self.animator(NarutoSpriteLeft, 0.2)
+                self.animator(SasukeAwakeningLeft, 0.2)
+            self.awaken = False
+        elif self.molding:
+            if self.facingRight:
+                win.blit(NarutoBlockRight[0], (self.x, self.y))
+            if self.facingLeft:
+                win.blit(NarutoBlockLeft[0], (self.x, self.y))
+            self.molding = False
         elif self.isJump:
             if self.facingRight:
                 if self.isFalling:
@@ -228,10 +237,9 @@ class Player(object):
             self.throw = False
         elif self.spell1:
             if self.facingRight:
-                self.draw_effect()
+                self.animator(SasukeSpell1Right, 0.05, 1)
             if self.facingLeft:
-                self.animator(SasukeSpell1Left, 0.1)
-            #self.spell1 = False
+                self.animator(SasukeSpell1Left, 0.05, 1)
         elif self.awaken:
             if self.facingRight:
                 self.animator(SasukeAwakeningRight, 0.2)
@@ -317,17 +325,6 @@ class projectile(object):
             self.hitbox = (self.x, self.y, 20, 15)
             pygame.draw.rect(win, blue, self.hitbox, 2)
 
-class playerProjectile(object):
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-        self.hitbox = (self.x, self.y, 20, 15)
-
-    def draw_fireball(self, win):
-            win.blit(SasukeFireballRight[0], (self.x, self.y))
-            self.hitbox = (self.x, self.y, 20, 15)
-            pygame.draw.rect(win, blue, self.hitbox, 2)
-
 def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et plus dans la boucle principale
     win.blit(bg, (-3, 0))  # Black
     score1 = font.render("Score :" + str(player1Score), 1, (0, 0, 0))
@@ -378,7 +375,6 @@ while launched:
             launched = False
 
     # ////////////// Player 1 //////////////
-
 
     if player1.hitbox[1] < player2.hitbox[1] + player2.hitbox[3] and player1.hitbox[1] + player1.hitbox[3] > \
             player2.hitbox[1] and player1.hitbox[0] + player1.hitbox[2] > player2.hitbox[0] and player1.hitbox[0] < \
@@ -440,9 +436,7 @@ while launched:
             facing = 1
         if len(kunais) < 3:
             if facing == 1:
-                kunais.append(
-                    projectile(round(player1.x + player1.width // 2), round(player1.y + player1.height // 4), 6, (0, 0, 0),
-                               facing))
+                kunais.append(projectile(round(player1.x + player1.width // 2), round(player1.y + player1.height // 4), 6, (0, 0, 0),  facing))
             else:
                 kunais.append(projectile(round(player1.x), round(player1.y + player1.height // 4), 6, (0, 0, 0), facing))
         kunaiLoop = 1
@@ -483,6 +477,7 @@ while launched:
     elif keys[pygame.K_p]:
         if player1.mana < 200:
             player1.mana += 2.25
+            player1.molding = True
 
     # Combo 1 Movement --> Player 1 (O) ---> Objectif : Interrompre la marche pour utiliser le combo
     elif keys[pygame.K_o]:
@@ -572,11 +567,9 @@ while launched:
             facing = 1
         if len(kunais2) < 3:
             if facing == 1:
-                kunais2.append(projectile(round(player2.x + player2.width // 2), round(player2.y + player2.height // 4),
-                                          6, (0, 0, 0), facing))
+                kunais2.append(projectile(round(player2.x + player2.width // 2), round(player2.y + player2.height // 4), 6, (0, 0, 0), facing))
             else:
-                kunais2.append(projectile(round(player2.x), round(player2.y + player2.height // 4), 6,
-                                          (0, 0, 0), facing))
+                kunais2.append(projectile(round(player2.x), round(player2.y + player2.height // 4), 6, (0, 0, 0), facing))
         kunaiLoop2= 1
 
     # Left Movement --> Player 2 (Q)
@@ -592,6 +585,7 @@ while launched:
         player2.isBlock = False
         player2.combo1 = False
         player2.throw = False
+        player2.spell1 = False
 
     # Right Movement --> Player 2 (D)
     elif keys[pygame.K_d] and player2.x < 700 - player2.width - player2.vel:
@@ -606,6 +600,7 @@ while launched:
         player2.isBlock = False
         player2.combo1 = False
         player2.throw = False
+        player2.spell1 = False
 
     # Down Movement --> Player 2 (S)
     elif keys[pygame.K_s]:
@@ -619,7 +614,6 @@ while launched:
 
     elif keys[pygame.K_c]:
         player2.spell1 = True
-        playerProjectile(player2.x, player2.y)
         #player2.awaken = True
 
     # Combo 1 Movement --> Player 2 (G) ---> Objectif : Interrompre la marche pour utiliser le combo
