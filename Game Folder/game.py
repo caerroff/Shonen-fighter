@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import pygame, time
-from perso import *
+from perso_os import *
 # from gui import *
 
 pygame.init()
@@ -36,6 +36,9 @@ grey = (109, 111, 111)
 blue_mana = (0, 186, 240)
 yellow = (255, 232, 1)
 
+kunaiSpriteRight = pygame.image.load('../Sprite/Kunai/sprite.png')
+kunaiSpriteLeft = pygame.transform.flip(kunaiSpriteRight, True, False)
+bg = pygame.image.load('../Sprite/bg.jpg')
 
 class Player(object):
     def __init__(self, x, y, width, height, playerNumber):
@@ -46,15 +49,11 @@ class Player(object):
         self.vel = 5
         self.isJump = False
         self.isFalling = False
-        #self.isFalling = False
         self.isBlock = False
         self.jumpCount = 10
         self.left = False
         self.right = False
-        self.walkCount = 0
-        self.sasukeWalkCount = 0
         self.combo1 = False
-        self.comboCount = 1
         self.throw = False
         self.spell1 = False
         self.standing = True
@@ -105,92 +104,93 @@ class Player(object):
         if not self.standing:
             if self.left:
                 if self.isJump and self.isFalling:
-                    self.animator(NarutoFallingLeft, 1)
+                    self.animator(Naruto['FallingLeft'], 1)
                 elif self.isJump:
-                    self.animator(NarutoJumpingLeft, 0.3)
+                    self.animator(Naruto['JumpingLeft'], 0.3)
                 else:
-                    self.animator(NarutoRunLeft, 0.5)
+                    self.animator(Naruto['RunLeft'], 0.5)
             elif self.right:
                 if self.isJump and self.isFalling:
-                    self.animator(NarutoFallingRight, 1)
+                    self.animator(Naruto['FallingRight'], 1)
                 elif self.isJump:
-                    self.animator(NarutoJumpingRight, 0.3)
+                    self.animator(Naruto['JumpingRight'], 0.3)
                 else:
-                    self.animator(NarutoRunRight, 0.5)
+                    self.animator(Naruto['RunRight'], 0.5)
         elif self.isBlock:
             if self.left:
-                self.animator(NarutoBlockLeft, 1)
+                self.animator(Naruto['BlockLeft'], 1)
             elif self.right:
-                self.animator(NarutoBlockRight, 1)
+                self.animator(Naruto['BlockRight'], 1)
             else:
-                self.animator(NarutoBlockRight, 1)
+                self.animator(Naruto['BlockRight'], 1)
+            self.isBlock = False
         elif self.combo1:
             if self.facingRight:
-                self.animator(NarutoCombo1Right, 0.4)
+                self.animator(Naruto['Combo1Right'], 0.4)
             elif self.facingLeft:
-                self.animator(NarutoCombo1Left, 0.4)
+                self.animator(Naruto['Combo1Left'], 0.4)
             self.combo1 = False
         elif self.throw:
             if self.facingRight:
-                self.animator(NarutoKunaiThrowRight, 1)
+                self.animator(Naruto['ThrowRight'], 1)
             if self.facingLeft:
-                self.animator(NarutoKunaiThrowLeft, 1)
+                self.animator(Naruto['ThrowLeft'], 1)
             self.throw = False
         elif self.spell1:
             if self.facingRight:
-                self.animator(NarutoSpell1Right, 1)
+                self.animator(Naruto['Spell1Right'], 1)
             if self.facingLeft:
-                self.animator(NarutoSpell1Left, 1)
+                self.animator(Naruto['Spell1Left'], 1)
         elif self.awaken:
             if self.facingRight:
-                self.animator(SasukeAwakeningRight, 0.2)
+                self.animator(Sasuke['AwakeningRight'], 0.2)
             if self.facingLeft:
-                self.animator(SasukeAwakeningLeft, 0.2)
+                self.animator(Sasuke['AwakeningLeft'], 0.2)
             self.awaken = False
         elif self.molding:
             if self.facingRight:
-                win.blit(NarutoBlockRight[0], (self.x, self.y))
+                self.animator(Naruto['BlockRight'], 1)
             if self.facingLeft:
-                win.blit(NarutoBlockLeft[0], (self.x, self.y))
+                self.animator(Naruto['BlockRight'], 1)
             self.molding = False
         elif self.isJump:
             if self.facingRight:
                 if self.isFalling:
-                    self.animator(NarutoFallingRight, 1)
+                    self.animator(Naruto['FallingRight'], 1)
                 else:
-                    self.animator(NarutoJumpingRight, 1)
+                    self.animator(Naruto['JumpingRight'], 1)
             if self.facingLeft:
                 if self.isFalling:
-                    self.animator(NarutoFallingLeft, 1)
+                    self.animator(Naruto['FallingLeft'], 1)
                 else:
-                    self.animator(NarutoJumpingLeft, 1)
+                    self.animator(Naruto['JumpingLeft'], 1)
         elif self.playerNumber == 1:
             if self.right:
-                win.blit(NarutoSprite, (self.x, self.y))
+                self.animator(Naruto['StandRight'], 1)
                 self.facingRight = True
-            elif self.left:
-                win.blit(NarutoSpriteLeft, (self.x, self.y))
+            if self.left:
+                self.animator(Naruto['StandLeft'], 1)
                 self.facingLeft = True
             else:
-                win.blit(NarutoSprite, (self.x, self.y))
+                self.animator(Naruto['StandRight'], 1)
         elif self.playerNumber == 2:
             if self.right:
-                win.blit(NarutoSprite, (self.x, self.y))
+                self.animator(Naruto['StandRight'], 1)
                 self.facingRight = True
             elif self.left:
-                win.blit(NarutoSpriteLeft, (self.x, self.y))
+                self.animator(Naruto['StandLeft'], 1)
                 self.facingLeft = True
             else:
-                win.blit(NarutoSpriteLeft, (self.x, self.y))
+                self.animator(Naruto['StandLeft'], 1)
         else:
             if self.right:
-                win.blit(NarutoSpriteRight, (self.x, self.y))
+                self.animator(Naruto['StandRight'], 1)
                 self.standingRight = True
             elif self.left:
-                win.blit(NarutoSpriteLeft, (self.x, self.y))
+                self.animator(Naruto['StandLeft'], 1)
                 self.standingLeft = True
             else:
-                win.blit(NarutoSpriteRight, (self.x, self.y))
+                self.animator(Naruto['StandRight'], 1)
                 self.standingRight = True
 
         if not self.awaken:
@@ -204,47 +204,47 @@ class Player(object):
         if not self.standing:
             if self.left:
                 if self.isJump and self.isFalling:
-                    self.animator(SasukeFallingLeft, 1)
+                    self.animator(Sasuke['FallingLeft'], 1)
                 elif self.isJump:
-                    self.animator(SasukeJumpingLeft, 0.3)
+                    self.animator(Sasuke['JumpingLeft'], 0.3)
                 else:
-                    self.animator(SasukeRunLeft, 0.5)
+                    self.animator(Sasuke['RunLeft'], 0.5)
             elif self.right:
                 if self.isJump and self.isFalling:
-                    self.animator(SasukeFallingRight, 1)
+                    self.animator(Sasuke['FallingRight'], 1)
                 elif self.isJump:
-                    self.animator(SasukeJumpingRight, 0.3)
+                    self.animator(Sasuke['JumpingRight'], 0.3)
                 else:
-                    self.animator(SasukeRunRight, 0.5)
+                    self.animator(Sasuke['RunRight'], 0.5)
         elif self.isBlock:
             if self.left:
-                self.animator(SasukeBlockLeft, 1)
+                self.animator(Sasuke['BlockLeft'], 1)
             elif self.right:
-                self.animator(SasukeBlockRight, 1)
+                self.animator(Sasuke['BlockRight'], 1)
             else:
-                self.animator(SasukeBlockRight, 1)
+                self.animator(Sasuke['BlockRight'], 1)
         elif self.combo1:
             if self.facingRight:
-                self.animator(SasukeCombo1Right, 0.4)
+                self.animator(Sasuke['Combo1Right'], 0.4)
             elif self.facingLeft:
-                self.animator(SasukeCombo1Left, 0.4)
+                self.animator(Sasuke['Combo1Left'], 0.4)
             self.combo1 = False
         elif self.throw:
             if self.facingRight:
-                self.animator(NarutoKunaiThrowRight, 1)
+                self.animator(Naruto['ThrowRight'], 1)
             if self.facingLeft:
-                self.animator(NarutoKunaiThrowLeft, 1)
+                self.animator(Naruto['ThrowLeft'], 1)
             self.throw = False
         elif self.spell1:
             if self.facingRight:
-                self.animator(SasukeSpell1Right, 0.05, 1)
+                self.animator(Sasuke['Spell1Right'], 0.05, 1)
             if self.facingLeft:
-                self.animator(SasukeSpell1Left, 0.05, 1)
+                self.animator(Sasuke['Spell1Left'], 0.05, 1)
         elif self.awaken:
             if self.facingRight:
-                self.animator(SasukeAwakeningRight, 0.2)
+                self.animator(Sasuke['AwakeningRight'], 0.2)
             if self.facingLeft:
-                self.animator(SasukeAwakeningLeft, 0.2)
+                self.animator(Sasuke['AwakeningLeft'], 0.2)
             self.awaken = False
         elif self.molding:
             if self.facingRight:
@@ -255,41 +255,41 @@ class Player(object):
         elif self.isJump:
             if self.facingRight:
                 if self.isFalling:
-                    self.animator(SasukeFallingRight, 1)
+                    self.animator(Sasuke['FallingRight'], 1)
                 else:
-                    self.animator(SasukeJumpingRight, 1)
+                    self.animator(Sasuke['JumpingRight'], 1)
             if self.facingLeft:
                 if self.isFalling:
-                    self.animator(SasukeFallingLeft, 1)
+                    self.animator(Sasuke['FallingLeft'], 1)
                 else:
-                    self.animator(SasukeJumpingLeft, 1)
+                    self.animator(Sasuke['JumpingLeft'], 1)
         elif self.playerNumber == 1:
             if self.right:
-                win.blit(NarutoSprite, (self.x, self.y))
+                self.animator(Naruto['StandRight'], 1)
                 self.facingRight = True
             elif self.left:
-                win.blit(NarutoSpriteLeft, (self.x, self.y))
+                self.animator(Naruto['StandLeft'], 1)
                 self.facingLeft = True
             else:
-                win.blit(NarutoSprite, (self.x, self.y))
+                self.animator(Naruto['StandRight'], 1)
         elif self.playerNumber == 2:
             if self.right:
-                win.blit(SasukeSpriteRight, (self.x, self.y))
+                self.animator(Sasuke['StandRight'], 0.1)
                 self.facingRight = True
             elif self.left:
-                win.blit(SasukeSpriteLeft, (self.x, self.y))
+                self.animator(Sasuke['StandLeft'], 1)
                 self.facingLeft = True
             else:
-                win.blit(SasukeSpriteLeft, (self.x, self.y))
+                self.animator(Sasuke['StandLeft'], 1)
         else:
             if self.right:
-                win.blit(SasukeSpriteRight, (self.x, self.y))
+                self.animator(Sasuke['StandRight'], 0.1)
                 self.standingRight = True
             elif self.left:
-                win.blit(SasukeSpriteLeft, (self.x, self.y))
+                self.animator(Sasuke['StandLeft'], 1)
                 self.standingLeft = True
             else:
-                win.blit(SasukeSpriteRight, (self.x, self.y))
+                self.animator(Sasuke['StandRight'], 0.1)
                 self.standingRight = True
 
         if not self.awaken:
@@ -317,7 +317,7 @@ class projectile(object):
 
     def draw(self, win):
         if facing == 1:
-            win.blit(kunaiSprite, (self.x, self.y))
+            win.blit(kunaiSpriteRight, (self.x, self.y))
             self.hitbox = (self.x, self.y, 20, 15)
             pygame.draw.rect(win, blue, self.hitbox, 2)
         else:
