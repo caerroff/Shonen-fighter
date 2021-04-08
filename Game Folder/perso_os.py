@@ -5,7 +5,7 @@
 
 import os, pygame
 
-def perso(path = "./", name ="naruto", default_orientation=">") :
+def perso(path = "../Sprite/", name ="Naruto", default_orientation=">") :
     """Dictionnaire de sprites pour un perso"""
     perso = {}
     def flip(sprite, orientation = ">") :   # Fonction pour flipper les sprites :
@@ -18,10 +18,12 @@ def perso(path = "./", name ="naruto", default_orientation=">") :
         ls_sprites = next(os.walk(path+name+"/"+pose))[2]
         ls_sprites.sort()
         for png in ls_sprites :             # Collecte des fichiers png :
-            perso[pose+"Left" ].append(flip(pygame.image.load(path+name+"/"+pose+"/"+png), ">"))
-            perso[pose+"Right"].append(flip(pygame.image.load(path+name+"/"+pose+"/"+png), "<"))
+            perso[pose+"Left" ].append(flip(pygame.image.load(path+name+"/"+pose+"/"+png), "<"))
+            perso[pose+"Right"].append(flip(pygame.image.load(path+name+"/"+pose+"/"+png), ">"))
     return perso
 
+Naruto = perso()
+Sasuke = perso('../Sprite/', 'Sasuke')
 
 ### Recréation d'une multitude de variables à partir du dico :
 ### ET ÇA BLOQUE : et de toutes façons, exec, c'est sale !
@@ -42,7 +44,7 @@ if __name__ == '__main__':
     pygame.init()
     screen = pygame.display.set_mode((1200, 600))
     font = pygame.font.SysFont(None, 35)
-    perso1 = perso("", "naruto", ">")
+    perso1 = perso("../Sprite/", "Naruto", ">")
     x, y = 0, 0
     for pose in perso1.keys() :
         y = 0
