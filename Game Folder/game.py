@@ -21,7 +21,6 @@ def soundsFunction():
     pygame.mixer.music.load('naruto_theme.mp3')
     pygame.mixer.music.play(-1)
 
-
 font = pygame.font.Font("Helvetica.ttf", 30)  # Font importé pour le score
 player1Score = 0
 player2Score = 0
