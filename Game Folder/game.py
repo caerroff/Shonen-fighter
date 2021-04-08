@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import pygame, time
-from perso import *
+from perso_os import *
 # from gui import *
 
 pygame.init()
