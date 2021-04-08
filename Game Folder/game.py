@@ -404,7 +404,8 @@ while launched:
                             kunaiImpactSound.play()
                         player2.hit()
                         player1Score += 1
-                        player1.awakening += 1
+                        if player1.awakening:
+                            player1.awakening += 1
                         kunais.pop(kunais.index(kunai))
 
     for kunai in kunais:
@@ -492,7 +493,8 @@ while launched:
         if player1.combo1:
             player2.hit()
             player1Score += 1
-            player1.awakening += 1
+            if player1.awakening < 200:
+                player1.awakening += 1
         else:
             player1Score = player1Score
 
@@ -546,7 +548,8 @@ while launched:
                             kunaiImpactSound.play()
                         player1.hit()
                         player2Score += 1
-                        player2.awakening += 1
+                        if player2.awakening < 200:
+                            player2.awakening += 1
                         kunais2.pop(kunais2.index(kunai))
 
         if 670 > kunai.x > 0:
@@ -629,7 +632,8 @@ while launched:
         if player2.combo1:
             player1.hit()
             player2Score += 1
-            player2.awakening += 1
+            if player2.awakening < 200:
+                player2.awakening += 1
         else:
             player2Score = player2Score
 
