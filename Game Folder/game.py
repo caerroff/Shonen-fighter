@@ -167,16 +167,16 @@ class Player(object):
                     self.animator(Naruto['JumpingLeft'], 1)
         elif self.playerNumber == 1:
             if self.right:
-                self.animator(Deku['StandRight'], 1)
+                self.animator(Naruto['StandRight'], 1)
                 self.facingRight = True
             if self.left:
                 self.animator(Naruto['StandLeft'], 1)
                 self.facingLeft = True
             else:
-                self.animator(Deku['StandRight'], 1)
+                self.animator(Naruto['StandRight'], 1)
         elif self.playerNumber == 2:
             if self.right:
-                self.animator(Deku['StandRight'], 1)
+                self.animator(Naruto['StandRight'], 1)
                 self.facingRight = True
             elif self.left:
                 self.animator(Naruto['StandLeft'], 1)
@@ -185,13 +185,13 @@ class Player(object):
                 self.animator(Naruto['StandLeft'], 1)
         else:
             if self.right:
-                self.animator(Deku['StandRight'], 1)
+                self.animator(Naruto['StandRight'], 1)
                 self.standingRight = True
             elif self.left:
                 self.animator(Naruto['StandLeft'], 1)
                 self.standingLeft = True
             else:
-                self.animator(Deku['StandRight'], 1)
+                self.animator(Naruto['StandRight'], 1)
                 self.standingRight = True
 
         if not self.awaken:
@@ -238,9 +238,9 @@ class Player(object):
             self.throw = False
         elif self.spell1:
             if self.facingRight:
-                self.animator(Sasuke['Spell1Right'], 0.1, 1)
+                self.animator(Sasuke['Spell1Right'], 1, 1)
             if self.facingLeft:
-                self.animator(Sasuke['Spell1Left'], 0.1, 1)
+                self.animator(Sasuke['Spell1Left'], 1, 1)
         elif self.awaken:
             if self.facingRight:
                 self.animator(Sasuke['AwakeningRight'], 0.2)
@@ -266,13 +266,13 @@ class Player(object):
                     self.animator(Sasuke['JumpingLeft'], 1)
         elif self.playerNumber == 1:
             if self.right:
-                self.animator(Deku['StandRight'], 1)
+                self.animator(Naruto['StandRight'], 1)
                 self.facingRight = True
             elif self.left:
                 self.animator(Naruto['StandLeft'], 1)
                 self.facingLeft = True
             else:
-                self.animator(Deku['StandRight'], 1)
+                self.animator(Naruto['StandRight'], 1)
         elif self.playerNumber == 2:
             if self.right:
                 self.animator(Sasuke['StandRight'], 0.1)
