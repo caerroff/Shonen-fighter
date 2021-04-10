@@ -290,14 +290,12 @@ class Player(object):
             else:
                 self.animator(Sasuke['StandRight'], 0.1)
                 self.standingRight = True
-
         if not self.awaken:
             self.hitbox = (self.x, self.y, 47, 60)
             pygame.draw.rect(win, blue, self.hitbox, 2)
         else:
             self.hitbox = (self.x, self.y, 65, 80)
             pygame.draw.rect(win, red, self.hitbox, 2)
-
     def hit(self):
         if self.health > 0:
             self.health -= 1
@@ -616,6 +614,7 @@ while launched:
 
     elif keys[pygame.K_c]:
         player2.spell1 = True
+        player2.keySpell = True
         #player2.awaken = True
 
     # Combo 1 Movement --> Player 2 (G) ---> Objectif : Interrompre la marche pour utiliser le combo
