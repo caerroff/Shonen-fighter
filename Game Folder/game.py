@@ -237,9 +237,9 @@ class Player(object):
             self.throw = False
         elif self.spell1:
             if self.facingRight:
-                self.animator(Sasuke['Spell1Right'], 0.1, 1)
+                self.animator(Sasuke['Spell1Right'], 0.5, 1)
             if self.facingLeft:
-                self.animator(Sasuke['Spell1Left'], 0.1, 1)
+                self.animator(Sasuke['Spell1Left'], 0.5, 1)
         elif self.awaken:
             if self.facingRight:
                 self.animator(Sasuke['AwakeningRight'], 0.2)
