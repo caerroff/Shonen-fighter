@@ -24,6 +24,7 @@ def perso(path = "../Sprite/", name ="Naruto", default_orientation=">") :
 
 Naruto = perso()
 Sasuke = perso('../Sprite/', 'Sasuke')
+Deku = perso('../Sprite/', 'Deku')
 
 ### Recréation d'une multitude de variables à partir du dico :
 ### ET ÇA BLOQUE : et de toutes façons, exec, c'est sale !
