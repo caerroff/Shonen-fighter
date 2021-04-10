@@ -67,6 +67,7 @@ class Player(object):
         self.molding = False
         self.awakening = 0
         self.awaken = False
+        self.transforming = False
         self.isContact = False
         self.playerNumber = playerNumber
         self.current_sprite = 0
@@ -202,102 +203,190 @@ class Player(object):
             pygame.draw.rect(win, red, self.hitbox, 2)
 
     def draw_sasuke(self, win):
-        if not self.standing:
-            if self.left:
-                if self.isJump and self.isFalling:
-                    self.animator(Sasuke['FallingLeft'], 1)
-                elif self.isJump:
-                    self.animator(Sasuke['JumpingLeft'], 0.3)
+        if not self.awaken:
+            if not self.standing:
+                if self.left:
+                    if self.isJump and self.isFalling:
+                        self.animator(Sasuke['FallingLeft'], 1)
+                    elif self.isJump:
+                        self.animator(Sasuke['JumpingLeft'], 0.3)
+                    else:
+                        self.animator(Sasuke['RunLeft'], 0.5)
+                elif self.right:
+                    if self.isJump and self.isFalling:
+                        self.animator(Sasuke['FallingRight'], 1)
+                    elif self.isJump:
+                        self.animator(Sasuke['JumpingRight'], 0.3)
+                    else:
+                        self.animator(Sasuke['RunRight'], 0.5)
+            elif self.isBlock:
+                if self.left or self.facingLeft:
+                    self.animator(Sasuke['BlockLeft'], 1)
+                elif self.right or self.facingRight:
+                    self.animator(Sasuke['BlockRight'], 1)
                 else:
-                    self.animator(Sasuke['RunLeft'], 0.5)
-            elif self.right:
-                if self.isJump and self.isFalling:
-                    self.animator(Sasuke['FallingRight'], 1)
-                elif self.isJump:
-                    self.animator(Sasuke['JumpingRight'], 0.3)
+                    self.animator(Sasuke['BlockRight'], 1)
+            elif self.combo1:
+                if self.facingRight:
+                    self.animator(Sasuke['Combo1Right'], 0.4)
+                elif self.facingLeft:
+                    self.animator(Sasuke['Combo1Left'], 0.4)
+                self.combo1 = False
+            elif self.throw:
+                if self.facingRight:
+                    self.animator(Sasuke['ThrowRight'], 1)
+                if self.facingLeft:
+                    self.animator(Sasuke['ThrowLeft'], 1)
+                self.throw = False
+            elif self.spell1:
+                if self.facingRight:
+                    self.animator(Sasuke['Spell1Right'], 1, 1)
+                if self.facingLeft:
+                    self.animator(Sasuke['Spell1Left'], 1, 1)
+            elif self.molding:
+                if self.facingRight:
+                    self.animator(Sasuke['MoldingRight'], 1, 0.2)
+                if self.facingLeft:
+                    self.animator(Sasuke['MoldingLeft'], 1, 0.2)
+                self.molding = False
+            elif self.isJump:
+                if self.facingRight:
+                    if self.isFalling:
+                        self.animator(Sasuke['FallingRight'], 1)
+                    else:
+                        self.animator(Sasuke['JumpingRight'], 1)
+                if self.facingLeft:
+                    if self.isFalling:
+                        self.animator(Sasuke['FallingLeft'], 1)
+                    else:
+                        self.animator(Sasuke['JumpingLeft'], 1)
+            elif self.playerNumber == 1:
+                if self.right:
+                    self.animator(Naruto['StandRight'], 1)
+                    self.facingRight = True
+                elif self.left:
+                    self.animator(Naruto['StandLeft'], 1)
+                    self.facingLeft = True
                 else:
-                    self.animator(Sasuke['RunRight'], 0.5)
-        elif self.isBlock:
-            if self.left or self.facingLeft:
-                self.animator(Sasuke['BlockLeft'], 1)
-            elif self.right or self.facingRight:
-                self.animator(Sasuke['BlockRight'], 1)
-            else:
-                self.animator(Sasuke['BlockRight'], 1)
-        elif self.combo1:
-            if self.facingRight:
-                self.animator(Sasuke['Combo1Right'], 0.4)
-            elif self.facingLeft:
-                self.animator(Sasuke['Combo1Left'], 0.4)
-            self.combo1 = False
-        elif self.throw:
-            if self.facingRight:
-                self.animator(Sasuke['ThrowRight'], 1)
-            if self.facingLeft:
-                self.animator(Sasuke['ThrowLeft'], 1)
-            self.throw = False
-        elif self.spell1:
-            if self.facingRight:
-                self.animator(Sasuke['Spell1Right'], 1, 1)
-            if self.facingLeft:
-                self.animator(Sasuke['Spell1Left'], 1, 1)
-        elif self.awaken:
-            if self.facingRight:
-                self.animator(Sasuke['AwakeningRight'], 0.2)
-            if self.facingLeft:
-                self.animator(Sasuke['AwakeningLeft'], 0.2)
-            self.awaken = False
-        elif self.molding:
-            if self.facingRight:
-                win.blit(SasukeAwakeningRight[0], (self.x, self.y))
-            if self.facingLeft:
-                win.blit(SasukeAwakeningLeft[0], (self.x, self.y))
-            self.molding = False
-        elif self.isJump:
-            if self.facingRight:
-                if self.isFalling:
-                    self.animator(Sasuke['FallingRight'], 1)
+                    self.animator(Naruto['StandRight'], 1)
+            elif self.playerNumber == 2:
+                if self.right:
+                    self.animator(Sasuke['StandRight'], 0.1)
+                    self.facingRight = True
+                elif self.left:
+                    self.animator(Sasuke['StandLeft'], 1)
+                    self.facingLeft = True
                 else:
-                    self.animator(Sasuke['JumpingRight'], 1)
-            if self.facingLeft:
-                if self.isFalling:
-                    self.animator(Sasuke['FallingLeft'], 1)
+                    self.animator(Sasuke['StandLeft'], 1)
+            else:
+                if self.right:
+                    self.animator(Sasuke['StandRight'], 0.1)
+                    self.standingRight = True
+                elif self.left:
+                    self.animator(Sasuke['StandLeft'], 1)
+                    self.standingLeft = True
                 else:
-                    self.animator(Sasuke['JumpingLeft'], 1)
-        elif self.playerNumber == 1:
-            if self.right:
-                self.animator(Naruto['StandRight'], 1)
-                self.facingRight = True
-            elif self.left:
-                self.animator(Naruto['StandLeft'], 1)
-                self.facingLeft = True
+                    self.animator(Sasuke['StandRight'], 0.1)
+                    self.standingRight = True
+        if self.transforming:
+            if self.facingRight:
+                self.animator(Sasuke['AwakeningRight'], 0.2, 1)
+            if self.facingLeft:
+                self.animator(Sasuke['AwakeningLeft'], 0.2, 1)
+            self.transforming = False
+            self.awaken = True
+        if self.awaken:
+            if not self.standing:
+                if self.left:
+                    if self.isJump and self.isFalling:
+                        self.animator(Sasuke['AwakeFallingLeft'], 1)
+                    elif self.isJump:
+                        self.animator(Sasuke['AwakeJumpingLeft'], 0.3)
+                    else:
+                        self.animator(Sasuke['AwakeRunLeft'], 0.2)
+                elif self.right:
+                    if self.isJump and self.isFalling:
+                        self.animator(Sasuke['AwakeFallingRight'], 1)
+                    elif self.isJump:
+                        self.animator(Sasuke['AwakeJumpingRight'], 0.3)
+                    else:
+                        self.animator(Sasuke['AwakeRunRight'], 0.2)
+            elif self.isBlock:
+                if self.left or self.facingLeft:
+                    self.animator(Sasuke['AwakeBlockLeft'], 1)
+                elif self.right or self.facingRight:
+                    self.animator(Sasuke['AwakeBlockRight'], 1)
+                else:
+                    self.animator(Sasuke['AwakeBlockRight'], 1)
+            elif self.combo1:
+                if self.facingRight:
+                    self.animator(Sasuke['AwakeCombo1Right'], 0.4)
+                elif self.facingLeft:
+                    self.animator(Sasuke['AwakeCombo1Left'], 0.4)
+                self.combo1 = False
+            elif self.throw:
+                if self.facingRight:
+                    self.animator(Sasuke['AwakeThrowRight'], 1)
+                if self.facingLeft:
+                    self.animator(Sasuke['AwakeThrowLeft'], 1)
+                self.throw = False
+            elif self.spell1:
+                if self.facingRight:
+                    self.animator(Sasuke['AwakeSpell1Right'], 1, 1)
+                if self.facingLeft:
+                    self.animator(Sasuke['AwakeSpell1Left'], 1, 1)
+            elif self.molding:
+                if self.facingRight:
+                    self.animator(Sasuke['AwakeMoldingRight'], 0.2)
+                if self.facingLeft:
+                    self.animator(Sasuke['AwakeMoldingLeft'], 0.2)
+                self.molding = False
+            elif self.isJump:
+                if self.facingRight:
+                    if self.isFalling:
+                        self.animator(Sasuke['AwakeFallingRight'], 1)
+                    else:
+                        self.animator(Sasuke['AwakeJumpingRight'], 1)
+                if self.facingLeft:
+                    if self.isFalling:
+                        self.animator(Sasuke['AwakeFallingLeft'], 1)
+                    else:
+                        self.animator(Sasuke['AwakeJumpingLeft'], 1)
+            elif self.playerNumber == 1:
+                if self.right:
+                    self.animator(Naruto['AwakeStandRight'], 1)
+                    self.facingRight = True
+                elif self.left:
+                    self.animator(Naruto['AwakeStandLeft'], 1)
+                    self.facingLeft = True
+                else:
+                    self.animator(Naruto['AwakeStandRight'], 1)
+            elif self.playerNumber == 2:
+                if self.right:
+                    self.animator(Sasuke['AwakeStandRight'], 0.1)
+                    self.facingRight = True
+                elif self.left:
+                    self.animator(Sasuke['AwakeStandLeft'], 1)
+                    self.facingLeft = True
+                else:
+                    self.animator(Sasuke['AwakeStandLeft'], 1)
             else:
-                self.animator(Naruto['StandRight'], 1)
-        elif self.playerNumber == 2:
-            if self.right:
-                self.animator(Sasuke['StandRight'], 0.1)
-                self.facingRight = True
-            elif self.left:
-                self.animator(Sasuke['StandLeft'], 1)
-                self.facingLeft = True
-            else:
-                self.animator(Sasuke['StandLeft'], 1)
-        else:
-            if self.right:
-                self.animator(Sasuke['StandRight'], 0.1)
-                self.standingRight = True
-            elif self.left:
-                self.animator(Sasuke['StandLeft'], 1)
-                self.standingLeft = True
-            else:
-                self.animator(Sasuke['StandRight'], 0.1)
-                self.standingRight = True
+                if self.right:
+                    self.animator(Sasuke['AwakeStandRight'], 0.1)
+                    self.standingRight = True
+                elif self.left:
+                    self.animator(Sasuke['AwakeStandLeft'], 1)
+                    self.standingLeft = True
+                else:
+                    self.animator(Sasuke['AwakeStandRight'], 0.1)
+                    self.standingRight = True
         if not self.awaken:
             self.hitbox = (self.x, self.y, 47, 60)
             pygame.draw.rect(win, blue, self.hitbox, 2)
         else:
             self.hitbox = (self.x, self.y, 65, 80)
             pygame.draw.rect(win, red, self.hitbox, 2)
+
 
     def hit(self):
         if self.health > 0:
@@ -404,8 +493,9 @@ while launched:
                             kunaiImpactSound.play()
                         player2.hit()
                         player1Score += 1
-                        if player1.awakening:
-                            player1.awakening += 1
+                        if not player1.awaken:
+                            if player1.awakening < 200:
+                                player1.awakening += 1
                         kunais.pop(kunais.index(kunai))
 
     for kunai in kunais:
@@ -548,8 +638,9 @@ while launched:
                             kunaiImpactSound.play()
                         player1.hit()
                         player2Score += 1
-                        if player2.awakening < 200:
-                            player2.awakening += 1
+                        if not player2.awaken:
+                            if player2.awakening < 200:
+                                player2.awakening += 100
                         kunais2.pop(kunais2.index(kunai))
 
         if 670 > kunai.x > 0:
@@ -618,6 +709,13 @@ while launched:
     elif keys[pygame.K_c]:
         player2.spell1 = True
         #player2.awaken = True
+
+    # Transforming
+    elif keys[pygame.K_w]:
+        if player2.awakening >= 200:
+            player2.transforming = True
+            player2.awakening = 0
+
 
     # Combo 1 Movement --> Player 2 (G) ---> Objectif : Interrompre la marche pour utiliser le combo
     elif keys[pygame.K_g]:

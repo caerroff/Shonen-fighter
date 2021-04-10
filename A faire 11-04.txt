@@ -1,0 +1,14 @@
+-Chidori/ chidori run/ chidori awake/ chidori awake run
+
+-Katon/ awake katon
+
+-Awake (effets sur le personnage) / vol sasuke
+
+-Compléments sasuke (ex: katon vers le bas)
+
+-Système de chakra
+
+-Timer/ Cooldown/ Death
+
+-Selcter de personnage
+
