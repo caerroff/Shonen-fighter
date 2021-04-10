@@ -62,6 +62,7 @@ class Player(object):
         self.facingRight = False
         self.hitbox = (self.x, self.y, 47, 60)
         self.health = 100
+        self.damaged = False
         self.mana = 0
         self.molding = False
         self.awakening = 0
@@ -117,9 +118,9 @@ class Player(object):
                 else:
                     self.animator(Naruto['RunRight'], 0.5)
         elif self.isBlock:
-            if self.left:
+            if self.left or self.facingLeft:
                 self.animator(Naruto['BlockLeft'], 1)
-            elif self.right:
+            elif self.right or self.facingRight:
                 self.animator(Naruto['BlockRight'], 1)
             else:
                 self.animator(Naruto['BlockRight'], 1)
@@ -166,16 +167,16 @@ class Player(object):
                     self.animator(Naruto['JumpingLeft'], 1)
         elif self.playerNumber == 1:
             if self.right:
-                self.animator(Naruto['StandRight'], 1)
+                self.animator(Deku['StandRight'], 1)
                 self.facingRight = True
             if self.left:
                 self.animator(Naruto['StandLeft'], 1)
                 self.facingLeft = True
             else:
-                self.animator(Naruto['StandRight'], 1)
+                self.animator(Deku['StandRight'], 1)
         elif self.playerNumber == 2:
             if self.right:
-                self.animator(Naruto['StandRight'], 1)
+                self.animator(Deku['StandRight'], 1)
                 self.facingRight = True
             elif self.left:
                 self.animator(Naruto['StandLeft'], 1)
@@ -184,13 +185,13 @@ class Player(object):
                 self.animator(Naruto['StandLeft'], 1)
         else:
             if self.right:
-                self.animator(Naruto['StandRight'], 1)
+                self.animator(Deku['StandRight'], 1)
                 self.standingRight = True
             elif self.left:
                 self.animator(Naruto['StandLeft'], 1)
                 self.standingLeft = True
             else:
-                self.animator(Naruto['StandRight'], 1)
+                self.animator(Deku['StandRight'], 1)
                 self.standingRight = True
 
         if not self.awaken:
@@ -217,9 +218,9 @@ class Player(object):
                 else:
                     self.animator(Sasuke['RunRight'], 0.5)
         elif self.isBlock:
-            if self.left:
+            if self.left or self.facingLeft:
                 self.animator(Sasuke['BlockLeft'], 1)
-            elif self.right:
+            elif self.right or self.facingRight:
                 self.animator(Sasuke['BlockRight'], 1)
             else:
                 self.animator(Sasuke['BlockRight'], 1)
@@ -237,9 +238,9 @@ class Player(object):
             self.throw = False
         elif self.spell1:
             if self.facingRight:
-                self.animator(Sasuke['Spell1Right'], 0.5, 1)
+                self.animator(Sasuke['Spell1Right'], 0.1, 1)
             if self.facingLeft:
-                self.animator(Sasuke['Spell1Left'], 0.5, 1)
+                self.animator(Sasuke['Spell1Left'], 0.1, 1)
         elif self.awaken:
             if self.facingRight:
                 self.animator(Sasuke['AwakeningRight'], 0.2)
@@ -265,13 +266,13 @@ class Player(object):
                     self.animator(Sasuke['JumpingLeft'], 1)
         elif self.playerNumber == 1:
             if self.right:
-                self.animator(Naruto['StandRight'], 1)
+                self.animator(Deku['StandRight'], 1)
                 self.facingRight = True
             elif self.left:
                 self.animator(Naruto['StandLeft'], 1)
                 self.facingLeft = True
             else:
-                self.animator(Naruto['StandRight'], 1)
+                self.animator(Deku['StandRight'], 1)
         elif self.playerNumber == 2:
             if self.right:
                 self.animator(Sasuke['StandRight'], 0.1)
@@ -297,6 +298,7 @@ class Player(object):
         else:
             self.hitbox = (self.x, self.y, 65, 80)
             pygame.draw.rect(win, red, self.hitbox, 2)
+
     def hit(self):
         if self.health > 0:
             self.health -= 1
