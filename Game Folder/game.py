@@ -77,10 +77,11 @@ class Player(object):
             else:
                 win.blit(list[int(self.current_sprite)], (self.x, self.y))
                 self.current_sprite += increm
-        if self.current_sprite >= len(list):
-            self.current_sprite = 0
-        win.blit(list[int(self.current_sprite)], (self.x, self.y))
-        self.current_sprite += increm
+        else:
+            if self.current_sprite >= len(list):
+                self.current_sprite = 0
+            win.blit(list[int(self.current_sprite)], (self.x, self.y))
+            self.current_sprite += increm
 
     def draw_ath(self, win):
         if self.playerNumber == 1:  # Jauge de vie du Joueur 1
@@ -236,9 +237,9 @@ class Player(object):
             self.throw = False
         elif self.spell1:
             if self.facingRight:
-                self.animator(Sasuke['Spell1Right'], 0.05, 1)
+                self.animator(Sasuke['Spell1Right'], 0.1, 1)
             if self.facingLeft:
-                self.animator(Sasuke['Spell1Left'], 0.05, 1)
+                self.animator(Sasuke['Spell1Left'], 0.1, 1)
         elif self.awaken:
             if self.facingRight:
                 self.animator(Sasuke['AwakeningRight'], 0.2)
@@ -614,7 +615,6 @@ while launched:
 
     elif keys[pygame.K_c]:
         player2.spell1 = True
-        player2.keySpell = True
         #player2.awaken = True
 
     # Combo 1 Movement --> Player 2 (G) ---> Objectif : Interrompre la marche pour utiliser le combo
