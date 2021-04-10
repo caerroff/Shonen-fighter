@@ -231,9 +231,9 @@ class Player(object):
             self.combo1 = False
         elif self.throw:
             if self.facingRight:
-                self.animator(Naruto['ThrowRight'], 1)
+                self.animator(Sasuke['ThrowRight'], 1)
             if self.facingLeft:
-                self.animator(Naruto['ThrowLeft'], 1)
+                self.animator(Sasuke['ThrowLeft'], 1)
             self.throw = False
         elif self.spell1:
             if self.facingRight:
