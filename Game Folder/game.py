@@ -62,10 +62,11 @@ class Player(object):
         self.facingRight = False
         self.hitbox = (self.x, self.y, 47, 60)
         self.health = 100
+        self.dealable = False
         self.damaged = False
         self.mana = 0
         self.molding = False
-        self.awakening = 0
+        self.awakening = 200
         self.awaken = False
         self.transforming = False
         self.isContact = False
@@ -84,6 +85,29 @@ class Player(object):
                 self.current_sprite = 0
             win.blit(list[int(self.current_sprite)], (self.x, self.y))
             self.current_sprite += increm
+
+    def doubleAnimation(self, listA, listB, increm = 1, increm2 = 0.35):
+        nextAnim = False
+        if self.current_sprite < len(listA):
+            win.blit(listA[int(self.current_sprite)], (self.x, self.y))
+            self.current_sprite += increm
+        else:
+            nextAnim = True
+        if nextAnim:
+            if self.current_sprite >= len(listA):
+                if self.current_sprite >= len(listA):
+                    if self.current_sprite >= len(listB):
+                        self.spell1 = False
+                    else:
+                        self.dealable = True
+                        if self.facingLeft:
+                            self.x -= 15
+                        if self.facingRight:
+                            self.x += 15
+                        win.blit(listB[int(self.current_sprite)], (self.x, self.y))
+                        self.current_sprite += increm2
+                        if self.current_sprite >= len(listB):
+                            self.spell1 = False
 
     def draw_ath(self, win):
         if self.playerNumber == 1:  # Jauge de vie du Joueur 1
@@ -332,9 +356,10 @@ class Player(object):
                 self.throw = False
             elif self.spell1:
                 if self.facingRight:
-                    self.animator(Sasuke['AwakeSpell1Right'], 1, 1)
+                    self.doubleAnimation(Sasuke['AwakeSpell1ChargeRight'], Sasuke['AwakeSpell1AttackRight'], 0.075)
                 if self.facingLeft:
-                    self.animator(Sasuke['AwakeSpell1Left'], 1, 1)
+                    self.doubleAnimation(Sasuke['AwakeSpell1ChargeLeft'], Sasuke['AwakeSpell1AttackLeft'], 0.075)
+                self.spell1 = False
             elif self.molding:
                 if self.facingRight:
                     self.animator(Sasuke['AwakeMoldingRight'], 0.2)
@@ -388,9 +413,9 @@ class Player(object):
             pygame.draw.rect(win, red, self.hitbox, 2)
 
 
-    def hit(self):
+    def hit(self, damages):
         if self.health > 0:
-            self.health -= 1
+            self.health -= damages
             win.blit(bg, (-3, 0))
             print("Touché !", "Hp : ", self.health)
 
@@ -491,7 +516,7 @@ while launched:
                     else:
                         if soundActivated:
                             kunaiImpactSound.play()
-                        player2.hit()
+                        player2.hit(5)
                         player1Score += 1
                         if not player1.awaken:
                             if player1.awakening < 200:
@@ -581,7 +606,7 @@ while launched:
     # Combo 1 --> Damages
     if player1.isContact:
         if player1.combo1:
-            player2.hit()
+            player2.hit(10)
             player1Score += 1
             if player1.awakening < 200:
                 player1.awakening += 1
@@ -636,7 +661,7 @@ while launched:
                     else:
                         if soundActivated:
                             kunaiImpactSound.play()
-                        player1.hit()
+                        player1.hit(5)
                         player2Score += 1
                         if not player2.awaken:
                             if player2.awakening < 200:
@@ -708,7 +733,9 @@ while launched:
 
     elif keys[pygame.K_c]:
         player2.spell1 = True
-        #player2.awaken = True
+        if player2.isContact:
+            if player2.dealable:
+                player1.hit(1)
 
     # Transforming
     elif keys[pygame.K_w]:
@@ -728,7 +755,7 @@ while launched:
     # Combo 1 --> Damages
     if player2.isContact:
         if player2.combo1:
-            player1.hit()
+            player1.hit(10)
             player2Score += 1
             if player2.awakening < 200:
                 player2.awakening += 1
