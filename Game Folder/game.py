@@ -100,14 +100,15 @@ class Player(object):
                         self.spell1 = False
                     else:
                         self.dealable = True
-                        if self.facingLeft:
-                            self.x -= 15
-                        if self.facingRight:
-                            self.x += 15
+                        if self.facingLeft and self.x > self.vel:
+                            self.x -= 27
+                        if self.facingRight and self.x < 700 - self.width - self.vel:
+                            self.x += 27
                         win.blit(listB[int(self.current_sprite)], (self.x, self.y))
                         self.current_sprite += increm2
                         if self.current_sprite >= len(listB):
                             self.spell1 = False
+                            self.dealable = False
 
     def draw_ath(self, win):
         if self.playerNumber == 1:  # Jauge de vie du Joueur 1
@@ -317,8 +318,8 @@ class Player(object):
                 self.animator(Sasuke['AwakeningRight'], 0.2, 1)
             if self.facingLeft:
                 self.animator(Sasuke['AwakeningLeft'], 0.2, 1)
-            self.transforming = False
-            self.awaken = True
+            #self.transforming = False
+            #self.awaken = True
         if self.awaken:
             if not self.standing:
                 if self.left:
