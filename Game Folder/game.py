@@ -55,6 +55,7 @@ class Player(object):
         self.combo1 = False
         self.throw = False
         self.spell1 = False
+        self.spell2 = False
         self.standing = True
         self.standingRight = False
         self.standingLeft = False
@@ -265,9 +266,15 @@ class Player(object):
                 self.throw = False
             elif self.spell1:
                 if self.facingRight:
-                    self.animator(Sasuke['Spell1Right'], 1, 1)
+                    self.animator(Sasuke['Spell1Right'], 0.3, 1)
                 if self.facingLeft:
-                    self.animator(Sasuke['Spell1Left'], 1, 1)
+                    self.animator(Sasuke['Spell1Left'], 0.3, 1)
+            elif self.spell2:
+                if self.facingRight:
+                    self.doubleAnimation(Sasuke['Spell2Right'], Sasuke['EffectRight'], 0.5, 0.5)
+                if self.facingLeft:
+                    self.doubleAnimation(Sasuke['Spell2Left'], Sasuke['EffectLeft'], 0.5, 0.5)
+                self.spell2 = False
             elif self.molding:
                 if self.facingRight:
                     self.animator(Sasuke['MoldingRight'], 1, 0.2)
@@ -296,7 +303,7 @@ class Player(object):
                     self.animator(Naruto['StandRight'], 1)
             elif self.playerNumber == 2:
                 if self.right:
-                    self.animator(Sasuke['StandRight'], 0.1)
+                    self.animator(Sasuke['StandRight'], 1)
                     self.facingRight = True
                 elif self.left:
                     self.animator(Sasuke['StandLeft'], 1)
@@ -744,6 +751,9 @@ while launched:
             player2.transforming = True
             player2.awakening = 0
 
+    # Test Katon
+    elif keys[pygame.K_x]:
+        player2.spell2 = True
 
     # Combo 1 Movement --> Player 2 (G) ---> Objectif : Interrompre la marche pour utiliser le combo
     elif keys[pygame.K_g]:
