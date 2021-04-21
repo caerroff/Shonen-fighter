@@ -96,20 +96,19 @@ class Player(object):
             nextAnim = True
         if nextAnim:
             if self.current_sprite >= len(listA):
-                if self.current_sprite >= len(listA):
+                if self.current_sprite >= len(listB):
+                    self.spell1 = False
+                else:
+                    self.dealable = True
+                    #if self.facingLeft and self.x > self.vel:
+                    #    self.x -= 20
+                    #if self.facingRight and self.x < 700 - self.width - self.vel:
+                    #    self.x += 20
+                    win.blit(listB[int(self.current_sprite)], (self.x, self.y))
+                    self.current_sprite += increm2
                     if self.current_sprite >= len(listB):
                         self.spell1 = False
-                    else:
-                        self.dealable = True
-                        if self.facingLeft and self.x > self.vel:
-                            self.x -= 20
-                        if self.facingRight and self.x < 700 - self.width - self.vel:
-                            self.x += 20
-                        win.blit(listB[int(self.current_sprite)], (self.x, self.y))
-                        self.current_sprite += increm2
-                        if self.current_sprite >= len(listB):
-                            self.spell1 = False
-                            self.dealable = False
+                        self.dealable = False
 
     def draw_ath(self, win):
         if self.playerNumber == 1:  # Jauge de vie du Joueur 1
@@ -266,9 +265,10 @@ class Player(object):
                 self.throw = False
             elif self.spell1:
                 if self.facingRight:
-                    self.animator(Sasuke['Spell1Right'], 0.3, 1)
+                    self.doubleAnimation(Sasuke['Spell1ChargeRight'], Sasuke['Spell1AttackRight'], 1, 0.05)
                 if self.facingLeft:
-                    self.animator(Sasuke['Spell1Left'], 0.3, 1)
+                    self.doubleAnimation(Sasuke['Spell1ChargeLeft'], Sasuke['Spell1AttackLeft'], 1, 0.05)
+                self.spell1 = False
             elif self.spell2:
                 if self.facingRight:
                     self.doubleAnimation(Sasuke['Spell2Right'], Sasuke['EffectRight'], 0.5, 0.5)
@@ -749,6 +749,7 @@ while launched:
     elif keys[pygame.K_w]:
         if player2.awakening >= 200:
             player2.transforming = True
+            player2.y -= 15
             player2.awakening = 0
 
     # Test Katon
