@@ -100,10 +100,10 @@ class Player(object):
                     self.spell1 = False
                 else:
                     self.dealable = True
-                    #if self.facingLeft and self.x > self.vel:
-                    #    self.x -= 20
-                    #if self.facingRight and self.x < 700 - self.width - self.vel:
-                    #    self.x += 20
+                    if self.facingLeft and self.x > self.vel:
+                        self.x -= 20
+                    if self.facingRight and self.x < 700 - self.width - self.vel:
+                        self.x += 20
                     win.blit(listB[int(self.current_sprite)], (self.x, self.y))
                     self.current_sprite += increm2
                     if self.current_sprite >= len(listB):
@@ -322,9 +322,9 @@ class Player(object):
                     self.standingRight = True
         if self.transforming:
             if self.facingRight:
-                self.animator(Sasuke['AwakeningRight'], 0.2, 1)
+                self.animator(Sasuke['AwakeningRight'], 0.000002)
             if self.facingLeft:
-                self.animator(Sasuke['AwakeningLeft'], 0.2, 1)
+                self.animator(Sasuke['AwakeningLeft'], 0.00002)
             self.transforming = False
             self.awaken = True
         if self.awaken:
