@@ -323,10 +323,10 @@ class Player(object):
         if self.transforming:
             if self.facingRight:
                 self.animator(Sasuke['AwakeningRight'], 0.2)
-            if self.facingLeft:
+            elif self.facingLeft:
                 self.animator(Sasuke['AwakeningLeft'], 0.2)
-            self.transforming = False
             self.awaken = True
+            self.transforming = False
         if self.awaken:
             if not self.standing:
                 if self.left:
