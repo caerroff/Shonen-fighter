@@ -292,6 +292,15 @@ class Player(object):
                         self.animator(Sasuke['FallingLeft'], 1)
                     else:
                         self.animator(Sasuke['JumpingLeft'], 1)
+            elif self.transforming:
+                if self.facingLeft:
+                    print(True)
+                    self.animator(Sasuke['AwakeningLeft'], 0.2)
+                else:
+                    self.animator(Sasuke['AwakeningRight'], 0.2)
+                print(False)
+                self.awaken = True
+                #self.transforming = False
             elif self.playerNumber == 1:
                 if self.right:
                     self.animator(Naruto['StandRight'], 1)
@@ -320,13 +329,6 @@ class Player(object):
                 else:
                     self.animator(Sasuke['StandRight'], 0.1)
                     self.standingRight = True
-        if self.transforming:
-            if self.facingRight:
-                self.animator(Sasuke['AwakeningRight'], 0.2)
-            elif self.facingLeft:
-                self.animator(Sasuke['AwakeningLeft'], 0.2)
-            self.awaken = True
-            self.transforming = False
         if self.awaken:
             if not self.standing:
                 if self.left:
