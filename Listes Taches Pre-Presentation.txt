@@ -1,0 +1,38 @@
+//////////// 
+Sasuke :
+- Fix Animation Awakening : Animation Non-visible ; Trop rapide ou inexistante 
+- Fix Animation Spell1 : Invisibilité à la fin
+- Compléter les capacités actuelles : Rendre le spell1, combo1 bien fonctionnel (Certains dépendront de la gestion du temps dans le programme)
+ - Gestion des lancements de sorts : Peut être lancer si le personnage a le mana suffisant (X% du Mana, ou X/Z Pts de Mana, pourra être rééquilibrer plus tard)
+(Dépendra aussi de la gestion du temps dans le programme, quand elle sera prête, X Seconde avant de pouvoir relancer le sort en plus du mana nécessaire)
+- Ajouter les dernières capacités du personnages : Autre Spell, Combo, etc...
+//////////// 
+Gestion du temps : 
+- Voir comment le temps peut être globalement gérer : En faire une fonction ou utiliser une méthode permettant à l'exécution d'une action, telle que presser une certaine touche, 
+de calculer le temps qui s'est écoulée et (donc) de pouvoir en dépendre
+- Ajouter des cooldowns aux sorts : Peut être utiliser si (a le mana suffisant) est disponible
+- Gérer les ticks de dégâts en fonction du temps pour que ça soit cohérent : Globalement les dégâts ne devront plus être infligée de manière continue mais logiquement 
+- Gestion de la durée de la partie (Dépendra aussi de la défaite d'un des personnages) qui peut être modifier simplement, valeur / argument, etc..
+//////////// 
+Naruto :
+- Globalement trouver une nouvelle fiche de sprite : Malheureusement le travail déjà effectuée devra partir à la poubelle, du moins pour tout ce qui touche au détourage des sprites 
+(Sry Emma on t'aime) : les fonctionnalités elles seront conservées
+//////////// 
+Suite du Projet : Ajouts nécessaires pour la prochaine présentation orale :
+- Implémenter la Victoire / Défaite d'un des personnages : Si il y a, créer un système de rounds et donc de points et un affichage des scores à l'écran ainsi que la possibilité de 
+relancer une partie après un combat (dépendra du prochain point)
+- Si possible, ajouter un système de Menu, peut être très simple car dépendra pas de Tkinter mais essayer de voir si il est possible AVANT le lancement de la partie 
+(et par extension après celle-ci) de par exemple sélectionner son personnage, le temps de la partie, etc...
+- S'assurer (et donc faudra faire des modifications) que la gestion des personnages par rapport aux joueurs et faisable : La Player1 doit pouvoir jouer n'importe quelle personnage 
+(Naruto, Sasuke...), idem pour le Player2 (Naruto, Sasuke...) : A l'heure actuelle il est possible que le programme favorise le Player1-Naruto et le Player2-Sasuke, et cause des 
+problèmes lorsqu'on essaie d'effectuer des modifications 
+- Ajouter et Compléter la prise de dégâts pour chaque personnage : Animation lorsqu'on prend des dégâts (Sprite + Recul), Etat 'Dealable' --> Voir si un personnage est en capacité 
+de recevoir des dégâts
+- Faire des phases de tests pour repérer les différents bugs (majeurs et mineurs si possible) du programme et les fixer : les animations / états qui se superposent, les actions 
+normalement et logiquement non-effectuable, etc...
+- Eventuellement ajouter des nouvelles maps : Ne changeront globalement rien si ce n'est le background de la partie --> Pourra être modifiée, si présent, dans le menu
+//////////// 
+Ajouts dans le futur :
+- Pourquoi pas, comme déjà abordé, ajouter une propriété passive à chaque personnage, qui pourra éventuellement les rendre unique par rapport aux autres personnages, non pas grâce 
+aux animations ou sorts mais en fonction de leur statistique : Santé + ou - élevée, Mana + ou - élevée, Vitesse de Molding / Molding Awakening / Déplacement + ou - élevée, La possiblité de planer lors de la chute d'un personnage, De taper + ou - fort, Lancer + ou - de kunais, etc...
+- Nettoyer le Github du projet : Supprimer les fichiers / dossiers inutiles, ré-organiser ce qui doit l'être, etc...
