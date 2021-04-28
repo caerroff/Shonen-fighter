@@ -63,7 +63,7 @@ class Player(object):
         self.facingRight = False
         self.hitbox = (self.x, self.y, 47, 60)
         self.health = 100
-        self.dealable = False
+        self.attack = False
         self.damaged = False
         self.mana = 0
         self.molding = False
@@ -77,7 +77,20 @@ class Player(object):
     def animator(self, list, increm, iter = 0):
         if iter == 1:
             if self.current_sprite >= len(list):
-                self.spell1 = False
+                if self.spell1:
+                    self.spell1 = False
+                    self.attack = False
+                    self.standing = True
+                self.standing = True
+                if self.transforming:
+                    self.transforming = False
+                    self.awaken = True
+                    self.standing = True
+                if self.facingLeft:
+                    self.standingLeft = True
+                if self.facingRight:
+                    self.standingRight = True
+                return
             else:
                 win.blit(list[int(self.current_sprite)], (self.x, self.y))
                 self.current_sprite += increm
@@ -98,8 +111,10 @@ class Player(object):
             if self.current_sprite >= len(listA):
                 if self.current_sprite >= len(listB):
                     self.spell1 = False
+                    self.attack = False
+                    self.standing = True
                 else:
-                    self.dealable = True
+                    self.attack = True
                     if self.facingLeft and self.x > self.vel:
                         self.x -= 20
                     if self.facingRight and self.x < 700 - self.width - self.vel:
@@ -108,7 +123,7 @@ class Player(object):
                     self.current_sprite += increm2
                     if self.current_sprite >= len(listB):
                         self.spell1 = False
-                        self.dealable = False
+                        self.attack = False
 
     def draw_ath(self, win):
         if self.playerNumber == 1:  # Jauge de vie du Joueur 1
@@ -265,10 +280,9 @@ class Player(object):
                 self.throw = False
             elif self.spell1:
                 if self.facingRight:
-                    self.doubleAnimation(Sasuke['Spell1ChargeRight'], Sasuke['Spell1AttackRight'], 1, 0.05)
+                    self.doubleAnimation(Sasuke['Spell1ChargeRight'], Sasuke['Spell1AttackRight'], 0.5, 0.05)
                 if self.facingLeft:
-                    self.doubleAnimation(Sasuke['Spell1ChargeLeft'], Sasuke['Spell1AttackLeft'], 1, 0.05)
-                self.spell1 = False
+                    self.doubleAnimation(Sasuke['Spell1ChargeLeft'], Sasuke['Spell1AttackLeft'], 0.5, 0.05)
             elif self.spell2:
                 if self.facingRight:
                     self.doubleAnimation(Sasuke['Spell2Right'], Sasuke['EffectRight'], 0.5, 0.5)
@@ -294,13 +308,9 @@ class Player(object):
                         self.animator(Sasuke['JumpingLeft'], 1)
             elif self.transforming:
                 if self.facingLeft:
-                    print(True)
-                    self.animator(Sasuke['AwakeningLeft'], 0.2)
+                    self.animator(Sasuke['AwakeningLeft'], 0.2, 1)
                 else:
-                    self.animator(Sasuke['AwakeningRight'], 0.2)
-                print(False)
-                self.awaken = True
-                #self.transforming = False
+                    self.animator(Sasuke['AwakeningRight'], 0.2, 1)
             elif self.playerNumber == 1:
                 if self.right:
                     self.animator(Naruto['StandRight'], 1)
@@ -319,6 +329,11 @@ class Player(object):
                     self.facingLeft = True
                 else:
                     self.animator(Sasuke['StandLeft'], 1)
+            elif self.standing:
+                if self.standingLeft:
+                    self.animator(Sasuke['StandLeft'], 1)
+                if self.standingRight:
+                    self.animator(Sasuke['StandRight'], 1)
             else:
                 if self.right:
                     self.animator(Sasuke['StandRight'], 0.1)
@@ -369,7 +384,6 @@ class Player(object):
                     self.doubleAnimation(Sasuke['AwakeSpell1ChargeRight'], Sasuke['AwakeSpell1AttackRight'], 0.075)
                 if self.facingLeft:
                     self.doubleAnimation(Sasuke['AwakeSpell1ChargeLeft'], Sasuke['AwakeSpell1AttackLeft'], 0.075)
-                self.spell1 = False
             elif self.molding:
                 if self.facingRight:
                     self.animator(Sasuke['AwakeMoldingRight'], 0.2)
@@ -405,6 +419,11 @@ class Player(object):
                     self.facingLeft = True
                 else:
                     self.animator(Sasuke['AwakeStandLeft'], 1)
+            elif self.standing:
+                if self.standingLeft:
+                    self.animator(Sasuke['AwakeStandLeft'], 1)
+                if self.standingRight:
+                    self.animator(Sasuke['AwakeStandRight'], 1)
             else:
                 if self.right:
                     self.animator(Sasuke['AwakeStandRight'], 0.1)
@@ -479,7 +498,7 @@ playerSelect = True
 launchGame = False
 while launched:
     clock.tick(27)
-
+    print(player2.attack)
     # Variable permettant de vérifier si une touché est pressée
     keys = pygame.key.get_pressed()
 
@@ -497,6 +516,10 @@ while launched:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN or event.type == pygame.QUIT:
             launched = False
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
+            player2.transforming = True
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_c:
+            player2.spell1 = True
 
     # ////////////// Player 1 //////////////
 
@@ -702,7 +725,7 @@ while launched:
         kunaiLoop2= 1
 
     # Left Movement --> Player 2 (Q)
-    elif keys[pygame.K_q] and player2.x > player2.vel:
+    elif keys[pygame.K_q] and player2.x > player2.vel and not player2.transforming and not player2.spell1:
         player2.x -= player2.vel
         player2.left = True
         player2.right = False
@@ -717,7 +740,7 @@ while launched:
         player2.spell1 = False
 
     # Right Movement --> Player 2 (D)
-    elif keys[pygame.K_d] and player2.x < 700 - player2.width - player2.vel:
+    elif keys[pygame.K_d] and player2.x < 700 - player2.width - player2.vel and not player2.transforming and not player2.spell1:
         player2.x += player2.vel
         player2.right = True
         player2.left = False
@@ -732,34 +755,26 @@ while launched:
         player2.spell1 = False
 
     # Down Movement --> Player 2 (S)
-    elif keys[pygame.K_s]:
+    elif keys[pygame.K_s] and not player2.transforming and not player2.spell1:
         player2.isBlock = True
 
     # Gain Mana --> Player 1 (H)
-    elif keys[pygame.K_h]:
+    elif keys[pygame.K_h] and not player2.transforming and not player2.spell1:
         if player2.mana < 200:
             player2.mana += 2.25
             player2.molding = True
 
-    elif keys[pygame.K_c]:
-        player2.spell1 = True
+    elif player2.spell1:
         if player2.isContact:
-            if player2.dealable:
-                player1.hit(1)
-
-    # Transforming
-    elif keys[pygame.K_w]:
-        if player2.awakening >= 200:
-            player2.transforming = True
-            player2.y -= 15
-            player2.awakening = 0
+            if player2.attack:
+                player1.hit(2)
 
     # Test Katon
-    elif keys[pygame.K_x]:
+    elif keys[pygame.K_x] and not player2.transforming and not player2.spell1:
         player2.spell2 = True
 
     # Combo 1 Movement --> Player 2 (G) ---> Objectif : Interrompre la marche pour utiliser le combo
-    elif keys[pygame.K_g]:
+    elif keys[pygame.K_g] and not player2.transforming and not player2.spell1:
         player2.combo1 = True
     else:
         player2.standing = True
@@ -778,7 +793,7 @@ while launched:
 
     # Jump Movement --> Player 2 (Z)
     if not player2.isJump:
-        if keys[pygame.K_z]:
+        if keys[pygame.K_z] and not player2.transforming and not player2.spell1:
             player2.isJump = True
             player2.isBlock = False
             player2.walkCount = 0
