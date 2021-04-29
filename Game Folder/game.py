@@ -274,6 +274,7 @@ class Player(object):
                         self.animator(Sasuke['JumpingRight'], 0.3)
                     else:
                         self.animator(Sasuke['RunRight'], 0.5)
+
             elif self.isBlock:
                 if self.left or self.facingLeft:
                     self.animator(Sasuke['BlockLeft'], 1)
@@ -473,10 +474,11 @@ class projectile(object):
         self.facing = facing
         self.vel = 15 * facing
         self.fb_vel = 17 * facing
-        self.hitbox = (self.x, self.y, 20, 15)
         self.current_sprite = 0
         self.dealable = True
         self.block = False
+        self.hitbox = (self.x, self.y, 47, 60)
+        self.fb_hitbox = (self.x + 25, self.y + 40, 110, 90)
 
     def draw(self, win):
         if facing == 1:
@@ -507,12 +509,17 @@ class projectile(object):
         if facing == 1:
             if spawnEffect:
                 SasukeEffectRightRotated = []
+                self.hitbox = (self.x + 25, self.y + 40, 110, 90)
+                pygame.draw.rect(win, blue, self.hitbox, 2)
                 for i in Sasuke['EffectRight']:
+
                     a = pygame.transform.rotate(i, 45)
                     SasukeEffectRightRotated.append(a)
                     fireball.animator(SasukeEffectRightRotated, 0.04)
                     if self.current_sprite == len(SasukeEffectRightRotated):
                         self.block = True
+
+
         if facing == -1:
             if spawnEffect:
                 SasukeEffectLeftRotated = []
@@ -522,6 +529,9 @@ class projectile(object):
                     fireball.animator(SasukeEffectLeftRotated, 0.04)
                     if self.current_sprite == len(SasukeEffectLeftRotated):
                         self.block = True
+                    self.hitbox = (self.x + 25, self.y + 40, 110, 90)
+                    pygame.draw.rect(win, blue, self.hitbox, 2)
+
 
 
 def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et plus dans la boucle principale
@@ -546,7 +556,7 @@ def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et p
 player1 = Player(100, 300, 64, 64, 1, 2)
 fireballs = []
 fireballLoop = 0
-player2 = Player(550, 313, 64, 64, 2, 1)
+player2 = Player(550, 300, 64, 64, 2, 1)
 kunais = []  # Liste des Kunais --> Joueur 1
 kunaiLoop = 0  # Permet d'ajouter un "Cooldown" aux kunais, un seul peut être lancer à la fois --> Joueur 1
 kunais2 = []  # Liste des Kunais --> Joueur 2
@@ -569,6 +579,16 @@ while launched:
             soundActivated = False
             pygame.mixer.music.stop()
             soundsFunction()
+
+    if player1.characterNumber == 1:
+        player1.y = 312
+    if player2.characterNumber == 1:
+        player2.y = 312
+
+    if not keys[pygame.K_d]:
+        player1.right = False
+    if not keys[pygame.K_q]:
+        player1.left = False
 
     # Permet de quitter le jeu avec la croix ou le bouton entrer
     for event in pygame.event.get():
@@ -620,6 +640,7 @@ while launched:
                             if player1.awakening < 200:
                                 player1.awakening += 20
                         fireballs.pop(fireballs.index(fireball))
+
 
         if 670 > fireball.x > -100:
             fireball.x += fireball.fb_vel
@@ -701,8 +722,7 @@ while launched:
         player1.spell1 = False
 
     # Right Movement --> Player 2 (D)
-    elif keys[
-        pygame.K_d] and player1.x < 700 - player1.width - player1.vel and not player1.transforming and not player1.spell1:
+    elif keys[pygame.K_d] and player1.x < 700 - player1.width - player1.vel and not player1.transforming and not player1.spell1:
         player1.x += player1.vel
         player1.right = True
         player1.left = False
@@ -715,6 +735,7 @@ while launched:
         player1.combo1 = False
         player1.throw = False
         player1.spell1 = False
+
 
     # Down Movement --> Player 2 (S)
     elif keys[pygame.K_s] and not player1.transforming and not player1.spell1:
