@@ -40,6 +40,8 @@ kunaiSpriteRight = pygame.image.load('../Sprite/Kunai/sprite.png')
 kunaiSpriteLeft = pygame.transform.flip(kunaiSpriteRight, True, False)
 bg = pygame.image.load('../Sprite/bg.jpg')
 
+spawnEffect = False
+
 class Player(object):
     def __init__(self, x, y, width, height, playerNumber, characterNumber):
         self.x = x
@@ -77,12 +79,16 @@ class Player(object):
         self.current_sprite = 0
 
     def animator(self, list, increm, iter = 0):
+        global spawnEffect
         if iter == 1:
             if self.current_sprite >= len(list):
                 if self.spell1:
                     self.spell1 = False
                     self.dealable = False
                     self.standing = True
+                if self.spell2:
+                    self.spell2 = False
+                    spawnEffect = True
                 self.standing = True
                 if self.transforming:
                     self.transforming = False
@@ -294,15 +300,14 @@ class Player(object):
                     self.doubleAnimation(Sasuke['Spell1ChargeLeft'], Sasuke['Spell1AttackLeft'], 0.5, 0.05)
             elif self.spell2:
                 if self.facingRight:
-                    self.doubleAnimation(Sasuke['Spell2Right'], Sasuke['EffectRight'], 0.5, 0.5)
+                    self.animator(Sasuke['Spell2Right'], 0.2, 1)
                 if self.facingLeft:
-                    self.doubleAnimation(Sasuke['Spell2Left'], Sasuke['EffectLeft'], 0.5, 0.5)
-                self.spell2 = False
+                    self.animator(Sasuke['Spell2Left'], 0.2, 1)
             elif self.molding:
                 if self.facingRight:
-                    self.animator(Sasuke['MoldingRight'], 1, 0.2)
+                    self.animator(Sasuke['MoldingRight'], 0.2)
                 if self.facingLeft:
-                    self.animator(Sasuke['MoldingLeft'], 1, 0.2)
+                    self.animator(Sasuke['MoldingLeft'], 0.2)
                 self.molding = False
             elif self.isJump:
                 if self.facingRight:
@@ -467,7 +472,11 @@ class projectile(object):
         self.color = color
         self.facing = facing
         self.vel = 15 * facing
+        self.fb_vel = 17 * facing
         self.hitbox = (self.x, self.y, 20, 15)
+        self.current_sprite = 0
+        self.dealable = True
+        self.block = False
 
     def draw(self, win):
         if facing == 1:
@@ -478,6 +487,42 @@ class projectile(object):
             win.blit(kunaiSpriteLeft, (self.x, self.y))
             self.hitbox = (self.x, self.y, 20, 15)
             pygame.draw.rect(win, blue, self.hitbox, 2)
+
+    def animator(self, list, increm):
+        if self.current_sprite >= len(list) or 670 < fireball.x < -100:
+            self.block = False
+            return
+        else:
+            win.blit(list[int(self.current_sprite)], (self.x, self.y))
+            if self.block:
+                self.current_sprite = self.current_sprite
+            else:
+                self.current_sprite += increm
+
+    def draw_fireball(self, win):
+        global spawnEffect, fireballLoop
+        if fireballLoop >= 1:
+            self.current_sprite = 0
+
+        if facing == 1:
+            if spawnEffect:
+                SasukeEffectRightRotated = []
+                for i in Sasuke['EffectRight']:
+                    a = pygame.transform.rotate(i, 45)
+                    SasukeEffectRightRotated.append(a)
+                    fireball.animator(SasukeEffectRightRotated, 0.04)
+                    if self.current_sprite == len(SasukeEffectRightRotated):
+                        self.block = True
+        if facing == -1:
+            if spawnEffect:
+                SasukeEffectLeftRotated = []
+                for i in Sasuke['EffectLeft']:
+                    a = pygame.transform.rotate(i, 325)
+                    SasukeEffectLeftRotated.append(a)
+                    fireball.animator(SasukeEffectLeftRotated, 0.04)
+                    if self.current_sprite == len(SasukeEffectLeftRotated):
+                        self.block = True
+
 
 def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et plus dans la boucle principale
     win.blit(bg, (-3, 0))  # Black
@@ -493,10 +538,14 @@ def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et p
         kunai.draw(win)
     for kunai in kunais2:
         kunai.draw(win)
+    for fireball in fireballs:
+        fireball.draw_fireball(win)
     pygame.display.update()
 
 # MAINLOOP
 player1 = Player(100, 300, 64, 64, 1, 2)
+fireballs = []
+fireballLoop = 0
 player2 = Player(550, 313, 64, 64, 2, 1)
 kunais = []  # Liste des Kunais --> Joueur 1
 kunaiLoop = 0  # Permet d'ajouter un "Cooldown" aux kunais, un seul peut être lancer à la fois --> Joueur 1
@@ -532,6 +581,50 @@ while launched:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_c:
             if not player1.transforming:
                 player1.spell1 = True
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_x:
+            if not player1.transforming and not player1.spell1:
+                player1.spell2 = True
+                if player1.facingLeft:
+                    facing = -1
+                elif player1.facingRight:
+                    facing = 1
+                else:
+                    facing = 1
+                if len(fireballs) < 3:
+                    if facing == 1:
+                        fireballs.append(projectile(round(player1.x - 80 + player1.width // 2), round(player1.y - 70 + player1.height // 4), 6, (0, 0, 0), facing))
+                    else:
+                        fireballs.append(projectile(round(player1.x - 110 + player1.width // 2), round(player1.y - 70 + player1.height // 4), 6, (0, 0, 0), facing))
+                fireballLoop = 1
+
+    if fireballLoop > 0:
+        fireballLoop += 1
+    if fireballLoop > 1:
+        fireballLoop = 0
+
+    for fireball in fireballs:
+        if 670 > fireball.x > -100:
+            if fireball.y - fireball.radius < player2.hitbox[1] + player2.hitbox[3] and fireball.y + fireball.radius > \
+                    player2.hitbox[1]:
+                if fireball.x + fireball.radius > player2.hitbox[0] and fireball.x - fireball.radius < player2.hitbox[0] + \
+                        player2.hitbox[2]:
+                    if player2.isBlock:
+                        print("Bloqué !!")
+                        fireballs.pop(fireballs.index(fireball))
+                    else:
+                        if soundActivated:
+                            fireballImpactSound.play()
+                        player2.hit(2)
+                        player1Score += 1
+                        if not player1.awaken:
+                            if player1.awakening < 200:
+                                player1.awakening += 20
+                        fireballs.pop(fireballs.index(fireball))
+
+        if 670 > fireball.x > -100:
+            fireball.x += fireball.fb_vel
+        else:
+            fireballs.pop(fireballs.index(fireball))
 
     # ////////////// Player 1 //////////////
 
@@ -587,12 +680,9 @@ while launched:
             facing = 1
         if len(kunais2) < 3:
             if facing == 1:
-                kunais2.append(
-                    projectile(round(player1.x + player1.width // 2), round(player1.y + 10 + player1.height // 4),
-                               6, (0, 0, 0), facing))
+                kunais2.append(projectile(round(player1.x + player1.width // 2), round(player1.y + 10 + player1.height // 4),6, (0, 0, 0), facing))
             else:
-                kunais2.append(
-                    projectile(round(player1.x), round(player1.y + player1.height // 4), 6, (0, 0, 0), facing))
+                kunais2.append(projectile(round(player1.x), round(player1.y + player1.height // 4), 6, (0, 0, 0), facing))
         kunaiLoop2 = 1
 
     # Left Movement --> Player 2 (Q)
@@ -640,10 +730,6 @@ while launched:
         if player1.isContact:
             if player1.dealable:
                 player2.hit(5)
-
-    # Test Katon
-    elif keys[pygame.K_x] and not player1.transforming and not player1.spell1:
-        player1.spell2 = True
 
     # Combo 1 Movement --> Player 2 (G) ---> Objectif : Interrompre la marche pour utiliser le combo
     elif keys[pygame.K_g] and not player1.transforming and not player1.spell1:
