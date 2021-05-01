@@ -39,6 +39,7 @@ purple = (66, 0, 255)
 kunaiSpriteRight = pygame.image.load('../Sprite/Kunai/sprite.png')
 kunaiSpriteLeft = pygame.transform.flip(kunaiSpriteRight, True, False)
 bg = pygame.image.load('../Sprite/bg.jpg')
+bg2 = pygame.image.load('../Sprite/bg2.jpg')
 
 class Player(object):
     def __init__(self, x, y, width, height, playerNumber, characterNumber):
@@ -83,6 +84,8 @@ class Player(object):
                     self.spell1 = False
                     self.dealable = False
                     self.standing = True
+                if self.spell2:
+                    self.spell2 = False
                 self.standing = True
                 if self.transforming:
                     self.transforming = False
@@ -132,6 +135,8 @@ class Player(object):
             self.draw_naruto(win)
         elif self.characterNumber == 2:
             self.draw_sasuke(win)
+        elif self.characterNumber == 3:
+            self.draw_itachi(win)
 
     def draw_ath_player1(self, win):
             pygame.draw.rect(win, red, (20, 22, 200, 10))
@@ -294,15 +299,14 @@ class Player(object):
                     self.doubleAnimation(Sasuke['Spell1ChargeLeft'], Sasuke['Spell1AttackLeft'], 0.5, 0.05)
             elif self.spell2:
                 if self.facingRight:
-                    self.doubleAnimation(Sasuke['Spell2Right'], Sasuke['EffectRight'], 0.5, 0.5)
+                    self.animator(Sasuke['Spell2Right'], 0.2, 1)
                 if self.facingLeft:
-                    self.doubleAnimation(Sasuke['Spell2Left'], Sasuke['EffectLeft'], 0.5, 0.5)
-                self.spell2 = False
+                    self.animator(Sasuke['Spell2Left'], 0.2, 1)
             elif self.molding:
                 if self.facingRight:
-                    self.animator(Sasuke['MoldingRight'], 1, 0.2)
+                    self.animator(Sasuke['MoldingRight'], 0.2)
                 if self.facingLeft:
-                    self.animator(Sasuke['MoldingLeft'], 1, 0.2)
+                    self.animator(Sasuke['MoldingLeft'], 0.2)
                 self.molding = False
             elif self.isJump:
                 if self.facingRight:
@@ -395,6 +399,11 @@ class Player(object):
                     self.doubleAnimation(Sasuke['AwakeSpell1ChargeRight'], Sasuke['AwakeSpell1AttackRight'], 0.075)
                 if self.facingLeft:
                     self.doubleAnimation(Sasuke['AwakeSpell1ChargeLeft'], Sasuke['AwakeSpell1AttackLeft'], 0.075)
+            elif self.spell2:
+                if self.facingRight:
+                    self.animator(Sasuke['AwakeSpell2Right'], 0.2, 1)
+                if self.facingLeft:
+                    self.animator(Sasuke['AwakeSpell2Left'], 0.2, 1)
             elif self.molding:
                 if self.facingRight:
                     self.animator(Sasuke['AwakeMoldingRight'], 0.2)
@@ -445,7 +454,7 @@ class Player(object):
 
         if not self.awaken and not self.transforming:
             self.hitbox = (self.x, self.y, 47, 66)
-            pygame.draw.rect(win, blue, self.hitbox, 2)
+            #pygame.draw.rect(win, blue, self.hitbox, 2)
         if self.transforming:
             self.hitbox = (self.x, self.y, 65, 77)
             pygame.draw.rect(win, purple, self.hitbox, 2)
@@ -453,34 +462,124 @@ class Player(object):
             self.hitbox = (self.x, self.y, 65, 77)
             pygame.draw.rect(win, red, self.hitbox, 2)
 
+    def draw_itachi(self, win):
+        print(self.y)
+        if not self.standing:
+            if self.left:
+                #self.y = 300
+                self.animator(Itachi['RunLeft'], 0.5)
+            elif self.right:
+                #self.y = 300
+                self.animator(Itachi['RunRight'], 0.5)
+        elif self.isBlock:
+            if self.facingLeft:
+                self.animator(Itachi['BlockLeft'], 1)
+            elif self.facingRight:
+                self.animator(Itachi['BlockRight'], 1)
+        elif self.playerNumber == 1:
+            if self.left:
+                #self.y = 280
+                self.animator(Itachi['StandLeft'], 1)
+                self.standingLeft = True
+                self.facingLeft = True
+            elif self.right:
+                #self.y = 280
+                self.animator(Itachi['StandRight'], 1)
+                self.standingRight = True
+                self.facingRight = True
+            else:
+                #self.y = 280
+                self.animator(Itachi['StandRight'], 1)
+                self.standingRight = True
+                self.facingRight = True
+        elif self.playerNumber == 2:
+            if self.left:
+                #self.y = 280
+                self.animator(Itachi['StandLeft'], 1)
+                self.standingLeft = True
+                self.facingLeft = True
+            elif self.right:
+                #self.y = 280
+                self.animator(Itachi['StandRight'], 1)
+                self.standingRight = True
+                self.facingRight = True
+            else:
+                #self.y = 280
+                self.animator(Itachi['StandLeft'], 1)
+                self.standingLeft = True
+                self.facingLeft = True
+        else:
+            self.left, self.right = False, False
+            if self.facingLeft:
+                #self.y = 280
+                self.animator(Itachi['StandLeft'], 1)
+                self.standingLeft = True
+                self.facingLeft = True
+            if self.facingRight:
+                #self.y = 280
+                self.animator(Itachi['StandRight'], 1)
+                self.standingRight = True
+                self.facingLeft = True
+
     def hit(self, damages):
         if self.health > 0:
             self.health -= damages
             win.blit(bg, (-3, 0))
             print("Touché !", "Hp : ", self.health)
 
-class projectile(object):
-    def __init__(self, x, y, radius, color, facing):
+class fireball_projectile(object):
+    def __init__(self, x, y, width, height, facing):
         self.x = x
         self.y = y
-        self.radius = radius
-        self.color = color
+        self.width = width
+        self.height = height
         self.facing = facing
-        self.vel = 15 * facing
-        self.hitbox = (self.x, self.y, 20, 15)
+        self.vel = 17 * facing
+        self.current_sprite = 0
+        self.dealable = True
+        self.block = False
+        self.hitbox = (self.x, self.y, width, height)
 
-    def draw(self, win):
-        if facing == 1:
-            win.blit(kunaiSpriteRight, (self.x, self.y))
-            self.hitbox = (self.x, self.y, 20, 15)
-            pygame.draw.rect(win, blue, self.hitbox, 2)
+    def animator(self, list, increm):
+        if self.current_sprite >= len(list) or 670 < fireball.x < -100:
+            self.block = False
+            return
         else:
-            win.blit(kunaiSpriteLeft, (self.x, self.y))
-            self.hitbox = (self.x, self.y, 20, 15)
-            pygame.draw.rect(win, blue, self.hitbox, 2)
+            win.blit(list[int(self.current_sprite)], (self.x, self.y))
+            if self.block:
+                self.current_sprite = self.current_sprite
+            else:
+                self.current_sprite += increm
+
+    def draw_fireball(self, win):
+        global fireballLoop
+        if fireballLoop >= 1:
+            self.current_sprite = 0
+
+        if facing == 1:
+            SasukeEffectRightRotated = []
+            for i in Sasuke['EffectRight']:
+                a = pygame.transform.rotate(i, 45)
+                SasukeEffectRightRotated.append(a)
+                fireball.animator(SasukeEffectRightRotated, 0.04)
+                if self.current_sprite == len(SasukeEffectRightRotated):
+                    self.block = True
+                self.hitbox = (self.x, self.y, self.width, self.height)
+                pygame.draw.rect(win, blue, self.hitbox, 2)
+
+        if facing == -1:
+            SasukeEffectLeftRotated = []
+            for i in Sasuke['EffectLeft']:
+                a = pygame.transform.rotate(i, 325)
+                SasukeEffectLeftRotated.append(a)
+                fireball.animator(SasukeEffectLeftRotated, 0.04)
+                if self.current_sprite == len(SasukeEffectLeftRotated):
+                    self.block = True
+                self.hitbox = (self.x, self.y, self.width, self.height)
+                pygame.draw.rect(win, blue, self.hitbox, 2)
 
 def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et plus dans la boucle principale
-    win.blit(bg, (-3, 0))  # Black
+    win.blit(bg2, (-3, 0))  # Black
     score1 = font.render("Score :" + str(player2Score), 1, (0, 0, 0))
     win.blit(score1, (20, 65))
     score2 = font.render("Score :" + str(player1Score), 1, (0, 0, 0))
@@ -493,11 +592,15 @@ def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et p
         kunai.draw(win)
     for kunai in kunais2:
         kunai.draw(win)
+    for fireball in fireballs:
+        fireball.draw_fireball(win)
     pygame.display.update()
 
 # MAINLOOP
 player1 = Player(100, 300, 64, 64, 1, 2)
-player2 = Player(550, 313, 64, 64, 2, 1)
+fireballs = []
+fireballLoop = 0
+player2 = Player(550, 300, 64, 64, 2, 1)
 kunais = []  # Liste des Kunais --> Joueur 1
 kunaiLoop = 0  # Permet d'ajouter un "Cooldown" aux kunais, un seul peut être lancer à la fois --> Joueur 1
 kunais2 = []  # Liste des Kunais --> Joueur 2
@@ -532,6 +635,52 @@ while launched:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_c:
             if not player1.transforming:
                 player1.spell1 = True
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_x:
+            if not player1.transforming and not player1.spell1 and len(fireballs) < 1:
+                player1.spell2 = True
+                if player1.facingLeft:
+                    facing = -1
+                elif player1.facingRight:
+                    facing = 1
+                else:
+                    facing = 1
+                if len(fireballs) < 3:
+                    if facing == 1:
+                        fireballs.append(fireball_projectile(player1.x, player1.y - 65, 140, 120, facing))
+                    else:
+                        fireballs.append(fireball_projectile(player1.x - 150, player1.y - 65, 140, 120, facing))
+                fireballLoop = 1
+
+    if fireballLoop > 0:
+        fireballLoop += 1
+    if fireballLoop > 1:
+        fireballLoop = 0
+
+    for fireball in fireballs:
+        if 670 > fireball.x > -200:
+            if player2.hitbox[1] < fireball.hitbox[1] + fireball.hitbox[3] and player2.hitbox[1] + player2.hitbox[
+                3] > \
+                    fireball.hitbox[1] and player2.hitbox[0] + player2.hitbox[2] > fireball.hitbox[0] and \
+                    player2.hitbox[0] < \
+                    fireball.hitbox[0] + fireball.hitbox[2]:
+            #if -player2.hitbox[0] <= player2.x - fireball.x <= fireball.hitbox[0] and -player2.hitbox[1] <= player2.y - fireball.y <= fireball.hitbox[1]:
+                    if player2.isBlock:
+                        print("Bloqué !!")
+                        fireballs.pop(fireballs.index(fireball))
+                    else:
+                        if soundActivated:
+                            fireballImpactSound.play()
+                        player2.hit(2)
+                        player1Score += 1
+                        if not player1.awaken:
+                            if player1.awakening < 200:
+                                player1.awakening += 20
+                        fireballs.pop(fireballs.index(fireball))
+
+        if 670 > fireball.x > -200:
+            fireball.x += fireball.vel
+        else:
+            fireballs.pop(fireballs.index(fireball))
 
     # ////////////// Player 1 //////////////
 
@@ -587,12 +736,9 @@ while launched:
             facing = 1
         if len(kunais2) < 3:
             if facing == 1:
-                kunais2.append(
-                    projectile(round(player1.x + player1.width // 2), round(player1.y + 10 + player1.height // 4),
-                               6, (0, 0, 0), facing))
+                kunais2.append(projectile(round(player1.x + player1.width // 2), round(player1.y + 10 + player1.height // 4),6, (0, 0, 0), facing))
             else:
-                kunais2.append(
-                    projectile(round(player1.x), round(player1.y + player1.height // 4), 6, (0, 0, 0), facing))
+                kunais2.append(projectile(round(player1.x), round(player1.y + player1.height // 4), 6, (0, 0, 0), facing))
         kunaiLoop2 = 1
 
     # Left Movement --> Player 2 (Q)
@@ -611,8 +757,7 @@ while launched:
         player1.spell1 = False
 
     # Right Movement --> Player 2 (D)
-    elif keys[
-        pygame.K_d] and player1.x < 700 - player1.width - player1.vel and not player1.transforming and not player1.spell1:
+    elif keys[pygame.K_d] and player1.x < 700 - player1.width - player1.vel and not player1.transforming and not player1.spell1:
         player1.x += player1.vel
         player1.right = True
         player1.left = False
@@ -625,6 +770,7 @@ while launched:
         player1.combo1 = False
         player1.throw = False
         player1.spell1 = False
+
 
     # Down Movement --> Player 2 (S)
     elif keys[pygame.K_s] and not player1.transforming and not player1.spell1:
@@ -640,10 +786,6 @@ while launched:
         if player1.isContact:
             if player1.dealable:
                 player2.hit(5)
-
-    # Test Katon
-    elif keys[pygame.K_x] and not player1.transforming and not player1.spell1:
-        player1.spell2 = True
 
     # Combo 1 Movement --> Player 2 (G) ---> Objectif : Interrompre la marche pour utiliser le combo
     elif keys[pygame.K_g] and not player1.transforming and not player1.spell1:

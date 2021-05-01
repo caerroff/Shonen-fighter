@@ -24,6 +24,7 @@ def perso(path = "../Sprite/", name ="Naruto", default_orientation=">") :
 
 Naruto = perso()
 Sasuke = perso('../Sprite/', 'Sasuke')
+Itachi = perso('../Sprite/', 'Itachi')
 Deku = perso('../Sprite/', 'Deku')
 Shoto = perso('../Sprite/', 'Shoto')
 
