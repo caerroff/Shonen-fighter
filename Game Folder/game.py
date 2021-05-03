@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import pygame, time
 from perso_os import *
+from random import *
 # from gui import *
 
 pygame.init()
@@ -42,6 +43,8 @@ bg = pygame.image.load('../Sprite/bg.jpg')
 bg2 = pygame.image.load('../Sprite/bg2.jpg')
 
 spawnEffect = False
+nextAnim = False
+nextAnim2 = False
 
 class Player(object):
     def __init__(self, x, y, width, height, playerNumber, characterNumber):
@@ -78,6 +81,12 @@ class Player(object):
         self.playerNumber = playerNumber
         self.characterNumber = characterNumber
         self.current_sprite = 0
+        self.current_sprite2 = 0
+
+    def random(self):
+        global randomInt
+        randomInt = randint(1, 2)
+        return randomInt
 
     def animator(self, list, increm, iter = 0):
         global spawnEffect
@@ -93,6 +102,7 @@ class Player(object):
                 self.standing = True
                 if self.combo1:
                     self.combo1 = False
+                    self.dealable = False
                 if self.damaged:
                     self.damaged = False
                 if self.transforming:
@@ -114,29 +124,63 @@ class Player(object):
             self.current_sprite += increm
 
     def doubleAnimation(self, listA, listB, increm = 1, increm2 = 0.35):
-        nextAnim = False
-        if self.current_sprite < len(listA):
-            win.blit(listA[int(self.current_sprite)], (self.x, self.y))
-            self.current_sprite += increm
-        else:
-            nextAnim = True
-        if nextAnim:
+        global nextAnim, nextAnim2
+        nextAnim, nextAnim2 = False, False
+
+        if self.playerNumber == 1:
+            if self.current_sprite < len(listA):
+                win.blit(listA[int(self.current_sprite)], (self.x, self.y))
+                self.current_sprite += increm
             if self.current_sprite >= len(listA):
-                if self.current_sprite >= len(listB):
+                nextAnim = True
+            if nextAnim:
+                if self.current_sprite2 >= len(listB):
                     self.spell1 = False
+                    self.spell2 = False
                     self.dealable = False
                     self.standing = True
                 else:
                     self.dealable = True
-                    if self.facingLeft and self.x > self.vel:
-                        self.x -= 20
-                    if self.facingRight and self.x < 700 - self.width - self.vel:
-                        self.x += 20
-                    win.blit(listB[int(self.current_sprite)], (self.x, self.y))
-                    self.current_sprite += increm2
+                    if self.awaken:
+                        if self.facingLeft and self.x > self.vel:
+                            self.x -= 20
+                        if self.facingRight and self.x < 700 - self.width - self.vel:
+                            self.x += 20
+                    win.blit(listB[int(self.current_sprite2)], (self.x, self.y))
+                    self.current_sprite2 += increm2
+                    if self.current_sprite2 >= len(listB):
+                        self.spell1 = False
+                        self.spell2 = False
+                        self.dealable = False
+                        self.standing = True
+                        self.current_sprite2 = 0
+
+        if self.playerNumber == 2:
+            if self.current_sprite < len(listA):
+                win.blit(listA[int(self.current_sprite)], (self.x, self.y))
+                self.current_sprite += increm
+            else:
+                nextAnim2 = True
+            if nextAnim2:
+                if self.current_sprite >= len(listA):
                     if self.current_sprite >= len(listB):
                         self.spell1 = False
+                        self.spell2 = False
                         self.dealable = False
+                        self.standing = True
+                    else:
+                        self.dealable = True
+                        if self.facingLeft and self.x > self.vel:
+                            self.x -= 20
+                        if self.facingRight and self.x < 700 - self.width - self.vel:
+                            self.x += 20
+                        win.blit(listB[int(self.current_sprite)], (self.x, self.y))
+                        self.current_sprite += increm2
+                        if self.current_sprite >= len(listB):
+                            self.spell1 = False
+                            self.spell2 = False
+                            self.dealable = False
+                            self.standing = True
 
     def character(self):
         if self.characterNumber == 1:
@@ -307,9 +351,9 @@ class Player(object):
                 self.throw = False
             elif self.spell1:
                 if self.facingRight:
-                    self.doubleAnimation(Sasuke['Spell1ChargeRight'], Sasuke['Spell1AttackRight'], 0.5, 0.05)
+                    self.doubleAnimation(Sasuke['Spell1ChargeRight'], Sasuke['Spell1AttackRight'], 0.5, 0.5)
                 if self.facingLeft:
-                    self.doubleAnimation(Sasuke['Spell1ChargeLeft'], Sasuke['Spell1AttackLeft'], 0.5, 0.05)
+                    self.doubleAnimation(Sasuke['Spell1ChargeLeft'], Sasuke['Spell1AttackLeft'], 0.5, 0.5)
             elif self.spell2:
                 if self.facingRight:
                     self.animator(Sasuke['Spell2Right'], 0.2, 1)
@@ -472,13 +516,13 @@ class Player(object):
 
         if not self.awaken and not self.transforming:
             self.hitbox = (self.x, self.y, 47, 66)
-            #pygame.draw.rect(win, blue, self.hitbox, 2)
+            pygame.draw.rect(win, blue, self.hitbox, 2)
         if self.transforming:
             self.hitbox = (self.x, self.y, 65, 77)
-            #pygame.draw.rect(win, purple, self.hitbox, 2)
+            pygame.draw.rect(win, purple, self.hitbox, 2)
         if self.awaken:
             self.hitbox = (self.x, self.y, 65, 77)
-            #pygame.draw.rect(win, red, self.hitbox, 2)
+            pygame.draw.rect(win, red, self.hitbox, 2)
 
     def draw_itachi(self, win):
         if not self.awaken:
@@ -491,6 +535,7 @@ class Player(object):
                     else:
                         self.y = 300
                         self.animator(Itachi['RunLeft'], 0.5)
+                        #self.facingLeft = True
                 elif self.right:
                     if self.isJumping and self.isFalling:
                         self.animator(Itachi['FallingRight'], 1)
@@ -499,7 +544,7 @@ class Player(object):
                     else:
                         self.y = 300
                         self.animator(Itachi['RunRight'], 0.5)
-                        self.facingRight = True
+                        #self.facingRight = True
             elif self.isBlock:
                 if self.facingLeft:
                     self.animator(Itachi['BlockLeft'], 1)
@@ -523,6 +568,17 @@ class Player(object):
                 if self.facingRight:
                     self.x += 10
                     self.animator(Itachi['Spell1Right'], 0.45, 1)
+            elif self.spell2:
+                if self.facingLeft:
+                    self.animator(Itachi['Spell2Left'], 0.5)
+                if self.facingRight:
+                    self.animator(Itachi['Spell2Right'], 0.5)
+            elif self.molding:
+                if self.facingLeft:
+                    self.animator(Itachi['MoldingLeft'], 1)
+                if self.facingRight:
+                    self.animator(Itachi['MoldingRight'], 1)
+                self.molding = False
             elif self.damaged:
                 if self.facingLeft:
                     self.animator(Itachi['DamagedLeft'], 0.9, 1)
@@ -544,27 +600,33 @@ class Player(object):
                     self.y = 280
                     self.animator(Itachi['StandRight'], 1)
                     self.facingRight = True
+                    self.right = False
                 elif self.left:
                     self.y = 280
                     self.animator(Itachi['StandLeft'], 1)
                     self.facingLeft = True
+                    self.left = False
                 else:
                     self.y = 280
                     self.animator(Itachi['StandRight'], 1)
                     self.facingRight = True
+                    self.right = False
             elif self.playerNumber == 2:
                 if self.right:
                     self.y = 280
                     self.animator(Itachi['StandRight'], 0.1)
                     self.facingRight = True
+                    self.right = False
                 elif self.left:
                     self.y = 280
                     self.animator(Itachi['StandLeft'], 1)
                     self.facingLeft = True
+                    self.left = False
                 else:
                     self.y = 280
                     self.animator(Itachi['StandLeft'], 1)
                     self.facingLeft = True
+                    self.left = False
             else:
                 if self.right:
                     self.y = 280
@@ -582,12 +644,15 @@ class Player(object):
                     self.standingRight = True
                     self.right = False
 
-        if not self.awaken and not self.transforming and not self.left and not self.right:
+        if not self.awaken and not self.transforming and not self.left and not self.right and not self.combo1:
             self.hitbox = (self.x, self.y, 45, 85)
-            #pygame.draw.rect(win, purple, self.hitbox, 2)
+            pygame.draw.rect(win, purple, self.hitbox, 2)
         if self.left or self.right:
             self.hitbox = (self.x, self.y, 65, 65)
-            #pygame.draw.rect(win, purple, self.hitbox, 2)
+            pygame.draw.rect(win, purple, self.hitbox, 2)
+        if self.combo1:
+            self.hitbox = (self.x, self.y, 80, 85)
+            pygame.draw.rect(win, red, self.hitbox, 2)
 
     def hit(self, damages):
         if self.health > 0:
@@ -604,7 +669,7 @@ class projectile(object):
         self.color = color
         self.facing = facing
         self.vel = 15 * facing
-        self.fb_vel = 17 * facing
+        self.vel = 17 * facing
         self.current_sprite = 0
         self.dealable = True
         self.block = False
@@ -632,35 +697,6 @@ class projectile(object):
             else:
                 self.current_sprite += increm
 
-    def draw_fireball(self, win):
-        global spawnEffect, fireballLoop
-        if fireballLoop >= 1:
-            self.current_sprite = 0
-
-        if facing == 1:
-            if spawnEffect:
-                SasukeEffectRightRotated = []
-                for i in Sasuke['EffectRight']:
-                    a = pygame.transform.rotate(i, 45)
-                    SasukeEffectRightRotated.append(a)
-                    fireball.animator(SasukeEffectRightRotated, 0.04)
-                    if self.current_sprite == len(SasukeEffectRightRotated):
-                        self.block = True
-                    self.fb_hitbox = (self.x + 25, self.y + 40, 110, 90)
-                    #pygame.draw.rect(win, blue, self.fb_hitbox, 2)
-
-        if facing == -1:
-            if spawnEffect:
-                SasukeEffectLeftRotated = []
-                for i in Sasuke['EffectLeft']:
-                    a = pygame.transform.rotate(i, 325)
-                    SasukeEffectLeftRotated.append(a)
-                    fireball.animator(SasukeEffectLeftRotated, 0.04)
-                    if self.current_sprite == len(SasukeEffectLeftRotated):
-                        self.block = True
-                    self.fb_hitbox = (self.x + 25, self.y + 40, 110, 90)
-                    #pygame.draw.rect(win, blue, self.fb_hitbox, 2)
-
 class fireball_projectile(object):
     def __init__(self, x, y, width, height, facing):
         self.x = x
@@ -685,6 +721,17 @@ class fireball_projectile(object):
             else:
                 self.current_sprite += increm
 
+    def animator2(self, list, increm):
+        if self.current_sprite >= len(list) or 670 < fireball2.x < -100:
+            self.block = False
+            return
+        else:
+            win.blit(list[int(self.current_sprite)], (self.x, self.y))
+            if self.block:
+                self.current_sprite = self.current_sprite
+            else:
+                self.current_sprite += increm
+
     def draw_fireball(self, win):
         global fireballLoop
         if fireballLoop >= 1:
@@ -696,8 +743,6 @@ class fireball_projectile(object):
                 a = pygame.transform.rotate(i, 45)
                 SasukeEffectRightRotated.append(a)
                 fireball.animator(SasukeEffectRightRotated, 0.04)
-                if self.current_sprite == len(SasukeEffectRightRotated):
-                    self.block = True
                 self.hitbox = (self.x + 10, self.y + 35 , self.width - 5, self.height - 25)
                 #pygame.draw.rect(win, blue, self.hitbox, 2)
 
@@ -707,8 +752,6 @@ class fireball_projectile(object):
                 a = pygame.transform.rotate(i, 325)
                 SasukeEffectLeftRotated.append(a)
                 fireball.animator(SasukeEffectLeftRotated, 0.04)
-                if self.current_sprite == len(SasukeEffectLeftRotated):
-                    self.block = True
                 self.hitbox = (self.x + 10, self.y + 35 , self.width - 5, self.height - 25)
                 #pygame.draw.rect(win, blue, self.hitbox, 2)
 
@@ -722,7 +765,7 @@ class fireball_projectile(object):
             for i in Sasuke['EffectRight']:
                 a = pygame.transform.rotate(i, 45)
                 SasukeEffectRightRotated.append(a)
-                fireball2.animator(SasukeEffectRightRotated, 0.04)
+                fireball2.animator2(SasukeEffectRightRotated, 0.04)
                 if self.current_sprite == len(SasukeEffectRightRotated):
                     self.block = True
                 self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
@@ -733,11 +776,12 @@ class fireball_projectile(object):
             for i in Sasuke['EffectLeft']:
                 a = pygame.transform.rotate(i, 325)
                 SasukeEffectLeftRotated.append(a)
-                fireball2.animator(SasukeEffectLeftRotated, 0.04)
+                fireball2.animator2(SasukeEffectLeftRotated, 0.04)
                 if self.current_sprite == len(SasukeEffectLeftRotated):
                     self.block = True
                 self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
                 # pygame.draw.rect(win, blue, self.hitbox, 2)
+
 
 def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et plus dans la boucle principale
     win.blit(bg2, (-3, 0))  # Black
@@ -760,7 +804,7 @@ def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et p
     pygame.display.update()
 
 # MAINLOOP
-player1 = Player(100, 300, 64, 64, 1, 2)
+player1 = Player(100, 300, 64, 64, 1, 3)
 fireballs = []
 fireballLoop = 0
 fireballs2 = []
@@ -775,7 +819,7 @@ playerSelect = True
 launchGame = False
 while launched:
     clock.tick(27)
-
+    #print(player1.facingLeft ,player1.facingRight)
     # Variable permettant de vérifier si une touché est pressée
     keys = pygame.key.get_pressed()
 
@@ -793,6 +837,7 @@ while launched:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN or event.type == pygame.QUIT:
             launched = False
+        # ////////// PLAYER 1 //////////
         # W = Player 1 Awakening
         if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
             # Sasuke = Cursed Mark Mode
@@ -802,6 +847,7 @@ while launched:
         # G = Player 1 Combo 1
         if event.type == pygame.KEYDOWN and event.key == pygame.K_g:
             player1.combo1 = True
+            player1.dealable = True
         # C = Player 1 Spell 1
         if event.type == pygame.KEYDOWN and event.key == pygame.K_c:
             # Sasuke = Chidori
@@ -809,11 +855,13 @@ while launched:
                 if player1.mana >= 50:
                     player1.mana -= 50
                     player1.spell1 = True
+                    player1.dealable = True
             # Itachi = Crows Attack
             if player1.characterNumber == 3:
                 if player1.mana >= 50:
                     player1.mana -= 50
                     player1.spell1 = True
+                    player1.dealable = True
         # X = Player 1 Spell 2
         if event.type == pygame.KEYDOWN and event.key == pygame.K_x:
             # Sasuke = Fireball Jutsu
@@ -821,6 +869,7 @@ while launched:
                 if player1.mana >= 50:
                     player1.mana -= 50
                     player1.spell2 = True
+                    fireball_projectile.dealable = True
                     if player1.facingLeft:
                         facing = -1
                     elif player1.facingRight:
@@ -833,6 +882,14 @@ while launched:
                         else:
                             fireballs.append(fireball_projectile(player1.x - 150, player1.y - 65, 140, 120, facing))
                     fireballLoop = 1
+            # Itachi = Fireball Jutsu
+        # ////////// PLAYER 2 //////////
+        # W = Player 2 Awakening
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_m:
+            # Sasuke = Cursed Mark Mode
+            if not player2.awaken and player2.characterNumber == 2:
+                player2.transforming = True
+                player2.y = 295
         # O = Player 2 Combo 1 ---> Objectif : Interrompre la marche pour utiliser le combo
         if event.type == pygame.KEYDOWN and event.key == pygame.K_o:
             if not player2.transforming:
@@ -844,6 +901,7 @@ while launched:
                 if player2.mana >= 50:
                     player2.mana -= 50
                     player2.spell1 = True
+                    player1.dealable = True
             # Itachi = Crows Attack
             if player2.characterNumber == 3:
                 if player2.mana >= 50:
@@ -856,6 +914,7 @@ while launched:
                 if player2.mana >= 50:
                     player2.mana -= 50
                     player2.spell2 = True
+                    fireball_projectile.dealable = True
                     if player2.facingLeft:
                         facing = -1
                     elif player2.facingRight:
@@ -868,7 +927,8 @@ while launched:
                         else:
                             fireballs2.append(fireball_projectile(player2.x - 150, player2.y - 65, 140, 120, facing))
                     fireballLoop2 = 1
-            # Itachi = Crows Attack
+            # Itachi = Fireball Jutsu
+
             # Undefined
 
     # Fireball Loop Player 1
@@ -888,14 +948,18 @@ while launched:
                     print("Bloqué !!")
                     fireballs.pop(fireballs.index(fireball))
                 else:
-                    if soundActivated:
-                        fireballImpactSound.play()
-                    player2.hit(2)
-                    player1Score += 1
-                    if not player1.awaken:
-                        if player1.awakening < 200:
-                            player1.awakening += 20
-                    fireballs.pop(fireballs.index(fireball))
+                    if fireball_projectile.dealable:
+                        print(True)
+                        if soundActivated:
+                            fireballImpactSound.play()
+                        player2.hit(2)
+                        player1.dealable = False
+                        player1Score += 1
+                        if not player1.awaken:
+                            if player1.awakening < 200:
+                                player1.awakening += 20
+                        fireballs.pop(fireballs.index(fireball))
+                        fireball_projectile.dealable = False
 
         # Fireball Velocity Config Player 1
         if 670 > fireball.x > -200:
@@ -919,14 +983,17 @@ while launched:
                     print("Bloqué !!")
                     fireballs2.pop(fireballs2.index(fireball2))
                 else:
-                    if soundActivated:
-                        fireballImpactSound.play()
-                    player1.hit(2)
-                    player1Score += 1
-                    if not player1.awaken:
-                        if player1.awakening < 200:
-                            player1.awakening += 20
-                    fireballs2.pop(fireballs2.index(fireball2))
+                    if fireball_projectile.dealable:
+                        print(False)
+                        if soundActivated:
+                            fireballImpactSound.play()
+                        player1.hit(2)
+                        fireball_projectile.dealable = False
+                        player1Score += 1
+                        if not player1.awaken:
+                            if player1.awakening < 200:
+                                player1.awakening += 20
+                        fireballs2.pop(fireballs2.index(fireball2))
 
         # Fireball Velocity Config Player 2
         if 670 > fireball2.x > -200:
@@ -934,6 +1001,7 @@ while launched:
         else:
             fireballs2.pop(fireballs2.index(fireball2))
 
+    # Fireballs Collision
     for fireball in fireballs:
         for fireball2 in fireballs2:
             if 670 > fireball.x > -200:
@@ -973,19 +1041,21 @@ while launched:
                     else:
                         if soundActivated:
                             kunaiImpactSound.play()
-                        player2.hit(2)
-                        player1Score += 1
-                        if not player1.awaken:
-                            if player1.awakening < 200:
-                                player1.awakening += 20
-                        kunais2.pop(kunais2.index(kunai))
+                        if player1.dealable:
+                            player2.hit(2)
+                            player1.dealable = False
+                            player1Score += 1
+                            if not player1.awaken:
+                                if player1.awakening < 200:
+                                    player1.awakening += 20
+                            kunais2.pop(kunais2.index(kunai))
 
         if 670 > kunai.x > 0:
             kunai.x += kunai.vel
         else:
             kunais2.pop(kunais2.index(kunai))
 
-    # Kunai Throw --> F (Player 2)
+    # Kunai Throw --> Player 1 (F)
     if keys[pygame.K_f] and kunaiLoop2 == 0:
         player1.throw = True
         if soundActivated:
@@ -1003,7 +1073,7 @@ while launched:
                 kunais2.append(projectile(round(player1.x), round(player1.y + player1.height // 4), 6, (0, 0, 0), facing))
         kunaiLoop2 = 1
 
-    # Left Movement --> Player 2 (Q)
+    # Left Movement --> Player 1 (Q)
     elif keys[pygame.K_q] and player1.x > player1.vel and not player1.transforming and not player1.spell1:
         player1.x -= player1.vel
         player1.left = True
@@ -1018,7 +1088,7 @@ while launched:
         player1.throw = False
         player1.spell1 = False
 
-    # Right Movement --> Player 2 (D)
+    # Right Movement --> Player 1 (D)
     elif keys[pygame.K_d] and player1.x < 700 - player1.width - player1.vel and not player1.transforming and not player1.spell1:
         player1.x += player1.vel
         player1.right = True
@@ -1033,7 +1103,7 @@ while launched:
         player1.throw = False
         player1.spell1 = False
 
-    # Down Movement --> Player 2 (S)
+    # Down Movement --> Player 1 (S)
     elif keys[pygame.K_s] and not player1.transforming and not player1.spell1:
         player1.isBlock = True
 
@@ -1044,9 +1114,13 @@ while launched:
             player1.molding = True
 
     elif player1.spell1:
-        if player1.isContact:
-            if player1.dealable:
-                player2.hit(5)
+        if nextAnim:
+            if player1.isContact:
+                if player1.dealable:
+                    player2.hit(5)
+                    player1.spell1 = False
+                    player1.dealable = False
+                    nextAnim = False
     else:
         player1.standing = True
         player1.isBlock = False
@@ -1055,14 +1129,16 @@ while launched:
     # Combo 1 --> Damages
     if player1.isContact:
         if player1.combo1:
-            player2.hit(5)
-            player1Score += 1
-            if player1.awakening < 200:
-                player1.awakening += 20
+            if player1.dealable:
+                player2.hit(5)
+                player1.dealable = False
+                player1Score += 1
+                if player1.awakening < 200:
+                    player1.awakening += 20
         else:
             player1Score = player1Score
 
-    # Jump Movement --> Player 2 (Z)
+    # Jump Movement --> Player 1 (Z)
     if not player1.isJumping:
         if keys[pygame.K_z] and not player1.transforming and not player1.spell1:
             player1.isJumping = True
@@ -1132,7 +1208,7 @@ while launched:
         else:
             kunais.pop(kunais.index(kunai))
 
-    # Kunai Throw --> I (Player 1)
+    # Kunai Throw --> Player 2 (I)
     if keys[pygame.K_i] and kunaiLoop == 0:
         player2.throw = True
         if soundActivated:
@@ -1150,7 +1226,7 @@ while launched:
                 kunais.append(projectile(round(player2.x), round(player2.y + player2.height // 4), 6, (0, 0, 0), facing))
         kunaiLoop = 1
 
-    # Left Movement --> Player 1 (Left)
+    # Left Movement --> Player 2 (Left)
     elif keys[pygame.K_LEFT] and player2.x > player2.vel:
         player2.x -= player2.vel
         player2.left = True
@@ -1164,7 +1240,7 @@ while launched:
         player2.combo1 = False
         player2.throw = False
 
-    # Right Movement --> Player 1 (Right)
+    # Right Movement --> Player 2 (Right)
     elif keys[pygame.K_RIGHT] and player2.x < 700 - player2.width - player2.vel:
         player2.x += player2.vel
         player2.right = True
@@ -1178,37 +1254,41 @@ while launched:
         player2.combo1 = False
         player2.throw = False
 
-    # Down Movement --> Player 1 (Down)
+    # Down Movement --> Player 2 (Down)
     elif keys[pygame.K_DOWN]:
         player2.isBlock = True
 
-    # Gain Mana --> Player 1 (P)
+    # Gain Mana --> Player 2 (P)
     elif keys[pygame.K_p]:
         if player2.mana < 200:
             player2.mana += 2.25
             player2.molding = True
 
-    # Combo 1 Movement --> Player 1 (O) ---> Objectif : Interrompre la marche pour utiliser le combo
-    elif keys[pygame.K_o]:
-        #player2.combo1 = True
-        pass
+    elif player2.spell1:
+        if nextAnim2:
+            if player2.isContact:
+                if player2.dealable:
+                    player1.hit(5)
+                    player2.spell1 = False
+                    player2.dealable = False
+                    nextAnim2 = False
     else:
         player2.standing = True
         player2.isBlock = False
         player2.walkCount = 0
 
     # Combo 1 --> Damages
-    if player2.isContact:
-        if player2.combo1:
-            player1.hit(10)
-            player2.combo1 = False
-            player2Score += 1
-            if player2.awakening < 200:
-                player2.awakening += 20
+    if player1.isContact:
+        if player1.combo1:
+            player2.hit(10)
+            player1.combo1 = False
+            player1Score += 1
+            if player1.awakening < 200:
+                player1.awakening += 20
         else:
-            player2Score = player2Score
+            player1Score = player1Score
 
-    # Jump Movement --> Player 1 (Space)
+    # Jump Movement --> Player 2 (Up)
     if not player2.isJumping:
         if keys[pygame.K_UP]:
             player2.isJumping = True
