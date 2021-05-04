@@ -564,7 +564,6 @@ class Player(object):
                             self.animator(Itachi['Combo2Left'], 0.4, 1)
                         elif self.facingRight:
                             self.animator(Itachi['Combo2Right'], 0.4, 1)
-
             elif self.spell1:
                 if self.facingLeft:
                     self.x -= 10
@@ -693,7 +692,6 @@ class projectile(object):
         self.color = color
         self.facing = facing
         self.vel = 15 * facing
-        self.vel = 17 * facing
         self.current_sprite = 0
         self.dealable = True
         self.block = False
@@ -833,7 +831,7 @@ fireballs = []
 fireballLoop = 0
 fireballs2 = []
 fireballLoop2 = 0
-player2 = Player(550, 300, 64, 64, 2, 3)
+player2 = Player(550, 300, 64, 64, 2, 2)
 kunais = []  # Liste des Kunais --> Joueur 1
 kunaiLoop = 0  # Permet d'ajouter un "Cooldown" aux kunais, un seul peut être lancer à la fois --> Joueur 1
 kunais2 = []  # Liste des Kunais --> Joueur 2
