@@ -82,11 +82,7 @@ class Player(object):
         self.characterNumber = characterNumber
         self.current_sprite = 0
         self.current_sprite2 = 0
-
-    def random(self):
-        global randomInt
-        randomInt = randint(1, 2)
-        return randomInt
+        self.counter = 0
 
     def animator(self, list, increm, iter = 0):
         global spawnEffect
@@ -103,6 +99,7 @@ class Player(object):
                 if self.combo1:
                     self.combo1 = False
                     self.dealable = False
+                    self.counter += 1
                 if self.damaged:
                     self.damaged = False
                 if self.transforming:
@@ -557,10 +554,17 @@ class Player(object):
                     elif self.facingRight:
                         self.animator(Itachi['Combo1AirRight'], 0.35, 1)
                 else:
-                    if self.facingLeft:
-                        self.animator(Itachi['Combo1Left'], 0.4, 1)
-                    elif self.facingRight:
-                        self.animator(Itachi['Combo1Right'], 0.4, 1)
+                    if self.counter %2:
+                        if self.facingLeft:
+                            self.animator(Itachi['Combo1Left'], 0.4, 1)
+                        elif self.facingRight:
+                            self.animator(Itachi['Combo1Right'], 0.4, 1)
+                    else:
+                        if self.facingLeft:
+                            self.animator(Itachi['Combo2Left'], 0.4, 1)
+                        elif self.facingRight:
+                            self.animator(Itachi['Combo2Right'], 0.4, 1)
+
             elif self.spell1:
                 if self.facingLeft:
                     self.x -= 10
@@ -596,16 +600,26 @@ class Player(object):
                     else:
                         self.animator(Itachi['JumpingLeft'], 1)
             elif self.playerNumber == 1:
-                if self.right:
-                    self.y = 280
-                    self.animator(Itachi['StandRight'], 1)
-                    self.facingRight = True
-                    self.right = False
-                elif self.left:
+                if self.left:
                     self.y = 280
                     self.animator(Itachi['StandLeft'], 1)
                     self.facingLeft = True
                     self.left = False
+                elif self.right:
+                    self.y = 280
+                    self.animator(Itachi['StandRight'], 1)
+                    self.facingRight = True
+                    self.right = False
+                elif self.facingLeft:
+                    self.y = 280
+                    self.animator(Itachi['StandLeft'], 1)
+                    self.facingLeft = True
+                    self.left = False
+                elif self.facingRight:
+                    self.y = 280
+                    self.animator(Itachi['StandRight'], 1)
+                    self.facingRight = True
+                    self.right = False
                 else:
                     self.y = 280
                     self.animator(Itachi['StandRight'], 1)
@@ -622,6 +636,16 @@ class Player(object):
                     self.animator(Itachi['StandLeft'], 1)
                     self.facingLeft = True
                     self.left = False
+                if self.facingLeft:
+                    self.y = 280
+                    self.animator(Itachi['StandLeft'], 1)
+                    self.facingLeft = True
+                    self.left = False
+                if self.facingRight:
+                    self.y = 280
+                    self.animator(Itachi['StandRight'], 1)
+                    self.facingRight = True
+                    self.right = False
                 else:
                     self.y = 280
                     self.animator(Itachi['StandLeft'], 1)
@@ -804,12 +828,12 @@ def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et p
     pygame.display.update()
 
 # MAINLOOP
-player1 = Player(100, 300, 64, 64, 1, 3)
+player1 = Player(100, 300, 64, 64, 1, 2)
 fireballs = []
 fireballLoop = 0
 fireballs2 = []
 fireballLoop2 = 0
-player2 = Player(550, 300, 64, 64, 2, 2)
+player2 = Player(550, 300, 64, 64, 2, 3)
 kunais = []  # Liste des Kunais --> Joueur 1
 kunaiLoop = 0  # Permet d'ajouter un "Cooldown" aux kunais, un seul peut être lancer à la fois --> Joueur 1
 kunais2 = []  # Liste des Kunais --> Joueur 2
@@ -820,6 +844,7 @@ launchGame = False
 while launched:
     clock.tick(27)
     #print(player1.facingLeft ,player1.facingRight)
+    print(player1.counter)
     # Variable permettant de vérifier si une touché est pressée
     keys = pygame.key.get_pressed()
 
@@ -848,8 +873,8 @@ while launched:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_g:
             player1.combo1 = True
             player1.dealable = True
-        # C = Player 1 Spell 1
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_c:
+        # X = Player 1 Spell 1
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_x:
             # Sasuke = Chidori
             if not player1.transforming and player1.characterNumber == 2:
                 if player1.mana >= 50:
@@ -862,8 +887,8 @@ while launched:
                     player1.mana -= 50
                     player1.spell1 = True
                     player1.dealable = True
-        # X = Player 1 Spell 2
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_x:
+        # C = Player 1 Spell 2
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_c:
             # Sasuke = Fireball Jutsu
             if not player1.transforming and not player1.spell1 and len(fireballs) < 1 and player1.characterNumber == 2:
                 if player1.mana >= 50:
@@ -949,17 +974,19 @@ while launched:
                     fireballs.pop(fireballs.index(fireball))
                 else:
                     if fireball_projectile.dealable:
-                        print(True)
                         if soundActivated:
                             fireballImpactSound.play()
-                        player2.hit(2)
-                        player1.dealable = False
-                        player1Score += 1
-                        if not player1.awaken:
-                            if player1.awakening < 200:
-                                player1.awakening += 20
-                        fireballs.pop(fireballs.index(fireball))
-                        fireball_projectile.dealable = False
+                        if player2.characterNumber == 3 and player2.spell1:
+                            print("Dodged")
+                        else:
+                            player2.hit(2)
+                            player1.dealable = False
+                            player1Score += 1
+                            if not player1.awaken:
+                                if player1.awakening < 200:
+                                    player1.awakening += 20
+                            fireballs.pop(fireballs.index(fireball))
+                            fireball_projectile.dealable = False
 
         # Fireball Velocity Config Player 1
         if 670 > fireball.x > -200:
@@ -987,13 +1014,22 @@ while launched:
                         print(False)
                         if soundActivated:
                             fireballImpactSound.play()
-                        player1.hit(2)
-                        fireball_projectile.dealable = False
-                        player1Score += 1
-                        if not player1.awaken:
-                            if player1.awakening < 200:
-                                player1.awakening += 20
-                        fireballs2.pop(fireballs2.index(fireball2))
+                        if player1.characterNumber == 3 and player1.spell1:
+                            print("Dodged")
+                        else:
+                            if player1.characterNumber == 3 and player1.spell1:
+                                print("Dodged")
+                            else:
+                                if player1.characterNumber == 3 and player1.spell1:
+                                    print("Dodged")
+                                else:
+                                    player1.hit(2)
+                                    fireball_projectile.dealable = False
+                                    player1Score += 1
+                                    if not player1.awaken:
+                                        if player1.awakening < 200:
+                                            player1.awakening += 20
+                                    fireballs2.pop(fireballs2.index(fireball2))
 
         # Fireball Velocity Config Player 2
         if 670 > fireball2.x > -200:
@@ -1041,7 +1077,9 @@ while launched:
                     else:
                         if soundActivated:
                             kunaiImpactSound.play()
-                        if player1.dealable:
+                        if player2.characterNumber == 3 and player2.spell1:
+                            print("Dodged")
+                        else:
                             player2.hit(2)
                             player1.dealable = False
                             player1Score += 1
@@ -1117,10 +1155,13 @@ while launched:
         if nextAnim:
             if player1.isContact:
                 if player1.dealable:
-                    player2.hit(5)
-                    player1.spell1 = False
-                    player1.dealable = False
-                    nextAnim = False
+                    if player2.characterNumber == 3 and player2.spell1:
+                        print("Dodged")
+                    else:
+                        player2.hit(5)
+                        player1.spell1 = False
+                        player1.dealable = False
+                        nextAnim = False
     else:
         player1.standing = True
         player1.isBlock = False
@@ -1130,11 +1171,14 @@ while launched:
     if player1.isContact:
         if player1.combo1:
             if player1.dealable:
-                player2.hit(5)
-                player1.dealable = False
-                player1Score += 1
-                if player1.awakening < 200:
-                    player1.awakening += 20
+                if player1.characterNumber == 3 and player1.spell1:
+                    print("Dodged")
+                else:
+                    player2.hit(5)
+                    player1.dealable = False
+                    player1Score += 1
+                    if player1.awakening < 200:
+                        player1.awakening += 20
         else:
             player1Score = player1Score
 
@@ -1185,12 +1229,15 @@ while launched:
                     else:
                         if soundActivated:
                             kunaiImpactSound.play()
-                        player1.hit(5)
-                        player2Score += 1
-                        if not player2.awaken:
-                            if player2.awakening < 200:
-                                player2.awakening += 20
-                        kunais.pop(kunais.index(kunai))
+                        if player1.characterNumber == 3 and player1.spell1:
+                            print("Dodged")
+                        else:
+                            player1.hit(5)
+                            player2Score += 1
+                            if not player2.awaken:
+                                if player2.awakening < 200:
+                                    player2.awakening += 20
+                            kunais.pop(kunais.index(kunai))
 
     for kunai in kunais:
         for kunai2 in kunais2:
@@ -1278,13 +1325,17 @@ while launched:
         player2.walkCount = 0
 
     # Combo 1 --> Damages
-    if player1.isContact:
-        if player1.combo1:
-            player2.hit(10)
-            player1.combo1 = False
-            player1Score += 1
-            if player1.awakening < 200:
-                player1.awakening += 20
+    if player2.isContact:
+        if player2.combo1:
+            if player2.dealable:
+                if player2.characterNumber == 3 and player2.spell1:
+                    print("Dodged")
+                else:
+                    player1.hit(5)
+                    player2.dealable = False
+                    player2Score += 1
+                    if player2.awakening < 200:
+                        player2.awakening += 20
         else:
             player1Score = player1Score
 
