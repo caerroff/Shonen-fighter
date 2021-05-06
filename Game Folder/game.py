@@ -14,6 +14,21 @@ main.maxsize(1023, 682)
 player1Character = 1
 player2Character = 1
 
+soundActivated = False
+
+def soundsFunction():
+    global kunaiSound, kunaiImpactSound
+    kunaiSound = pygame.mixer.Sound("kunai_flying.wav")
+    kunaiImpactSound = pygame.mixer.Sound("kunai_impact.wav")
+
+    pygame.mixer.music.load('naruto_theme.mp3')
+    pygame.mixer.music.play(-1)
+
+def isSoundActivated():
+    global soundActivated
+    soundActivated = True
+    soundsFunction()
+
 def settings():
     frameSettings = Frame(main, bg="grey", width=450, height=450, bd=3, relief=SUNKEN)
     frameSettings.place(relx=0.25, rely=0.1, anchor=N)
@@ -63,11 +78,11 @@ def selectCharacter():
     player2Itachi = Button(winSelect, text='Itachi', bg='lightgrey', font=("Helvetica", 10), width=15, command=lambda: player2ChooseCharacter(3))
     player2Itachi.place(relx=0.6, rely=0.4)
 
+    buttonSounds = Button(winSelect, text='Sounds', bg='lightgrey', font=("Helvetica", 10), width=15, command=isSoundActivated)
+    buttonSounds.place(relx=0.6, rely=0.7)
+
     buttonPlay = Button(winSelect, text='Play', bg='lightgrey', font=("Helvetica", 10), width=15, command=launchGame)
     buttonPlay.place(relx=0.8, rely=0.7)
-
-    #buttonSounds = Button(winSelect, text='Sounds', bg='lightgrey', font=("Helvetica", 10), width=15, command=soundsFunction)
-    #buttonSounds.place(relx=0.6, rely=0.7)
 
     winSelect.mainloop()
 
@@ -106,16 +121,6 @@ win_res = (700, 400)
 win = pygame.display.set_mode(win_res)
 pygame.display.set_caption("Shonen Fighter")
 clock = pygame.time.Clock()
-
-soundActivated = False
-
-def soundsFunction():
-    global kunaiSound, kunaiImpactSound
-    kunaiSound = pygame.mixer.Sound("kunai_flying.wav")
-    kunaiImpactSound = pygame.mixer.Sound("kunai_impact.wav")
-
-    pygame.mixer.music.load('naruto_theme.mp3')
-    pygame.mixer.music.play(-1)
 
 font = pygame.font.Font("Helvetica.ttf", 30)  # Font importé pour le score
 player2Score = 0
@@ -938,6 +943,7 @@ while launched:
     clock.tick(27)
     #print(player1.facingLeft ,player1.facingRight)
     #print(player1.counter)
+    print(soundActivated)
     # Variable permettant de vérifier si une touché est pressée
     keys = pygame.key.get_pressed()
 
