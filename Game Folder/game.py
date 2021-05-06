@@ -1199,7 +1199,7 @@ while launched:
             facing = 1
         if len(kunais2) < 3:
             if facing == 1:
-                kunais2.append(projectile(round(player1.x + player1.width // 2), round(player1.y + 10 + player1.height // 4),6, (0, 0, 0), facing))
+                kunais2.append(projectile(round(player1.x), round(player1.y + 10 + player1.height // 4),6, (0, 0, 0), facing))
             else:
                 kunais2.append(projectile(round(player1.x), round(player1.y + player1.height // 4), 6, (0, 0, 0), facing))
         kunaiLoop2 = 1
