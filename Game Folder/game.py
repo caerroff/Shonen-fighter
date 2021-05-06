@@ -2,7 +2,102 @@
 import pygame, time
 from perso_os import *
 from random import *
-# from gui import *
+from tkinter import *
+
+#Création de la fênetre de lancement du jeu
+main = Tk()
+main.title("Shonen Fighter")
+main.geometry("1023x682")
+main.minsize(1023, 682)
+main.maxsize(1023, 682)
+
+player1Character = 1
+player2Character = 1
+
+def settings():
+    frameSettings = Frame(main, bg="grey", width=450, height=450, bd=3, relief=SUNKEN)
+    frameSettings.place(relx=0.25, rely=0.1, anchor=N)
+
+    buttonClose = Button(frameSettings, text="Fermer",bg="lightgrey", font=("Helvetica", 10), width=15, command=frameSettings.destroy)
+    buttonClose.place(relx=0.66, rely=0.9)
+
+def player1ChooseCharacter(value):
+    global player1Character
+    player1Character = value
+    return player1Character
+
+def player2ChooseCharacter(value):
+    global player2Character
+    player2Character = value
+
+def selectCharacter():
+    global winSelect, player1Character
+    main.destroy()
+
+    winSelect = Tk()
+    winSelect.title("Shonen Fighter - Select Character")
+    winSelect.geometry("1023x682")
+    winSelect.minsize(1023, 682)
+    winSelect.maxsize(1023, 682)
+
+    # Importation et affichage de l'image de fond d'écran de la fênetre
+    shonen = PhotoImage(file='boruto.png')
+    labelShonen = Label(winSelect, image=shonen)
+    labelShonen.place(x=0, y=0, relwidth=1, relheight=1)
+
+    player1Naruto = Button(winSelect, text='Naruto', bg='lightgrey', font=("Helvetica", 10), width=15, command=lambda: player1ChooseCharacter(1))
+    player1Naruto.place(relx=0.2, rely=0.2)
+
+    player1Sasuke = Button(winSelect, text='Sasuke', bg='lightgrey', font=("Helvetica", 10), width=15, command=lambda: player1ChooseCharacter(2))
+    player1Sasuke.place(relx=0.4, rely=0.2)
+
+    player1Itachi = Button(winSelect, text='Itachi', bg='lightgrey', font=("Helvetica", 10), width=15, command=lambda: player1ChooseCharacter(3))
+    player1Itachi.place(relx=0.6, rely=0.2)
+
+    player2Naruto = Button(winSelect, text='Naruto', bg='lightgrey', font=("Helvetica", 10), width=15, command=lambda: player2ChooseCharacter(1))
+    player2Naruto.place(relx=0.2, rely=0.4)
+
+    player2Sasuke = Button(winSelect, text='Sasuke', bg='lightgrey', font=("Helvetica", 10), width=15, command=lambda: player2ChooseCharacter(2))
+    player2Sasuke.place(relx=0.4, rely=0.4)
+
+    player2Itachi = Button(winSelect, text='Itachi', bg='lightgrey', font=("Helvetica", 10), width=15, command=lambda: player2ChooseCharacter(3))
+    player2Itachi.place(relx=0.6, rely=0.4)
+
+    buttonPlay = Button(winSelect, text='Play', bg='lightgrey', font=("Helvetica", 10), width=15, command=launchGame)
+    buttonPlay.place(relx=0.8, rely=0.7)
+
+    #buttonSounds = Button(winSelect, text='Sounds', bg='lightgrey', font=("Helvetica", 10), width=15, command=soundsFunction)
+    #buttonSounds.place(relx=0.6, rely=0.7)
+
+    winSelect.mainloop()
+
+global launched
+launched = False
+def launchGame():
+    global launched
+    launched = True
+    winSelect.destroy()
+
+#Importation et affichage de l'image de fond d'écran de la fênetre
+shonen = PhotoImage(file='naruto_bg.png')
+labelShonen = Label(main, image=shonen)
+labelShonen.place(x=0, y=0, relwidth=1, relheight=1)
+
+#Bouton Jouer
+buttonJouer = Button(main, text="Jouer", font=("Helvetica", 22), bg="white", bd=3, relief=SUNKEN, width=10, command=selectCharacter)
+buttonJouer.place(x=120, y=85)
+
+#Bouton Settings
+buttonSettings = Button(main, text="Options", font=("Helvetica", 22), bg="white", bd=3, relief=SUNKEN, width=10, command=settings)
+buttonSettings.place(x=120, y=175)
+
+#Bouton Quitter
+buttonLeave = Button(main, text="Quitter", font=("Helvetica", 22), bg="white", bd=3, relief=SUNKEN, width=10, command=main.destroy)
+buttonLeave.place(x=120, y=265)
+
+main.mainloop()
+
+# /////////// PYGAME ///////////
 
 pygame.init()
 pygame.font.init()
@@ -826,12 +921,12 @@ def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et p
     pygame.display.update()
 
 # MAINLOOP
-player1 = Player(100, 300, 64, 64, 1, 2)
+player1 = Player(100, 300, 64, 64, 1, player1Character)
 fireballs = []
 fireballLoop = 0
 fireballs2 = []
 fireballLoop2 = 0
-player2 = Player(550, 300, 64, 64, 2, 2)
+player2 = Player(550, 300, 64, 64, 2, player2Character)
 kunais = []  # Liste des Kunais --> Joueur 1
 kunaiLoop = 0  # Permet d'ajouter un "Cooldown" aux kunais, un seul peut être lancer à la fois --> Joueur 1
 kunais2 = []  # Liste des Kunais --> Joueur 2
@@ -842,7 +937,7 @@ launchGame = False
 while launched:
     clock.tick(27)
     #print(player1.facingLeft ,player1.facingRight)
-    print(player1.counter)
+    #print(player1.counter)
     # Variable permettant de vérifier si une touché est pressée
     keys = pygame.key.get_pressed()
 
