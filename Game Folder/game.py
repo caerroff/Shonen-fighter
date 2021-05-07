@@ -60,6 +60,11 @@ def selectCharacter():
     labelShonen = Label(winSelect, image=shonen)
     labelShonen.place(x=0, y=0, relwidth=1, relheight=1)
 
+    # Importation et affichage de l'image de fond d'écran de la fênetre
+    iconItachi = PhotoImage(file='../Sprite/Itachi/Icon/Sprite 1.png')
+    labelIconItachi = Label(winSelect, image=iconItachi)
+    labelIconItachi.place(x=172, y=68, relwidth=1, relheight=1)
+
     player1Naruto = Button(winSelect, text='Naruto', bg='lightgrey', font=("Helvetica", 10), width=15, command=lambda: player1ChooseCharacter(1))
     player1Naruto.place(relx=0.2, rely=0.2)
 
@@ -70,19 +75,19 @@ def selectCharacter():
     player1Itachi.place(relx=0.6, rely=0.2)
 
     player2Naruto = Button(winSelect, text='Naruto', bg='lightgrey', font=("Helvetica", 10), width=15, command=lambda: player2ChooseCharacter(1))
-    player2Naruto.place(relx=0.2, rely=0.4)
+    player2Naruto.place(relx=0.2, rely=0.7)
 
     player2Sasuke = Button(winSelect, text='Sasuke', bg='lightgrey', font=("Helvetica", 10), width=15, command=lambda: player2ChooseCharacter(2))
-    player2Sasuke.place(relx=0.4, rely=0.4)
+    player2Sasuke.place(relx=0.4, rely=0.7)
 
     player2Itachi = Button(winSelect, text='Itachi', bg='lightgrey', font=("Helvetica", 10), width=15, command=lambda: player2ChooseCharacter(3))
-    player2Itachi.place(relx=0.6, rely=0.4)
+    player2Itachi.place(relx=0.6, rely=0.7)
 
     buttonSounds = Button(winSelect, text='Sounds', bg='lightgrey', font=("Helvetica", 10), width=15, command=isSoundActivated)
-    buttonSounds.place(relx=0.6, rely=0.7)
+    buttonSounds.place(relx=0.6, rely=0.85)
 
     buttonPlay = Button(winSelect, text='Play', bg='lightgrey', font=("Helvetica", 10), width=15, command=launchGame)
-    buttonPlay.place(relx=0.8, rely=0.7)
+    buttonPlay.place(relx=0.8, rely=0.85)
 
     winSelect.mainloop()
 
@@ -940,10 +945,9 @@ launched = True
 playerSelect = True
 launchGame = False
 while launched:
+
     clock.tick(27)
-    #print(player1.facingLeft ,player1.facingRight)
-    #print(player1.counter)
-    print(soundActivated)
+
     # Variable permettant de vérifier si une touché est pressée
     keys = pygame.key.get_pressed()
 
