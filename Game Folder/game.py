@@ -129,7 +129,7 @@ def selectCharacter():
 
     winSelect.mainloop()
 
-global launched
+
 launched = False
 def launchGame():
     global launched
