@@ -54,40 +54,78 @@ def selectCharacter():
     winSelect.geometry("1023x682")
     winSelect.minsize(1023, 682)
     winSelect.maxsize(1023, 682)
+    #winSelect.wm_attributes('-transparentcolor', 'white')
+
+    frame = Frame(winSelect, bg='white', width=5000, height=5000)
 
     # Importation et affichage de l'image de fond d'écran de la fênetre
-    shonen = PhotoImage(file='boruto.png')
-    labelShonen = Label(winSelect, image=shonen)
-    labelShonen.place(x=0, y=0, relwidth=1, relheight=1)
+    #shonen = PhotoImage(file='boruto.png')
+    #labelShonen = Label(frame, image=shonen)
+    #labelShonen.place(x=50, y=50)
+
+    # Création de la partie gauche de la frame (texte + saisie)
+    image_player1_frame = Frame(frame, bg="white")
+    image_player1_frame.grid(row=0, column=0, sticky=W, pady=10)
+
+    # Création de la partie gauche de la frame (image, id)
+    select_player1_frame = Frame(frame, bg="white")  # bd=1, relief=SUNKEN
+    select_player1_frame.grid(row=1, column=0, sticky=W)
+
+    # Création de la partie gauche de la frame (texte + saisie)
+    image_player2_frame = Frame(frame, bg="white")
+    image_player2_frame.grid(row=2, column=0, sticky=W, pady=10)
+
+    # Création de la partie gauche de la frame (image, id)
+    select_player2_frame = Frame(frame, bg="white")  # bd=1, relief=SUNKEN
+    select_player2_frame.grid(row=3, column=0, sticky=W)
+
+    bottomButtons = Frame(frame, padx=500, pady=100, bg='white')
+    bottomButtons.grid(row=4, column=0, sticky=W)
+
+    invisibleLabel = Label(bottomButtons, text='')
+    invisibleLabel.grid()
+
+    buttonSounds = Button(bottomButtons, text='Sounds', bg='white', font=("Helvetica", 10), width=15, border=1, command=isSoundActivated)
+    buttonSounds.place(x=100, y=50)
+
+    buttonPlay = Button(bottomButtons, text='Play', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=launchGame)
+    buttonPlay.place(x=300, y=50)
 
     # Importation et affichage de l'image de fond d'écran de la fênetre
     iconItachi = PhotoImage(file='../Sprite/Itachi/Icon/Sprite 1.png')
-    labelIconItachi = Label(winSelect, image=iconItachi)
-    labelIconItachi.place(x=172, y=68, relwidth=1, relheight=1)
+    labelIconItachi = Label(image_player1_frame, image=iconItachi)
+    labelIconItachi.grid(row=0, column=0, sticky=W) #x=172, y=68, relwidth=1, relheight=1
 
-    player1Naruto = Button(winSelect, text='Naruto', bg='lightgrey', font=("Helvetica", 10), width=15, command=lambda: player1ChooseCharacter(1))
-    player1Naruto.place(relx=0.2, rely=0.2)
+    # Importation et affichage de l'image de fond d'écran de la fênetre
+    iconItachi2 = PhotoImage(file='../Sprite/Itachi/Icon/Sprite 1.png')
+    labelIconItachi2 = Label(image_player2_frame, image=iconItachi2)
+    labelIconItachi2.grid(row=0, column=0, sticky=W)  # x=172, y=68, relwidth=1, relheight=1
 
-    player1Sasuke = Button(winSelect, text='Sasuke', bg='lightgrey', font=("Helvetica", 10), width=15, command=lambda: player1ChooseCharacter(2))
-    player1Sasuke.place(relx=0.4, rely=0.2)
+    # Importation et affichage de l'image de fond d'écran de la fênetre
+    iconSasuke = PhotoImage(file='../Sprite/Sasuke/Icon/Sprite 2.png')
+    labelIconSasuke = Label(image_player1_frame, image=iconSasuke)
+    labelIconSasuke.grid(row=0, column=1, sticky=W, padx=60)  # x=172, y=68, relwidth=1, relheight=1
 
-    player1Itachi = Button(winSelect, text='Itachi', bg='lightgrey', font=("Helvetica", 10), width=15, command=lambda: player1ChooseCharacter(3))
-    player1Itachi.place(relx=0.6, rely=0.2)
+    player1Naruto = Button(select_player1_frame, text='Naruto', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player1ChooseCharacter(1))
+    player1Naruto.grid(row=0, column=0, sticky=W, padx=10)
 
-    player2Naruto = Button(winSelect, text='Naruto', bg='lightgrey', font=("Helvetica", 10), width=15, command=lambda: player2ChooseCharacter(1))
-    player2Naruto.place(relx=0.2, rely=0.7)
+    player1Sasuke = Button(select_player1_frame, text='Sasuke', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player1ChooseCharacter(2))
+    player1Sasuke.grid(row=0, column=1, sticky=W, padx=50)
 
-    player2Sasuke = Button(winSelect, text='Sasuke', bg='lightgrey', font=("Helvetica", 10), width=15, command=lambda: player2ChooseCharacter(2))
-    player2Sasuke.place(relx=0.4, rely=0.7)
+    player1Itachi = Button(select_player1_frame, text='Itachi', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player1ChooseCharacter(3))
+    player1Itachi.grid(row=0, column=2, sticky=W, padx=10)
 
-    player2Itachi = Button(winSelect, text='Itachi', bg='lightgrey', font=("Helvetica", 10), width=15, command=lambda: player2ChooseCharacter(3))
-    player2Itachi.place(relx=0.6, rely=0.7)
+    player2Naruto = Button(select_player2_frame, text='Naruto', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player2ChooseCharacter(1))
+    player2Naruto.grid(row=0, column=3, sticky=W, padx=10)
 
-    buttonSounds = Button(winSelect, text='Sounds', bg='lightgrey', font=("Helvetica", 10), width=15, command=isSoundActivated)
-    buttonSounds.place(relx=0.6, rely=0.85)
+    player2Sasuke = Button(select_player2_frame, text='Sasuke', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player2ChooseCharacter(2))
+    player2Sasuke.grid(row=0, column=4, sticky=W, padx=10)
 
-    buttonPlay = Button(winSelect, text='Play', bg='lightgrey', font=("Helvetica", 10), width=15, command=launchGame)
-    buttonPlay.place(relx=0.8, rely=0.85)
+    player2Itachi = Button(select_player2_frame, text='Itachi', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player2ChooseCharacter(3))
+    player2Itachi.grid(row=0, column=5, sticky=W, padx=10)
+
+    # Affichage de toute la frame (l'ensemble de ce qu'il faut afficher)
+    frame.grid(ipadx=50, ipady=50)
 
     winSelect.mainloop()
 
