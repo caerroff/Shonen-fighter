@@ -11,8 +11,8 @@ main.geometry("1023x682")
 main.minsize(1023, 682)
 main.maxsize(1023, 682)
 
-player1Character = 1
-player2Character = 1
+player1Character = 2
+player2Character = 3
 
 soundActivated = False
 
@@ -92,19 +92,34 @@ def selectCharacter():
     buttonPlay.place(x=300, y=50)
 
     # Importation et affichage de l'image de fond d'écran de la fênetre
-    iconItachi = PhotoImage(file='../Sprite/Itachi/Icon/Sprite 1.png')
-    labelIconItachi = Label(image_player1_frame, image=iconItachi)
-    labelIconItachi.grid(row=0, column=0, sticky=W) #x=172, y=68, relwidth=1, relheight=1
+    iconNaruto = PhotoImage(file='../Sprite/Itachi/Icon/Sprite 1.png')
+    labelIconNaruto = Label(image_player1_frame, image=iconNaruto)
+    labelIconNaruto.grid(row=0, column=0, sticky=W, padx=10) #x=172, y=68, relwidth=1, relheight=1
 
     # Importation et affichage de l'image de fond d'écran de la fênetre
-    iconItachi2 = PhotoImage(file='../Sprite/Itachi/Icon/Sprite 1.png')
-    labelIconItachi2 = Label(image_player2_frame, image=iconItachi2)
-    labelIconItachi2.grid(row=0, column=0, sticky=W)  # x=172, y=68, relwidth=1, relheight=1
+    iconNaruto2 = PhotoImage(file='../Sprite/Itachi/Icon/Sprite 1.png')
+    labelIconNaruto2 = Label(image_player2_frame, image=iconNaruto2)
+    labelIconNaruto2.grid(row=0, column=0, sticky=W, padx=10)  # x=172, y=68, relwidth=1, relheight=1
 
     # Importation et affichage de l'image de fond d'écran de la fênetre
     iconSasuke = PhotoImage(file='../Sprite/Sasuke/Icon/Sprite 2.png')
     labelIconSasuke = Label(image_player1_frame, image=iconSasuke)
-    labelIconSasuke.grid(row=0, column=1, sticky=W, padx=60)  # x=172, y=68, relwidth=1, relheight=1
+    labelIconSasuke.grid(row=0, column=1, sticky=W, padx=40)  # x=172, y=68, relwidth=1, relheight=1
+
+    # Importation et affichage de l'image de fond d'écran de la fênetre
+    iconSasuke2 = PhotoImage(file='../Sprite/Sasuke/Icon/Sprite 2.png')
+    labelIconSasuke2 = Label(image_player2_frame, image=iconSasuke2)
+    labelIconSasuke2.grid(row=0, column=1, sticky=W, padx=40)  # x=172, y=68, relwidth=1, relheight=1
+
+    # Importation et affichage de l'image de fond d'écran de la fênetre
+    iconItachi = PhotoImage(file='../Sprite/Itachi/Icon/Sprite 1.png')
+    labelIconItachi = Label(image_player1_frame, image=iconItachi)
+    labelIconItachi.grid(row=0, column=2, sticky=W, padx=20)  # x=172, y=68, relwidth=1, relheight=1
+
+    # Importation et affichage de l'image de fond d'écran de la fênetre
+    iconItachi2 = PhotoImage(file='../Sprite/Itachi/Icon/Sprite 1.png')
+    labelIconItachi2 = Label(image_player2_frame, image=iconItachi2)
+    labelIconItachi2.grid(row=0, column=2, sticky=W, padx=20)  # x=172, y=68, relwidth=1, relheight=1
 
     player1Naruto = Button(select_player1_frame, text='Naruto', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player1ChooseCharacter(1))
     player1Naruto.grid(row=0, column=0, sticky=W, padx=10)
@@ -119,7 +134,7 @@ def selectCharacter():
     player2Naruto.grid(row=0, column=3, sticky=W, padx=10)
 
     player2Sasuke = Button(select_player2_frame, text='Sasuke', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player2ChooseCharacter(2))
-    player2Sasuke.grid(row=0, column=4, sticky=W, padx=10)
+    player2Sasuke.grid(row=0, column=4, sticky=W, padx=50)
 
     player2Itachi = Button(select_player2_frame, text='Itachi', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player2ChooseCharacter(3))
     player2Itachi.grid(row=0, column=5, sticky=W, padx=10)
@@ -128,7 +143,6 @@ def selectCharacter():
     frame.grid(ipadx=50, ipady=50)
 
     winSelect.mainloop()
-
 
 launched = False
 def launchGame():
@@ -255,11 +269,15 @@ class Player(object):
                     self.standingRight = True
                 return
             else:
+                if self.playerNumber == 1 and self.characterNumber == 2:
+                    list[int(self.current_sprite)] = pygame.transform.scale(list[int(self.current_sprite)], (60, 85))
                 win.blit(list[int(self.current_sprite)], (self.x, self.y))
                 self.current_sprite += increm
         else:
             if self.current_sprite >= len(list):
                 self.current_sprite = 0
+            if self.playerNumber == 1 and self.characterNumber == 2:
+                list[int(self.current_sprite)] = pygame.transform.scale(list[int(self.current_sprite)], (60, 85))
             win.blit(list[int(self.current_sprite)], (self.x, self.y))
             self.current_sprite += increm
 
@@ -529,6 +547,7 @@ class Player(object):
                     self.animator(Sasuke['AwakeningRight'], 0.2, 1)
             elif self.playerNumber == 1:
                 if self.right:
+
                     self.animator(Sasuke['StandRight'], 1)
                     self.facingRight = True
                 elif self.left:
@@ -982,7 +1001,7 @@ def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et p
     pygame.display.update()
 
 # MAINLOOP
-player1 = Player(100, 300, 64, 64, 1, player1Character)
+player1 = Player(100, 280, 64, 64, 1, player1Character)
 fireballs = []
 fireballLoop = 0
 fireballs2 = []
@@ -1023,6 +1042,7 @@ while launched:
             if not player1.awaken and player1.characterNumber == 2:
                 player1.transforming = True
                 player1.y = 295
+            # Itachi = Susanoo
             if not player1.awaken and player1.characterNumber == 3:
                 player1.transforming = True
                 player1.y = 220
@@ -1067,7 +1087,7 @@ while launched:
                     fireballLoop = 1
             # Itachi = Fireball Jutsu
         # ////////// PLAYER 2 //////////
-        # W = Player 2 Awakening
+        # M = Player 2 Awakening
         if event.type == pygame.KEYDOWN and event.key == pygame.K_m:
             # Sasuke = Cursed Mark Mode
             if not player2.awaken and player2.characterNumber == 2:
