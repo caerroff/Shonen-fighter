@@ -11,11 +11,19 @@ main.geometry("1023x682")
 main.minsize(1023, 682)
 main.maxsize(1023, 682)
 
-player1Character = 2
-player2Character = 3
+player1Character = 3
+player2Character = 2
 
 rounds = 3
 current_round = 1
+isHitbox = False
+
+bg = pygame.image.load('../Sprite/bg.jpg')
+bg_1 = pygame.image.load('../Sprite/bg_1.jpg')
+bg2 = pygame.image.load('../Sprite/Bg_2.jpg')
+bg3 = pygame.image.load('../Sprite/Bg_3.jpg')
+bg4 = pygame.image.load('../Sprite/Bg_4.jpg')
+background = bg
 
 soundActivated = False
 
@@ -54,8 +62,25 @@ def player2ChooseCharacter(value):
     player2Character = value
 
 def chooseNumberRounds(value):
+    """Function, in the Gui, that allows to change the number of rounds of the game"""
     global rounds
     rounds = value
+
+def chooseBackground(value):
+    """Function, in the Gui, that allows to change the background (Map) of the game"""
+    global background
+    if value == 1:
+        background = bg
+    if value == 2:
+        background = bg2
+    if value == 3:
+        background = bg4
+    #else:
+    #    background = bg
+
+def showHitbox():
+    global isHitbox
+    isHitbox = True
 
 def selectCharacter():
     """Function, in the Gui, that allows to select a character for each player and the number of rounds for the game"""
@@ -90,15 +115,41 @@ def selectCharacter():
     rounds_frame = Frame(frame, padx=500, pady=50, bg='white')
     rounds_frame.grid(row=4, column=0, sticky=W)
 
+    # Frame that allows to choose the background
+    background_frame = Frame(frame, padx=500, pady=10, bg='white')
+    background_frame.grid(row=5, column=0, sticky=W)
+
     # Frame that allows to Start the game
     bottomButtons = Frame(frame, padx=500, pady=50, bg='white')
-    bottomButtons.grid(row=5, column=0, sticky=W)
+    bottomButtons.grid(row=6, column=0, sticky=W)
 
+    # Invisible Label To Use Grid / Place
     invisibleLabel = Label(bottomButtons, text='')
     invisibleLabel.grid()
 
+    # Invisible Label To Use Grid / Place
     invisibleLabel2 = Label(rounds_frame, text='')
     invisibleLabel2.grid()
+
+    # Invisible Label To Use Grid / Place
+    invisibleLabel3 = Label(background_frame, text='')
+    invisibleLabel3.grid()
+
+    # Label Background
+    labelBackground = Label(background_frame, text='Background', bg='lightgrey', font=("Helvetica", 10), width=15, border=1)
+    labelBackground.place(x=-470, y=0)
+
+    # Label Background 1 (Normal / Day)
+    buttonBackground_1 = Button(background_frame, text='Day', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: chooseBackground(1))
+    buttonBackground_1.place(x=-307, y=0)
+
+    # Label Background 2 (Forest)
+    buttonBackground_2 = Button(background_frame, text='Forest', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: chooseBackground(2))
+    buttonBackground_2.place(x=-120, y=0)
+
+    # Label Background 3 (Night)
+    buttonBackground_3 = Button(background_frame, text='Night', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: chooseBackground(3))
+    buttonBackground_3.place(x=70, y=0)
 
     # Label Rounds
     labelRounds = Label(rounds_frame, text='Rounds (To Win)', bg='lightgrey', font=("Helvetica", 10), width=15, border=1)
@@ -109,50 +160,54 @@ def selectCharacter():
     buttonRounds1.place(x=-307, y=0)
 
     # Button Rounds = 2
-    buttonRounds2 = Button(rounds_frame, text='2 Rounds', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: chooseNumberRounds(2))
+    buttonRounds2 = Button(rounds_frame, text='3 Rounds', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: chooseNumberRounds(3))
     buttonRounds2.place(x=-120, y=0)
 
     # Button Rounds = 3
-    buttonRounds3 = Button(rounds_frame, text='3 Rounds', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: chooseNumberRounds(3))
+    buttonRounds3 = Button(rounds_frame, text='5 Rounds', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: chooseNumberRounds(5))
     buttonRounds3.place(x=70, y=0)
 
     # Button Sounds
     buttonSounds = Button(bottomButtons, text='Sounds', bg='white', font=("Helvetica", 10), width=15, border=1, command=isSoundActivated)
-    buttonSounds.place(x=100, y=0)
+    buttonSounds.place(x=-100, y=0)
+
+    # Button Hitbox
+    buttonHitbox = Button(bottomButtons, text='Hitbox', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=showHitbox)
+    buttonHitbox.place(x=100, y=0)
 
     # Button Play
     buttonPlay = Button(bottomButtons, text='Play', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=launchGame)
     buttonPlay.place(x=300, y=0)
 
     # Icon Naruto Player 1
-    iconNaruto = PhotoImage(file='../Sprite/Itachi/Icon/Sprite 1.png')
+    iconNaruto = PhotoImage(file='../Sprite/Naruto/Icon/Sprite 1.png')
     labelIconNaruto = Label(image_player1_frame, image=iconNaruto)
-    labelIconNaruto.grid(row=0, column=1, sticky=W, padx=10) #x=172, y=68, relwidth=1, relheight=1
+    labelIconNaruto.grid(row=0, column=1, sticky=W, padx=10)
 
     # Icon Naruto Player 2
-    iconNaruto2 = PhotoImage(file='../Sprite/Itachi/Icon/Sprite 1.png')
+    iconNaruto2 = PhotoImage(file='../Sprite/Naruto/Icon/Sprite 1.png')
     labelIconNaruto2 = Label(image_player2_frame, image=iconNaruto2)
-    labelIconNaruto2.grid(row=0, column=1, sticky=W, padx=10)  # x=172, y=68, relwidth=1, relheight=1
+    labelIconNaruto2.grid(row=0, column=1, sticky=W, padx=10)
 
     # Icon Sasuke Player 1
     iconSasuke = PhotoImage(file='../Sprite/Sasuke/Icon/Sprite 2.png')
     labelIconSasuke = Label(image_player1_frame, image=iconSasuke)
-    labelIconSasuke.grid(row=0, column=2, sticky=W, padx=40)  # x=172, y=68, relwidth=1, relheight=1
+    labelIconSasuke.grid(row=0, column=2, sticky=W, padx=40)
 
     # Icon Sasuke Player 2
     iconSasuke2 = PhotoImage(file='../Sprite/Sasuke/Icon/Sprite 2.png')
     labelIconSasuke2 = Label(image_player2_frame, image=iconSasuke2)
-    labelIconSasuke2.grid(row=0, column=2, sticky=W, padx=40)  # x=172, y=68, relwidth=1, relheight=1
+    labelIconSasuke2.grid(row=0, column=2, sticky=W, padx=40)
 
     # Icon Itachi Player 1
     iconItachi = PhotoImage(file='../Sprite/Itachi/Icon/Sprite 1.png')
     labelIconItachi = Label(image_player1_frame, image=iconItachi)
-    labelIconItachi.grid(row=0, column=3, sticky=W, padx=20)  # x=172, y=68, relwidth=1, relheight=1
+    labelIconItachi.grid(row=0, column=3, sticky=W, padx=20)
 
     # Icon Itachi Player 2
     iconItachi2 = PhotoImage(file='../Sprite/Itachi/Icon/Sprite 1.png')
     labelIconItachi2 = Label(image_player2_frame, image=iconItachi2)
-    labelIconItachi2.grid(row=0, column=3, sticky=W, padx=20)  # x=172, y=68, relwidth=1, relheight=1
+    labelIconItachi2.grid(row=0, column=3, sticky=W, padx=20)
 
     # Player 1 Label (Void)
     labelPlayer1Image = Label(image_player1_frame, text='', bg='white', font=("Helvetica", 10), width=15, border=1)
@@ -252,8 +307,6 @@ purple = (66, 0, 255)
 
 kunaiSpriteRight = pygame.image.load('../Sprite/Kunai/sprite.png')
 kunaiSpriteLeft = pygame.transform.flip(kunaiSpriteRight, True, False)
-bg = pygame.image.load('../Sprite/bg.jpg')
-bg2 = pygame.image.load('../Sprite/bg2.jpg')
 
 spawnEffect = False
 nextAnim = False
@@ -297,7 +350,6 @@ class Player(object):
         self.current_sprite = 0
         self.current_sprite2 = 0
         self.counter = 0
-        self.score = 0
 
     def animator(self, list, increm, iter = 0):
         """Function that allows to 'animate' a sprite series"""
@@ -328,15 +380,19 @@ class Player(object):
                     self.standingRight = True
                 return
             else:
-                if self.playerNumber == 1 and self.characterNumber == 2:
+                if self.characterNumber == 2 and not self.transforming and not self.awaken:
                     list[int(self.current_sprite)] = pygame.transform.scale(list[int(self.current_sprite)], (60, 85))
+                if self.characterNumber == 2 and self.awaken:
+                    list[int(self.current_sprite)] = pygame.transform.scale(list[int(self.current_sprite)], (80, 95))
                 win.blit(list[int(self.current_sprite)], (self.x, self.y))
                 self.current_sprite += increm
         else:
             if self.current_sprite >= len(list):
                 self.current_sprite = 0
-            if self.playerNumber == 1 and self.characterNumber == 2:
+            if self.characterNumber == 2 and not self.transforming and not self.awaken:
                 list[int(self.current_sprite)] = pygame.transform.scale(list[int(self.current_sprite)], (60, 85))
+            if self.characterNumber == 2 and self.awaken:
+                list[int(self.current_sprite)] = pygame.transform.scale(list[int(self.current_sprite)], (80, 95))
             win.blit(list[int(self.current_sprite)], (self.x, self.y))
             self.current_sprite += increm
 
@@ -406,6 +462,10 @@ class Player(object):
         if self.characterNumber == 1:
             self.draw_naruto(win)
         elif self.characterNumber == 2:
+            if not self.awaken:
+                self.y = 280
+            if self.awaken or self.transforming:
+                self.y = 275
             self.draw_sasuke(win)
         elif self.characterNumber == 3:
             self.draw_itachi(win)
@@ -530,12 +590,14 @@ class Player(object):
                 self.animator(Naruto['StandRight'], 1)
                 self.standingRight = True
 
-        if not self.awaken:
-            self.hitbox = (self.x, self.y, 47, 54)
-            pygame.draw.rect(win, blue, self.hitbox, 2)
-        else:
-            self.hitbox = (self.x, self.y, 65, 80)
-            pygame.draw.rect(win, red, self.hitbox, 2)
+        global isHitbox
+        if isHitbox:
+            if not self.awaken:
+                self.hitbox = (self.x, self.y, 47, 54)
+                pygame.draw.rect(win, blue, self.hitbox, 2)
+            else:
+                self.hitbox = (self.x, self.y, 65, 80)
+                pygame.draw.rect(win, red, self.hitbox, 2)
 
     def draw_sasuke(self, win):
         """Function that prints the differents animation of Sasuke"""
@@ -739,15 +801,17 @@ class Player(object):
                     self.animator(Sasuke['AwakeStandRight'], 0.1)
                     self.standingRight = True
 
-        if not self.awaken and not self.transforming:
-            self.hitbox = (self.x, self.y, 47, 66)
-            pygame.draw.rect(win, blue, self.hitbox, 2)
-        if self.transforming:
-            self.hitbox = (self.x, self.y, 65, 77)
-            pygame.draw.rect(win, purple, self.hitbox, 2)
-        if self.awaken:
-            self.hitbox = (self.x, self.y, 65, 77)
-            pygame.draw.rect(win, red, self.hitbox, 2)
+        global isHitbox
+        if isHitbox:
+            if not self.awaken and not self.transforming:
+                self.hitbox = (self.x, self.y, 50, 85)
+                pygame.draw.rect(win, blue, self.hitbox, 2)
+            if self.transforming:
+                self.hitbox = (self.x, self.y, 70, 90)
+                pygame.draw.rect(win, purple, self.hitbox, 2)
+            if self.awaken:
+                self.hitbox = (self.x, self.y, 70, 90)
+                pygame.draw.rect(win, red, self.hitbox, 2)
 
     def draw_itachi(self, win):
         """Function that prints the differents animation of Itachi"""
@@ -761,7 +825,6 @@ class Player(object):
                     else:
                         self.y = 300
                         self.animator(Itachi['RunLeft'], 0.5)
-                        #self.facingLeft = True
                 elif self.right:
                     if self.isJumping and self.isFalling:
                         self.animator(Itachi['FallingRight'], 1)
@@ -770,7 +833,6 @@ class Player(object):
                     else:
                         self.y = 300
                         self.animator(Itachi['RunRight'], 0.5)
-                        #self.facingRight = True
             elif self.isBlock:
                 if self.facingLeft:
                     self.animator(Itachi['BlockLeft'], 1)
@@ -830,7 +892,7 @@ class Player(object):
             elif self.transforming:
                 if self.facingLeft:
                     self.animator(Itachi['AwakeningLeft'], 0.2, 1)
-                else:
+                if self.facingRight:
                     self.animator(Itachi['AwakeningRight'], 0.2, 1)
             elif self.playerNumber == 1:
                 if self.left:
@@ -901,23 +963,38 @@ class Player(object):
                     self.standingRight = True
                     self.right = False
         if self.awaken:
-            self.y = 150
-            if self.facingLeft:
-                self.animator(Itachi['AwakeStandLeft'], 1)
-            if self.facingRight:
-                self.animator(Itachi['AwakeStandRight'], 1)
+            self.y = 125
+            if self.left:
+                if self.facingLeft:
+                    self.animator(Itachi['AwakeStandLeft'], 1)
+            elif self.right:
+                if self.facingRight:
+                    self.animator(Itachi['AwakeStandRight'], 1)
+            elif self.combo1:
+                if self.facingLeft:
+                    self.animator(Itachi['AwakeCombo1Left'], 0.4, 1)
+                elif self.facingRight:
+                    self.animator(Itachi['AwakeCombo1Right'], 0.4, 1)
             else:
-                self.animator(Itachi['AwakeStandRight'], 1)
+                if self.facingLeft:
+                    self.animator(Itachi['AwakeStandLeft'], 1)
+                if self.facingRight:
+                    self.animator(Itachi['AwakeStandRight'], 1)
 
-        if not self.awaken and not self.transforming and not self.left and not self.right and not self.combo1:
-            self.hitbox = (self.x, self.y, 45, 85)
-            pygame.draw.rect(win, purple, self.hitbox, 2)
-        if self.left or self.right:
-            self.hitbox = (self.x, self.y, 65, 65)
-            pygame.draw.rect(win, purple, self.hitbox, 2)
-        if self.combo1:
-            self.hitbox = (self.x, self.y, 80, 85)
-            pygame.draw.rect(win, red, self.hitbox, 2)
+        global isHitbox
+        if isHitbox:
+            if not self.awaken and not self.transforming and not self.left and not self.right and not self.combo1:
+                self.hitbox = (self.x, self.y, 45, 85)
+                pygame.draw.rect(win, purple, self.hitbox, 2)
+            if self.left and not self.awaken or self.right and not self.awaken:
+                self.hitbox = (self.x, self.y, 65, 65)
+                pygame.draw.rect(win, purple, self.hitbox, 2)
+            if self.combo1 and not self.awaken:
+                self.hitbox = (self.x, self.y, 80, 85)
+                pygame.draw.rect(win, red, self.hitbox, 2)
+            if self.awaken:
+                self.hitbox = (self.x, self.y, 225, 265)
+                pygame.draw.rect(win, red, self.hitbox, 2)
 
     def hit(self, damages):
         if self.health > 0:
@@ -928,11 +1005,15 @@ class Player(object):
 
     def death(self, other):
         """Function that reset the game after one Player dies"""
-        global rounds, current_round, launched
+        global rounds, current_round, player1Score, player2Score,launched
         if current_round < rounds:
             resetGameWindow()
             current_round += 1
         else:
+            if player1Score >= player2Score:
+                print('Le Player 1 a gagné avec', rounds, 'rounds gagnants !')
+            if player2Score >= player1Score:
+                print('Le Player 2 a gagné avec', rounds, 'rounds gagnants !')
             launched = False
 
 class projectile(object):
@@ -951,14 +1032,17 @@ class projectile(object):
         self.fb_hitbox = (self.x + 25, self.y + 40, 110, 90)
 
     def draw(self, win):
+        global isHitbox
         if facing == 1:
             win.blit(kunaiSpriteRight, (self.x, self.y))
-            self.hitbox = (self.x, self.y, 20, 15)
-            pygame.draw.rect(win, blue, self.hitbox, 2)
+            if isHitbox:
+                self.hitbox = (self.x, self.y, 20, 15)
+                pygame.draw.rect(win, blue, self.hitbox, 2)
         else:
             win.blit(kunaiSpriteLeft, (self.x, self.y))
-            self.hitbox = (self.x, self.y, 20, 15)
-            pygame.draw.rect(win, blue, self.hitbox, 2)
+            if isHitbox:
+                self.hitbox = (self.x, self.y, 20, 15)
+                pygame.draw.rect(win, blue, self.hitbox, 2)
 
     def animator(self, list, increm):
         if self.current_sprite >= len(list) or 670 < fireball.x < -100:
@@ -1008,7 +1092,7 @@ class fireball_projectile(object):
                 self.current_sprite += increm
 
     def draw_fireball(self, win):
-        global fireballLoop
+        global fireballLoop, isHitbox
         if fireballLoop >= 1:
             self.current_sprite = 0
 
@@ -1018,8 +1102,9 @@ class fireball_projectile(object):
                 a = pygame.transform.rotate(i, 45)
                 SasukeEffectRightRotated.append(a)
                 fireball.animator(SasukeEffectRightRotated, 0.04)
-                self.hitbox = (self.x + 10, self.y + 35 , self.width - 5, self.height - 25)
-                #pygame.draw.rect(win, blue, self.hitbox, 2)
+                if isHitbox:
+                    self.hitbox = (self.x + 10, self.y + 35 , self.width - 5, self.height - 25)
+                    pygame.draw.rect(win, blue, self.hitbox, 2)
 
         if facing == -1:
             SasukeEffectLeftRotated = []
@@ -1027,11 +1112,12 @@ class fireball_projectile(object):
                 a = pygame.transform.rotate(i, 325)
                 SasukeEffectLeftRotated.append(a)
                 fireball.animator(SasukeEffectLeftRotated, 0.04)
-                self.hitbox = (self.x + 10, self.y + 35 , self.width - 5, self.height - 25)
-                #pygame.draw.rect(win, blue, self.hitbox, 2)
+                if isHitbox:
+                    self.hitbox = (self.x + 10, self.y + 35 , self.width - 5, self.height - 25)
+                    pygame.draw.rect(win, blue, self.hitbox, 2)
 
     def draw_fireball2(self, win):
-        global fireballLoop2
+        global fireballLoop2, isHitbox
         if fireballLoop2 >= 1:
             self.current_sprite = 0
 
@@ -1043,8 +1129,9 @@ class fireball_projectile(object):
                 fireball2.animator2(SasukeEffectRightRotated, 0.04)
                 if self.current_sprite == len(SasukeEffectRightRotated):
                     self.block = True
-                self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
-                # pygame.draw.rect(win, blue, self.hitbox, 2)
+                if isHitbox:
+                    self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
+                    pygame.draw.rect(win, blue, self.hitbox, 2)
 
         if facing == -1:
             SasukeEffectLeftRotated = []
@@ -1054,17 +1141,20 @@ class fireball_projectile(object):
                 fireball2.animator2(SasukeEffectLeftRotated, 0.04)
                 if self.current_sprite == len(SasukeEffectLeftRotated):
                     self.block = True
-                self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
-                # pygame.draw.rect(win, blue, self.hitbox, 2)
+                if isHitbox:
+                    self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
+                    pygame.draw.rect(win, blue, self.hitbox, 2)
 
 
 def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et plus dans la boucle principale
     """Draw and refresh the entire window, the Players, Projectiles, etc..."""
-    win.blit(bg2, (-3, 0))  # Black
+    win.blit(background, (-3, 0))  # Black
     score1 = font.render("Score :" + str(player2Score), 1, (0, 0, 0))
     win.blit(score1, (20, 65))
     score2 = font.render("Score :" + str(player1Score), 1, (0, 0, 0))
     win.blit(score2, (565, 65))
+    printRound = font.render("Round : " + str(current_round), 1, (0, 0, 0))
+    win.blit(printRound, (290, 20))
     player1.character()
     player2.character()
     player1.draw_ath_player1(win)
@@ -1092,7 +1182,7 @@ def resetGameWindow():
     player2.x = 550
 
 # MAINLOOP
-player1 = Player(100, 280, 64, 64, 1, player1Character)
+player1 = Player(100, 300, 64, 64, 1, player1Character)
 fireballs = []
 fireballLoop = 0
 fireballs2 = []
@@ -1108,14 +1198,14 @@ launchGame = False
 while launched:
 
     clock.tick(27)
-    print("Current:", current_round, "Rounds:", rounds)
+
     if player1.health <= 0:
+        player2Score += 1
         player1.death(player2)
-        player1Score += 1
 
     if player2.health <= 0:
+        player1Score += 1
         player2.death(player1)
-        player2Score += 1
 
     # Variable permettant de vérifier si une touché est pressée
     keys = pygame.key.get_pressed()
@@ -1138,11 +1228,11 @@ while launched:
         # W = Player 1 Awakening
         if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
             # Sasuke = Cursed Mark Mode
-            if not player1.awaken and player1.characterNumber == 2:
+            if not player1.awaken and player1.characterNumber == 2 and player1.awakening == 200:
                 player1.transforming = True
                 player1.y = 295
             # Itachi = Susanoo
-            if not player1.awaken and player1.characterNumber == 3:
+            if not player1.awaken and player1.characterNumber == 3 and player1.awakening == 200:
                 player1.transforming = True
                 player1.y = 220
                 player1.x = player1.x - 30
@@ -1189,13 +1279,19 @@ while launched:
         # M = Player 2 Awakening
         if event.type == pygame.KEYDOWN and event.key == pygame.K_m:
             # Sasuke = Cursed Mark Mode
-            if not player2.awaken and player2.characterNumber == 2:
+            if not player2.awaken and player2.characterNumber == 2 and player2.awakening == 200:
                 player2.transforming = True
                 player2.y = 295
+            # Itachi = Susanoo
+            if not player2.awaken and player2.characterNumber == 3 and player2.awakening == 200:
+                player2.transforming = True
+                player2.y = 220
+                player2.x = player2.x - 30
         # O = Player 2 Combo 1 ---> Objectif : Interrompre la marche pour utiliser le combo
         if event.type == pygame.KEYDOWN and event.key == pygame.K_o:
             if not player2.transforming:
                 player2.combo1 = True
+                player2.dealable = True
         # K = Player 2 Spell 1
         if event.type == pygame.KEYDOWN and event.key == pygame.K_k:
             # Sasuke = Chidori
@@ -1380,7 +1476,7 @@ while launched:
             facing = 1
         if len(kunais2) < 3:
             if facing == 1:
-                kunais2.append(projectile(round(player1.x), round(player1.y + 10 + player1.height // 4),6, (0, 0, 0), facing))
+                kunais2.append(projectile(round(player1.x + 30), round(player1.y + 10 + player1.height // 4),6, (0, 0, 0), facing))
             else:
                 kunais2.append(projectile(round(player1.x), round(player1.y + player1.height // 4), 6, (0, 0, 0), facing))
         kunaiLoop2 = 1
@@ -1513,10 +1609,9 @@ while launched:
         for kunai2 in kunais2:
             if 670 > kunai.x > 0:
                 if 670 > kunai.x > 0:
-                    if kunai.y - kunai.radius < kunai2.hitbox[1] + kunai2.hitbox[3] and kunai.y + kunai.radius > \
-                            kunai2.hitbox[1]:
                         if kunai.x + kunai.radius > kunai2.hitbox[0] and kunai.x - kunai.radius < kunai2.hitbox[0] + \
                                 kunai2.hitbox[2]:
+                            print(True)
                             kunais.pop(kunais.index(kunai))
                             kunais2.pop(kunais2.index(kunai2))
 
