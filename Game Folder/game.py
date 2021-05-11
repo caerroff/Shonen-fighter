@@ -741,6 +741,11 @@ class Player(object):
                         self.animator(Itachi['FallingLeft'], 1)
                     else:
                         self.animator(Itachi['JumpingLeft'], 1)
+            elif self.transforming:
+                if self.facingLeft:
+                    self.animator(Itachi['AwakeningLeft'], 0.2, 1)
+                else:
+                    self.animator(Itachi['AwakeningRight'], 0.2, 1)
             elif self.playerNumber == 1:
                 if self.left:
                     self.y = 280
@@ -809,6 +814,14 @@ class Player(object):
                     self.animator(Itachi['StandRight'], 0.1)
                     self.standingRight = True
                     self.right = False
+        if self.awaken:
+            self.y = 150
+            if self.facingLeft:
+                self.animator(Itachi['AwakeStandLeft'], 1)
+            if self.facingRight:
+                self.animator(Itachi['AwakeStandRight'], 1)
+            else:
+                self.animator(Itachi['AwakeStandRight'], 1)
 
         if not self.awaken and not self.transforming and not self.left and not self.right and not self.combo1:
             self.hitbox = (self.x, self.y, 45, 85)
@@ -1010,6 +1023,10 @@ while launched:
             if not player1.awaken and player1.characterNumber == 2:
                 player1.transforming = True
                 player1.y = 295
+            if not player1.awaken and player1.characterNumber == 3:
+                player1.transforming = True
+                player1.y = 220
+                player1.x = player1.x - 30
         # G = Player 1 Combo 1
         if event.type == pygame.KEYDOWN and event.key == pygame.K_g:
             player1.combo1 = True
