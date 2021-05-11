@@ -100,17 +100,21 @@ def selectCharacter():
     invisibleLabel2 = Label(rounds_frame, text='')
     invisibleLabel2.grid()
 
+    # Label Rounds
+    labelRounds = Label(rounds_frame, text='Rounds (To Win)', bg='lightgrey', font=("Helvetica", 10), width=15, border=1)
+    labelRounds.place(x=-470, y=0)
+
     # Button Rounds = 1
     buttonRounds1 = Button(rounds_frame, text='1 Round', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: chooseNumberRounds(1))
-    buttonRounds1.place(x=0, y=0)
+    buttonRounds1.place(x=-307, y=0)
 
     # Button Rounds = 2
     buttonRounds2 = Button(rounds_frame, text='2 Rounds', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: chooseNumberRounds(2))
-    buttonRounds2.place(x=150, y=0)
+    buttonRounds2.place(x=-120, y=0)
 
     # Button Rounds = 3
     buttonRounds3 = Button(rounds_frame, text='3 Rounds', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: chooseNumberRounds(3))
-    buttonRounds3.place(x=300, y=0)
+    buttonRounds3.place(x=70, y=0)
 
     # Button Sounds
     buttonSounds = Button(bottomButtons, text='Sounds', bg='white', font=("Helvetica", 10), width=15, border=1, command=isSoundActivated)
@@ -150,13 +154,21 @@ def selectCharacter():
     labelIconItachi2 = Label(image_player2_frame, image=iconItachi2)
     labelIconItachi2.grid(row=0, column=3, sticky=W, padx=20)  # x=172, y=68, relwidth=1, relheight=1
 
-    # Player 1 Label
+    # Player 1 Label (Void)
     labelPlayer1Image = Label(image_player1_frame, text='', bg='white', font=("Helvetica", 10), width=15, border=1)
     labelPlayer1Image.grid(row=0, column=0, sticky=W, padx=30)
 
     # Player 1 Label
     labelPlayer1 = Label(select_player1_frame, text='Player 1 Character :', bg='lightgrey', font=("Helvetica", 10), width=15, border=1)
     labelPlayer1.grid(row=0, column=0, sticky=W, padx=30)
+
+    # Player 2 Label (Void)
+    labelPlayer2Image = Label(image_player2_frame, text='', bg='white', font=("Helvetica", 10), width=15, border=1)
+    labelPlayer2Image.grid(row=0, column=0, sticky=W, padx=30)
+
+    # Player 2 Label
+    labelPlayer2 = Label(select_player2_frame, text='Player 2 Character :', bg='lightgrey', font=("Helvetica", 10), width=15, border=1)
+    labelPlayer2.grid(row=0, column=0, sticky=W, padx=30)
 
     # Button Naruto Player 1
     player1Naruto = Button(select_player1_frame, text='Naruto', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player1ChooseCharacter(1))
