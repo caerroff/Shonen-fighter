@@ -112,65 +112,75 @@ def selectCharacter():
     buttonRounds3 = Button(rounds_frame, text='3 Rounds', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: chooseNumberRounds(3))
     buttonRounds3.place(x=300, y=0)
 
+    # Button Sounds
     buttonSounds = Button(bottomButtons, text='Sounds', bg='white', font=("Helvetica", 10), width=15, border=1, command=isSoundActivated)
     buttonSounds.place(x=100, y=0)
 
+    # Button Play
     buttonPlay = Button(bottomButtons, text='Play', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=launchGame)
     buttonPlay.place(x=300, y=0)
 
     # Icon Naruto Player 1
     iconNaruto = PhotoImage(file='../Sprite/Itachi/Icon/Sprite 1.png')
     labelIconNaruto = Label(image_player1_frame, image=iconNaruto)
-    labelIconNaruto.grid(row=0, column=0, sticky=W, padx=10) #x=172, y=68, relwidth=1, relheight=1
+    labelIconNaruto.grid(row=0, column=1, sticky=W, padx=10) #x=172, y=68, relwidth=1, relheight=1
 
     # Icon Naruto Player 2
     iconNaruto2 = PhotoImage(file='../Sprite/Itachi/Icon/Sprite 1.png')
     labelIconNaruto2 = Label(image_player2_frame, image=iconNaruto2)
-    labelIconNaruto2.grid(row=0, column=0, sticky=W, padx=10)  # x=172, y=68, relwidth=1, relheight=1
+    labelIconNaruto2.grid(row=0, column=1, sticky=W, padx=10)  # x=172, y=68, relwidth=1, relheight=1
 
     # Icon Sasuke Player 1
     iconSasuke = PhotoImage(file='../Sprite/Sasuke/Icon/Sprite 2.png')
     labelIconSasuke = Label(image_player1_frame, image=iconSasuke)
-    labelIconSasuke.grid(row=0, column=1, sticky=W, padx=40)  # x=172, y=68, relwidth=1, relheight=1
+    labelIconSasuke.grid(row=0, column=2, sticky=W, padx=40)  # x=172, y=68, relwidth=1, relheight=1
 
     # Icon Sasuke Player 2
     iconSasuke2 = PhotoImage(file='../Sprite/Sasuke/Icon/Sprite 2.png')
     labelIconSasuke2 = Label(image_player2_frame, image=iconSasuke2)
-    labelIconSasuke2.grid(row=0, column=1, sticky=W, padx=40)  # x=172, y=68, relwidth=1, relheight=1
+    labelIconSasuke2.grid(row=0, column=2, sticky=W, padx=40)  # x=172, y=68, relwidth=1, relheight=1
 
     # Icon Itachi Player 1
     iconItachi = PhotoImage(file='../Sprite/Itachi/Icon/Sprite 1.png')
     labelIconItachi = Label(image_player1_frame, image=iconItachi)
-    labelIconItachi.grid(row=0, column=2, sticky=W, padx=20)  # x=172, y=68, relwidth=1, relheight=1
+    labelIconItachi.grid(row=0, column=3, sticky=W, padx=20)  # x=172, y=68, relwidth=1, relheight=1
 
     # Icon Itachi Player 2
     iconItachi2 = PhotoImage(file='../Sprite/Itachi/Icon/Sprite 1.png')
     labelIconItachi2 = Label(image_player2_frame, image=iconItachi2)
-    labelIconItachi2.grid(row=0, column=2, sticky=W, padx=20)  # x=172, y=68, relwidth=1, relheight=1
+    labelIconItachi2.grid(row=0, column=3, sticky=W, padx=20)  # x=172, y=68, relwidth=1, relheight=1
+
+    # Player 1 Label
+    labelPlayer1Image = Label(image_player1_frame, text='', bg='white', font=("Helvetica", 10), width=15, border=1)
+    labelPlayer1Image.grid(row=0, column=0, sticky=W, padx=30)
+
+    # Player 1 Label
+    labelPlayer1 = Label(select_player1_frame, text='Player 1 Character :', bg='lightgrey', font=("Helvetica", 10), width=15, border=1)
+    labelPlayer1.grid(row=0, column=0, sticky=W, padx=30)
 
     # Button Naruto Player 1
     player1Naruto = Button(select_player1_frame, text='Naruto', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player1ChooseCharacter(1))
-    player1Naruto.grid(row=0, column=0, sticky=W, padx=10)
+    player1Naruto.grid(row=0, column=1, sticky=W, padx=10)
 
     # Button Sasuke Player 1
     player1Sasuke = Button(select_player1_frame, text='Sasuke', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player1ChooseCharacter(2))
-    player1Sasuke.grid(row=0, column=1, sticky=W, padx=50)
+    player1Sasuke.grid(row=0, column=2, sticky=W, padx=50)
 
     # Button Itachi Player 1
     player1Itachi = Button(select_player1_frame, text='Itachi', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player1ChooseCharacter(3))
-    player1Itachi.grid(row=0, column=2, sticky=W, padx=10)
+    player1Itachi.grid(row=0, column=3, sticky=W, padx=10)
 
     # Button Naruto Player 2
     player2Naruto = Button(select_player2_frame, text='Naruto', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player2ChooseCharacter(1))
-    player2Naruto.grid(row=0, column=3, sticky=W, padx=10)
+    player2Naruto.grid(row=0, column=4, sticky=W, padx=10)
 
     # Button Sasuke Player 2
     player2Sasuke = Button(select_player2_frame, text='Sasuke', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player2ChooseCharacter(2))
-    player2Sasuke.grid(row=0, column=4, sticky=W, padx=50)
+    player2Sasuke.grid(row=0, column=5, sticky=W, padx=50)
 
     # Button Itachi Player 2
     player2Itachi = Button(select_player2_frame, text='Itachi', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player2ChooseCharacter(3))
-    player2Itachi.grid(row=0, column=5, sticky=W, padx=10)
+    player2Itachi.grid(row=0, column=6, sticky=W, padx=10)
 
     # Affichage de toute la frame (l'ensemble de ce qu'il faut afficher)
     frame.grid(ipadx=50, ipady=50)
