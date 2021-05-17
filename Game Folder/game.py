@@ -11,8 +11,8 @@ main.geometry("1023x682")
 main.minsize(1023, 682)
 main.maxsize(1023, 682)
 
-player1Character = 3
-player2Character = 2
+player1Character = 2
+player2Character = 3
 
 rounds = 3
 current_round = 1
@@ -461,11 +461,7 @@ class Player(object):
         """Function that attributes a Character to its draw_function"""
         if self.characterNumber == 1:
             self.draw_naruto(win)
-        elif self.characterNumber == 2:
-            if not self.awaken:
-                self.y = 280
-            if self.awaken or self.transforming:
-                self.y = 275
+        if self.characterNumber == 2:
             self.draw_sasuke(win)
         elif self.characterNumber == 3:
             self.draw_itachi(win)
@@ -591,12 +587,13 @@ class Player(object):
                 self.standingRight = True
 
         global isHitbox
-        if isHitbox:
-            if not self.awaken:
-                self.hitbox = (self.x, self.y, 47, 54)
+        if not self.awaken:
+            self.hitbox = (self.x, self.y, 47, 54)
+            if isHitbox:
                 pygame.draw.rect(win, blue, self.hitbox, 2)
-            else:
-                self.hitbox = (self.x, self.y, 65, 80)
+        else:
+            self.hitbox = (self.x, self.y, 65, 80)
+            if isHitbox:
                 pygame.draw.rect(win, red, self.hitbox, 2)
 
     def draw_sasuke(self, win):
@@ -802,15 +799,17 @@ class Player(object):
                     self.standingRight = True
 
         global isHitbox
-        if isHitbox:
-            if not self.awaken and not self.transforming:
-                self.hitbox = (self.x, self.y, 50, 85)
+        if not self.awaken and not self.transforming:
+            self.hitbox = (self.x, self.y, 50, 85)
+            if isHitbox:
                 pygame.draw.rect(win, blue, self.hitbox, 2)
-            if self.transforming:
-                self.hitbox = (self.x, self.y, 70, 90)
+        if self.transforming:
+            self.hitbox = (self.x, self.y, 70, 90)
+            if isHitbox:
                 pygame.draw.rect(win, purple, self.hitbox, 2)
-            if self.awaken:
-                self.hitbox = (self.x, self.y, 70, 90)
+        if self.awaken:
+            self.hitbox = (self.x, self.y, 70, 90)
+            if isHitbox:
                 pygame.draw.rect(win, red, self.hitbox, 2)
 
     def draw_itachi(self, win):
@@ -982,18 +981,21 @@ class Player(object):
                     self.animator(Itachi['AwakeStandRight'], 1)
 
         global isHitbox
-        if isHitbox:
-            if not self.awaken and not self.transforming and not self.left and not self.right and not self.combo1:
-                self.hitbox = (self.x, self.y, 45, 85)
+        if not self.awaken and not self.transforming and not self.left and not self.right and not self.combo1:
+            self.hitbox = (self.x, self.y, 45, 85)
+            if isHitbox:
                 pygame.draw.rect(win, purple, self.hitbox, 2)
-            if self.left and not self.awaken or self.right and not self.awaken:
-                self.hitbox = (self.x, self.y, 65, 65)
+        if self.left and not self.awaken or self.right and not self.awaken:
+            self.hitbox = (self.x, self.y, 65, 65)
+            if isHitbox:
                 pygame.draw.rect(win, purple, self.hitbox, 2)
-            if self.combo1 and not self.awaken:
-                self.hitbox = (self.x, self.y, 80, 85)
+        if self.combo1 and not self.awaken:
+            self.hitbox = (self.x, self.y, 80, 85)
+            if isHitbox:
                 pygame.draw.rect(win, red, self.hitbox, 2)
-            if self.awaken:
-                self.hitbox = (self.x, self.y, 225, 265)
+        if self.awaken:
+            self.hitbox = (self.x, self.y, 225, 265)
+            if isHitbox:
                 pygame.draw.rect(win, red, self.hitbox, 2)
 
     def hit(self, damages):
@@ -1035,13 +1037,13 @@ class projectile(object):
         global isHitbox
         if facing == 1:
             win.blit(kunaiSpriteRight, (self.x, self.y))
+            self.hitbox = (self.x, self.y, 20, 15)
             if isHitbox:
-                self.hitbox = (self.x, self.y, 20, 15)
                 pygame.draw.rect(win, blue, self.hitbox, 2)
         else:
             win.blit(kunaiSpriteLeft, (self.x, self.y))
+            self.hitbox = (self.x, self.y, 20, 15)
             if isHitbox:
-                self.hitbox = (self.x, self.y, 20, 15)
                 pygame.draw.rect(win, blue, self.hitbox, 2)
 
     def animator(self, list, increm):
@@ -1102,8 +1104,8 @@ class fireball_projectile(object):
                 a = pygame.transform.rotate(i, 45)
                 SasukeEffectRightRotated.append(a)
                 fireball.animator(SasukeEffectRightRotated, 0.04)
+                self.hitbox = (self.x + 10, self.y + 35 , self.width - 5, self.height - 25)
                 if isHitbox:
-                    self.hitbox = (self.x + 10, self.y + 35 , self.width - 5, self.height - 25)
                     pygame.draw.rect(win, blue, self.hitbox, 2)
 
         if facing == -1:
@@ -1112,8 +1114,8 @@ class fireball_projectile(object):
                 a = pygame.transform.rotate(i, 325)
                 SasukeEffectLeftRotated.append(a)
                 fireball.animator(SasukeEffectLeftRotated, 0.04)
+                self.hitbox = (self.x + 10, self.y + 35 , self.width - 5, self.height - 25)
                 if isHitbox:
-                    self.hitbox = (self.x + 10, self.y + 35 , self.width - 5, self.height - 25)
                     pygame.draw.rect(win, blue, self.hitbox, 2)
 
     def draw_fireball2(self, win):
@@ -1129,8 +1131,8 @@ class fireball_projectile(object):
                 fireball2.animator2(SasukeEffectRightRotated, 0.04)
                 if self.current_sprite == len(SasukeEffectRightRotated):
                     self.block = True
+                self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
                 if isHitbox:
-                    self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
                     pygame.draw.rect(win, blue, self.hitbox, 2)
 
         if facing == -1:
@@ -1141,17 +1143,17 @@ class fireball_projectile(object):
                 fireball2.animator2(SasukeEffectLeftRotated, 0.04)
                 if self.current_sprite == len(SasukeEffectLeftRotated):
                     self.block = True
+                self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
                 if isHitbox:
-                    self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
                     pygame.draw.rect(win, blue, self.hitbox, 2)
 
 
 def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et plus dans la boucle principale
     """Draw and refresh the entire window, the Players, Projectiles, etc..."""
     win.blit(background, (-3, 0))  # Black
-    score1 = font.render("Score :" + str(player2Score), 1, (0, 0, 0))
+    score1 = font.render("Score :" + str(player1Score), 1, (0, 0, 0))
     win.blit(score1, (20, 65))
-    score2 = font.render("Score :" + str(player1Score), 1, (0, 0, 0))
+    score2 = font.render("Score :" + str(player2Score), 1, (0, 0, 0))
     win.blit(score2, (565, 65))
     printRound = font.render("Round : " + str(current_round), 1, (0, 0, 0))
     win.blit(printRound, (290, 20))
@@ -1169,6 +1171,11 @@ def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et p
         fireball2.draw_fireball2(win)
     pygame.display.update()
 
+def endGame():
+    win.blit(background, (-3, 0))  # Black
+    endGameScore = font.render("Score :" + str(player2Score), 1, (0, 0, 0))
+    win.blit(endGameScore, (20, 65))
+
 def resetGameWindow():
     """Function that resets the Game Window after one of the Player dies"""
     player1.health = 100
@@ -1182,7 +1189,7 @@ def resetGameWindow():
     player2.x = 550
 
 # MAINLOOP
-player1 = Player(100, 300, 64, 64, 1, player1Character)
+player1 = Player(100, 280, 64, 64, 1, player1Character)
 fireballs = []
 fireballLoop = 0
 fireballs2 = []
