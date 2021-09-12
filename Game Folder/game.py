@@ -341,7 +341,7 @@ class Player(object):
         self.damaged = False
         self.mana = 200
         self.molding = False
-        self.awakening = 0
+        self.awakening = 200
         self.awaken = False
         self.transforming = False
         self.isContact = False
@@ -390,15 +390,17 @@ class Player(object):
             if self.current_sprite >= len(list):
                 self.current_sprite = 0
             if self.characterNumber == 2 and not self.transforming and not self.awaken:
-                list[int(self.current_sprite)] = pygame.transform.scale(list[int(self.current_sprite)], (60, 85))
+                if self.left or self.right:
+                    list[int(self.current_sprite)] = pygame.transform.scale(list[int(self.current_sprite)], (70, 85))
+                else:
+                    list[int(self.current_sprite)] = pygame.transform.scale(list[int(self.current_sprite)], (60, 85))
             if self.characterNumber == 2 and self.awaken:
                 list[int(self.current_sprite)] = pygame.transform.scale(list[int(self.current_sprite)], (80, 95))
             win.blit(list[int(self.current_sprite)], (self.x, self.y))
             self.current_sprite += increm
 
     def doubleAnimation(self, listA, listB, increm = 1, increm2 = 0.35):
-        """Function that allows to make 2 animations following each other (Like an anilation of a charge, and an
-        animation of an attack just after"""
+        """Function that allows to make 2 animations following each other ; the second begins when the first one ends"""
         global nextAnim, nextAnim2
         nextAnim, nextAnim2 = False, False
 
@@ -974,6 +976,17 @@ class Player(object):
                     self.animator(Itachi['AwakeCombo1Left'], 0.4, 1)
                 elif self.facingRight:
                     self.animator(Itachi['AwakeCombo1Right'], 0.4, 1)
+            elif self.isJumping:
+                if self.facingRight:
+                    if self.isFalling:
+                        self.animator(Itachi['AwakeStandRight'], 1)
+                    else:
+                        self.animator(Itachi['AwakeStandRight'], 1)
+                if self.facingLeft:
+                    if self.isFalling:
+                        self.animator(Itachi['AwakeStandLeft'], 1)
+                    else:
+                        self.animator(Itachi['AwakeStandLeft'], 1)
             else:
                 if self.facingLeft:
                     self.animator(Itachi['AwakeStandLeft'], 1)
