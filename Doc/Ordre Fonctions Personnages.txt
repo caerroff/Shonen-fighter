@@ -1,0 +1,11 @@
+- Jump
+- Block 
+- Combo 1
+- Throw 
+- Spell 1
+- Spell 2
+- Molding
+- Damaged
+- isJumping
+- Transforming
+Awaken

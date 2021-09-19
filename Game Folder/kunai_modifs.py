@@ -11,7 +11,7 @@ main.geometry("1023x682")
 main.minsize(1023, 682)
 main.maxsize(1023, 682)
 
-player1Character = 2
+player1Character = 4
 player2Character = 3
 
 rounds = 3
@@ -308,6 +308,9 @@ purple = (66, 0, 255)
 kunaiSpriteRight = pygame.image.load('../Sprite/Kunai/sprite.png')
 kunaiSpriteLeft = pygame.transform.flip(kunaiSpriteRight, True, False)
 
+kunaiOrientedSpriteRight = pygame.image.load('../Sprite/Kunai/sprite_oriented.png')
+kunaiOrientedSpriteLeft = pygame.transform.flip(kunaiOrientedSpriteRight, True, False)
+
 spawnEffect = False
 nextAnim = False
 nextAnim2 = False
@@ -339,7 +342,7 @@ class Player(object):
         self.health = 100
         self.dealable = False
         self.damaged = False
-        self.mana = 200
+        self.mana = 0
         self.molding = False
         self.awakening = 200
         self.awaken = False
@@ -465,8 +468,10 @@ class Player(object):
             self.draw_naruto(win)
         if self.characterNumber == 2:
             self.draw_sasuke(win)
-        elif self.characterNumber == 3:
+        if self.characterNumber == 3:
             self.draw_itachi(win)
+        elif self.characterNumber == 4:
+            self.draw_minato(win)
 
     def draw_ath_player1(self, win):
         """Function that shows the ATH (Health bar, Mana bar, Awakening Bar) of the Player 1"""
@@ -856,6 +861,12 @@ class Player(object):
                             self.animator(Itachi['Combo2Left'], 0.4, 1)
                         elif self.facingRight:
                             self.animator(Itachi['Combo2Right'], 0.4, 1)
+            elif self.throw:
+                if self.facingLeft:
+                    self.animator(Itachi['ThrowLeft'], 1, 1)
+                if self.facingRight:
+                    self.animator(Itachi['ThrowRight'], 1, 1)
+                self.throw = False
             elif self.spell1:
                 if self.facingLeft:
                     self.x -= 10
@@ -865,9 +876,9 @@ class Player(object):
                     self.animator(Itachi['Spell1Right'], 0.45, 1)
             elif self.spell2:
                 if self.facingLeft:
-                    self.animator(Itachi['Spell2Left'], 0.5)
+                    self.animator(Itachi['Spell2Left'], 0.25, 1)
                 if self.facingRight:
-                    self.animator(Itachi['Spell2Right'], 0.5)
+                    self.animator(Itachi['Spell2Right'], 0.25, 1)
             elif self.molding:
                 if self.facingLeft:
                     self.animator(Itachi['MoldingLeft'], 1)
@@ -903,7 +914,7 @@ class Player(object):
                     self.left = False
                 elif self.right:
                     self.y = 280
-                    self.animator(Itachi['StandRight'], 1)
+                    self.animator(Itachi['StandRight'], 0.1)
                     self.facingRight = True
                     self.right = False
                 elif self.facingLeft:
@@ -913,12 +924,12 @@ class Player(object):
                     self.left = False
                 elif self.facingRight:
                     self.y = 280
-                    self.animator(Itachi['StandRight'], 1)
+                    self.animator(Itachi['StandRight'], 0.1)
                     self.facingRight = True
                     self.right = False
                 else:
                     self.y = 280
-                    self.animator(Itachi['StandRight'], 1)
+                    self.animator(Itachi['StandRight'], 0.1)
                     self.facingRight = True
                     self.right = False
             elif self.playerNumber == 2:
@@ -939,7 +950,7 @@ class Player(object):
                     self.left = False
                 if self.facingRight:
                     self.y = 280
-                    self.animator(Itachi['StandRight'], 1)
+                    self.animator(Itachi['StandRight'], 0.1)
                     self.facingRight = True
                     self.right = False
                 else:
@@ -993,6 +1004,49 @@ class Player(object):
                 if self.facingRight:
                     self.animator(Itachi['AwakeStandRight'], 1)
 
+    def draw_minato(self, win):
+        if not self.awaken:
+            if not self.standing:
+                if self.left:
+                    if self.isJumping and self.isFalling:
+                        self.animator(Minato['FallingLeft'], 1)
+                    elif self.isJumping:
+                        self.animator(Minato['JumpingLeft'], 0.3)
+                    else:
+                        self.animator(Minato['RunLeft'], 0.5)
+                elif self.right:
+                    if self.isJumping and self.isFalling:
+                        self.animator(Minato['FallingRight'], 1)
+                    elif self.isJumping:
+                        self.animator(Minato['JumpingRight'], 0.3)
+                    else:
+                        self.animator(Minato['RunRight'], 0.5)
+            elif self.isBlock:
+                if self.facingLeft:
+                    self.animator(Minato['BlockLeft'], 0.5)
+                if self.facingRight:
+                    self.animator(Minato['BlockRight'], 0.5)
+            elif self.combo1:
+                if self.facingLeft:
+                    self.animator(Minato['Combo1Left'], 0.5, 1)
+                if self.facingRight:
+                    self.animator(Minato['Combo1Right'], 0.5, 1)
+            elif self.molding:
+                if self.facingLeft:
+                    self.animator(Minato['MoldingLeft'], 1)
+                if self.facingRight:
+                    self.animator(Minato['MoldingRight'], 1)
+                self.molding = False
+            elif self.facingLeft:
+                self.animator(Minato['StandLeft'], 1)
+            elif self.facingRight:
+                self.animator(Minato['StandRight'], 1)
+            else:
+                if self.playerNumber == 1:
+                    self.animator(Minato['StandRight'], 1)
+                if self.playerNumber == 2:
+                    self.animator(Minato['StandLeft'], 1)
+
         global isHitbox
         if not self.awaken and not self.transforming and not self.left and not self.right and not self.combo1:
             self.hitbox = (self.x, self.y, 45, 85)
@@ -1033,6 +1087,7 @@ class Player(object):
 
 class projectile(object):
     """Class Projectile : Animates and Draw Kunais"""
+    global isOriented
     def __init__(self, x, y, radius, color, facing):
         self.x = x
         self.y = y
@@ -1049,15 +1104,29 @@ class projectile(object):
     def draw(self, win):
         global isHitbox
         if facing == 1:
-            win.blit(kunaiSpriteRight, (self.x, self.y))
-            self.hitbox = (self.x, self.y, 20, 15)
-            if isHitbox:
-                pygame.draw.rect(win, blue, self.hitbox, 2)
+            if isOriented:
+                print(True)
+                win.blit(kunaiOrientedSpriteRight, (self.x, self.y))
+                self.hitbox = (self.x, self.y, 20, 15)
+                if isHitbox:
+                    pygame.draw.rect(win, blue, self.hitbox, 2)
+            else:
+                win.blit(kunaiSpriteRight, (self.x, self.y))
+                self.hitbox = (self.x, self.y, 20, 15)
+                if isHitbox:
+                    pygame.draw.rect(win, blue, self.hitbox, 2)
         else:
-            win.blit(kunaiSpriteLeft, (self.x, self.y))
-            self.hitbox = (self.x, self.y, 20, 15)
-            if isHitbox:
-                pygame.draw.rect(win, blue, self.hitbox, 2)
+            if isOriented:
+                print(True)
+                win.blit(kunaiOrientedSpriteLeft, (self.x, self.y))
+                self.hitbox = (self.x, self.y, 20, 15)
+                if isHitbox:
+                    pygame.draw.rect(win, blue, self.hitbox, 2)
+            else:
+                win.blit(kunaiSpriteLeft, (self.x, self.y))
+                self.hitbox = (self.x, self.y, 20, 15)
+                if isHitbox:
+                    pygame.draw.rect(win, blue, self.hitbox, 2)
 
     def animator(self, list, increm):
         if self.current_sprite >= len(list) or 670 < fireball.x < -100:
@@ -1160,6 +1229,54 @@ class fireball_projectile(object):
                 if isHitbox:
                     pygame.draw.rect(win, blue, self.hitbox, 2)
 
+class amaterasu(object):
+    """Class Projectile : Animates and Draw Amaterasu"""
+    def __init__(self, x, y, width, height, facing):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.facing = facing
+        self.current_sprite = 0
+        self.dealable = True
+        self.block = False
+        self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
+
+    def animator(self, list, increm):
+        if self.current_sprite >= len(list) or 670 < fireball.x < -100:
+            self.block = False
+            return
+        else:
+            win.blit(list[int(self.current_sprite)], (self.x, self.y))
+            if self.block:
+                self.current_sprite = self.current_sprite
+            else:
+                self.current_sprite += increm
+
+    def draw_fireball(self, win):
+        global fireballLoop, isHitbox
+        if fireballLoop >= 1:
+            self.current_sprite = 0
+
+        if facing == 1:
+            SasukeEffectRightRotated = []
+            for i in Sasuke['EffectRight']:
+                a = pygame.transform.rotate(i, 45)
+                SasukeEffectRightRotated.append(a)
+                fireball.animator(SasukeEffectRightRotated, 0.04)
+                self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
+                if isHitbox:
+                    pygame.draw.rect(win, blue, self.hitbox, 2)
+
+        if facing == -1:
+            SasukeEffectLeftRotated = []
+            for i in Sasuke['EffectLeft']:
+                a = pygame.transform.rotate(i, 325)
+                SasukeEffectLeftRotated.append(a)
+                fireball.animator(SasukeEffectLeftRotated, 0.04)
+                self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
+                if isHitbox:
+                    pygame.draw.rect(win, blue, self.hitbox, 2)
 
 def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et plus dans la boucle principale
     """Draw and refresh the entire window, the Players, Projectiles, etc..."""
@@ -1226,6 +1343,11 @@ while launched:
     if player2.health <= 0:
         player1Score += 1
         player2.death(player1)
+
+    if player1.y > player2.y or player2.y > player1.y:
+        isOriented = True
+    else:
+        isOriented = False
 
     # Variable permettant de vérifier si une touché est pressée
     keys = pygame.key.get_pressed()
@@ -1294,7 +1416,12 @@ while launched:
                         else:
                             fireballs.append(fireball_projectile(player1.x - 150, player1.y - 65, 140, 120, facing))
                     fireballLoop = 1
-            # Itachi = Fireball Jutsu
+            # Itachi = Amaterasu
+            if player1.characterNumber == 3:
+                if player1.mana >= 50:
+                    player1.mana -= 50
+                    player1.spell2 = True
+                    player1.dealable = True
         # ////////// PLAYER 2 //////////
         # M = Player 2 Awakening
         if event.type == pygame.KEYDOWN and event.key == pygame.K_m:
@@ -1345,7 +1472,12 @@ while launched:
                         else:
                             fireballs2.append(fireball_projectile(player2.x - 150, player2.y - 65, 140, 120, facing))
                     fireballLoop2 = 1
-            # Itachi = Fireball Jutsu
+            # Itachi = Amaterasu
+            if player2.characterNumber == 3:
+                if player1.mana >= 50:
+                    player2.mana -= 50
+                    player2.spell2 = True
+                    player2.dealable = True
 
             # Undefined
 
