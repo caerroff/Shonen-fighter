@@ -1245,8 +1245,8 @@ class amaterasuFun(object):
     def animator(self, list, increm):
         if self.current_sprite >= len(list):
             self.current_sprite = 0
-        win.blit(list[int(self.current_sprite)], (self.x, self.y))
-        self.current_sprite += increm
+        win.blit(list[int(self.current_sprite)], (self.x, self.y)) #Affiche Image 1
+        self.current_sprite += increm # Passe à Image 2
         print(self.current_sprite)
 
     def draw_amaterasu(self, win):
@@ -1255,7 +1255,7 @@ class amaterasuFun(object):
             self.current_sprite = 0
 
         if facing == 1:
-            if player1.characterNumber == 3: #Le problème est ici : L'incrémentation se fait mal car on est pas réellement dans une boucle 
+            #Le problème est ici : L'incrémentation se fait mal car on est pas réellement dans une boucle
                 amaterasu.animator(Itachi['EffectRight'], 1)
                 self.hitbox = (self.x, self.y, self.width, self.height)
                 if isHitbox:
