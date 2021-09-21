@@ -11,8 +11,8 @@ main.geometry("1023x682")
 main.minsize(1023, 682)
 main.maxsize(1023, 682)
 
-player1Character = 4
-player2Character = 3
+player1Character = 3
+player2Character = 4
 
 rounds = 3
 current_round = 1
@@ -342,7 +342,7 @@ class Player(object):
         self.health = 100
         self.dealable = False
         self.damaged = False
-        self.mana = 0
+        self.mana = 200
         self.molding = False
         self.awakening = 200
         self.awaken = False
@@ -1229,7 +1229,7 @@ class fireball_projectile(object):
                 if isHitbox:
                     pygame.draw.rect(win, blue, self.hitbox, 2)
 
-class amaterasu(object):
+class amaterasuFun(object):
     """Class Projectile : Animates and Draw Amaterasu"""
     def __init__(self, x, y, width, height, facing):
         self.x = x
@@ -1240,40 +1240,32 @@ class amaterasu(object):
         self.current_sprite = 0
         self.dealable = True
         self.block = False
-        self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
+        self.hitbox = (self.x, self.y, self.width, self.height)
 
     def animator(self, list, increm):
-        if self.current_sprite >= len(list) or 670 < fireball.x < -100:
-            self.block = False
-            return
-        else:
-            win.blit(list[int(self.current_sprite)], (self.x, self.y))
-            if self.block:
-                self.current_sprite = self.current_sprite
-            else:
-                self.current_sprite += increm
+        if self.current_sprite >= len(list):
+            self.current_sprite = 0
+        win.blit(list[int(self.current_sprite)], (self.x, self.y))
+        self.current_sprite += increm
+        print(self.current_sprite)
 
-    def draw_fireball(self, win):
-        global fireballLoop, isHitbox
-        if fireballLoop >= 1:
+    def draw_amaterasu(self, win):
+        global isHitbox, amaterasuLoop
+        if amaterasuLoop >= 1:
             self.current_sprite = 0
 
         if facing == 1:
-            SasukeEffectRightRotated = []
-            for i in Sasuke['EffectRight']:
-                a = pygame.transform.rotate(i, 45)
-                SasukeEffectRightRotated.append(a)
-                fireball.animator(SasukeEffectRightRotated, 0.04)
-                self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
+            if player1.characterNumber == 3: #Le problème est ici : L'incrémentation se fait mal car on est pas réellement dans une boucle 
+                amaterasu.animator(Itachi['EffectRight'], 1)
+                self.hitbox = (self.x, self.y, self.width, self.height)
                 if isHitbox:
                     pygame.draw.rect(win, blue, self.hitbox, 2)
 
         if facing == -1:
-            SasukeEffectLeftRotated = []
-            for i in Sasuke['EffectLeft']:
-                a = pygame.transform.rotate(i, 325)
-                SasukeEffectLeftRotated.append(a)
-                fireball.animator(SasukeEffectLeftRotated, 0.04)
+            ItachiEffect = []
+            for i in Itachi['EffectLeft']:
+                ItachiEffect.append(i)
+                amaterasu.animator(ItachiEffect, 0.5)
                 self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
                 if isHitbox:
                     pygame.draw.rect(win, blue, self.hitbox, 2)
@@ -1299,6 +1291,8 @@ def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et p
         fireball.draw_fireball(win)
     for fireball2 in fireballs2:
         fireball2.draw_fireball2(win)
+    for amaterasu in amaterasus:
+        amaterasu.draw_amaterasu(win)
     pygame.display.update()
 
 def endGame():
@@ -1324,6 +1318,8 @@ fireballs = []
 fireballLoop = 0
 fireballs2 = []
 fireballLoop2 = 0
+amaterasus = []
+amaterasuLoop = 0
 player2 = Player(550, 300, 64, 64, 2, player2Character)
 kunais = []  # Liste des Kunais --> Joueur 1
 kunaiLoop = 0  # Permet d'ajouter un "Cooldown" aux kunais, un seul peut être lancer à la fois --> Joueur 1
@@ -1422,6 +1418,18 @@ while launched:
                     player1.mana -= 50
                     player1.spell2 = True
                     player1.dealable = True
+                    if player1.facingLeft:
+                        facing = -1
+                    elif player1.facingRight:
+                        facing = 1
+                    else:
+                        facing = 1
+                    if len(amaterasus) < 3:
+                        if facing == 1:
+                            amaterasus.append(amaterasuFun(player1.x + 80, player1.y + 35, 140, 120, facing))
+                        else:
+                            amaterasus.append(amaterasuFun(player1.x + 80, player1.y + 35, 140, 120, facing))
+                    amaterasuLoop = 1
         # ////////// PLAYER 2 //////////
         # M = Player 2 Awakening
         if event.type == pygame.KEYDOWN and event.key == pygame.K_m:
@@ -1570,6 +1578,25 @@ while launched:
             fireball.hitbox[0] + fireball.hitbox[2]:
                             fireballs.pop(fireballs.index(fireball))
                             fireballs2.pop(fireballs2.index(fireball2))
+
+    # Amaterasu Hitbox Config Player 1
+    for amaterasu in amaterasus:
+        if 670 > amaterasu.x > -200:
+            if player2.hitbox[1] < amaterasu.hitbox[1] + amaterasu.hitbox[3] and player2.hitbox[1] + player2.hitbox[
+                3] > amaterasu.hitbox[1] and player2.hitbox[0] + player2.hitbox[2] > amaterasu.hitbox[0] and player2.hitbox[0] < amaterasu.hitbox[0] + amaterasu.hitbox[2]:
+                #if amaterasuFun.dealable:
+                    #if soundActivated:
+                    #    fireballImpactSound.play()
+                    if player2.characterNumber == 3 and player2.spell1:
+                        print("Dodged")
+                    else:
+                        player2.hit(2)
+                        player1.dealable = False
+                        if not player1.awaken:
+                            if player1.awakening < 200:
+                                player1.awakening += 20
+                        amaterasus.pop(amaterasus.index(amaterasu))
+                        amaterasuFun.dealable = False
 
     # ////////////// Player 1 //////////////
 
