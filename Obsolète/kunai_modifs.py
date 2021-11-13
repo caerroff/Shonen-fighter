@@ -1,10 +1,284 @@
 # -*- coding: utf-8 -*-
-import pygame, time, gui
+import pygame, time
 from perso_os import *
 from random import *
+from tkinter import *
 
+#Création de la fênetre de lancement du jeu
+main = Tk()
+main.title("Shonen Fighter")
+main.geometry("1023x682")
+main.minsize(1023, 682)
+main.maxsize(1023, 682)
+
+player1Character = 3
+player2Character = 4
+
+rounds = 3
+current_round = 1
 isHitbox = False
+
+bg = pygame.image.load('../Sprite/bg.jpg')
+bg_1 = pygame.image.load('../Sprite/bg_1.jpg')
+bg2 = pygame.image.load('../Sprite/Bg_2.jpg')
+bg3 = pygame.image.load('../Sprite/Bg_3.jpg')
+bg4 = pygame.image.load('../Sprite/Bg_4.jpg')
+background = bg
+
 soundActivated = False
+
+def soundsFunction():
+    """Function that imports the differents sounds of the game """
+    global kunaiSound, kunaiImpactSound
+    kunaiSound = pygame.mixer.Sound("kunai_flying.wav")
+    kunaiImpactSound = pygame.mixer.Sound("kunai_impact.wav")
+
+    pygame.mixer.music.load('naruto_theme.mp3')
+    pygame.mixer.music.play(-1)
+
+def isSoundActivated():
+    """Function that check if sounds are activated, and so can call the SoundsFunction"""
+    global soundActivated
+    soundActivated = True
+    soundsFunction()
+
+def settings():
+    """Settings Menu for the Gui"""
+    frameSettings = Frame(main, bg="grey", width=450, height=450, bd=3, relief=SUNKEN)
+    frameSettings.place(relx=0.25, rely=0.1, anchor=N)
+
+    buttonClose = Button(frameSettings, text="Fermer",bg="lightgrey", font=("Helvetica", 10), width=15, command=frameSettings.destroy)
+    buttonClose.place(relx=0.66, rely=0.9)
+
+def player1ChooseCharacter(value):
+    """Function that return (to use after) which character the Player 1 chose"""
+    global player1Character
+    player1Character = value
+    return player1Character
+
+def player2ChooseCharacter(value):
+    """Function that return (to use after) which character the Player 2 chose"""
+    global player2Character
+    player2Character = value
+
+def chooseNumberRounds(value):
+    """Function, in the Gui, that allows to change the number of rounds of the game"""
+    global rounds
+    rounds = value
+
+def chooseBackground(value):
+    """Function, in the Gui, that allows to change the background (Map) of the game"""
+    global background
+    if value == 1:
+        background = bg
+    if value == 2:
+        background = bg2
+    if value == 3:
+        background = bg4
+    #else:
+    #    background = bg
+
+def showHitbox():
+    global isHitbox
+    isHitbox = True
+
+def selectCharacter():
+    """Function, in the Gui, that allows to select a character for each player and the number of rounds for the game"""
+    global winSelect, player1Character, player2Character
+    main.destroy()
+
+    winSelect = Tk()
+    winSelect.title("Shonen Fighter - Select Character")
+    winSelect.geometry("1023x682")
+    winSelect.minsize(1023, 682)
+    winSelect.maxsize(1023, 682)
+
+    frame = Frame(winSelect, bg='white', width=5000, height=5000)
+
+    # Frame that prints the icons of characters for Player 1
+    image_player1_frame = Frame(frame, bg="white")
+    image_player1_frame.grid(row=0, column=0, sticky=W, pady=10)
+
+    # Frame that allows to select a character for the Player 1
+    select_player1_frame = Frame(frame, bg="white")  # bd=1, relief=SUNKEN
+    select_player1_frame.grid(row=1, column=0, sticky=W)
+
+    # Frame that prints the icons of characters for Player 2
+    image_player2_frame = Frame(frame, bg="white")
+    image_player2_frame.grid(row=2, column=0, sticky=W, pady=10)
+
+    # Frame that allows to select a character for the Player 1
+    select_player2_frame = Frame(frame, bg="white")  # bd=1, relief=SUNKEN
+    select_player2_frame.grid(row=3, column=0, sticky=W)
+
+    # Frame that allows to select the number of Rounds
+    rounds_frame = Frame(frame, padx=500, pady=50, bg='white')
+    rounds_frame.grid(row=4, column=0, sticky=W)
+
+    # Frame that allows to choose the background
+    background_frame = Frame(frame, padx=500, pady=10, bg='white')
+    background_frame.grid(row=5, column=0, sticky=W)
+
+    # Frame that allows to Start the game
+    bottomButtons = Frame(frame, padx=500, pady=50, bg='white')
+    bottomButtons.grid(row=6, column=0, sticky=W)
+
+    # Invisible Label To Use Grid / Place
+    invisibleLabel = Label(bottomButtons, text='')
+    invisibleLabel.grid()
+
+    # Invisible Label To Use Grid / Place
+    invisibleLabel2 = Label(rounds_frame, text='')
+    invisibleLabel2.grid()
+
+    # Invisible Label To Use Grid / Place
+    invisibleLabel3 = Label(background_frame, text='')
+    invisibleLabel3.grid()
+
+    # Label Background
+    labelBackground = Label(background_frame, text='Background', bg='lightgrey', font=("Helvetica", 10), width=15, border=1)
+    labelBackground.place(x=-470, y=0)
+
+    # Label Background 1 (Normal / Day)
+    buttonBackground_1 = Button(background_frame, text='Day', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: chooseBackground(1))
+    buttonBackground_1.place(x=-307, y=0)
+
+    # Label Background 2 (Forest)
+    buttonBackground_2 = Button(background_frame, text='Forest', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: chooseBackground(2))
+    buttonBackground_2.place(x=-120, y=0)
+
+    # Label Background 3 (Night)
+    buttonBackground_3 = Button(background_frame, text='Night', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: chooseBackground(3))
+    buttonBackground_3.place(x=70, y=0)
+
+    # Label Rounds
+    labelRounds = Label(rounds_frame, text='Rounds (To Win)', bg='lightgrey', font=("Helvetica", 10), width=15, border=1)
+    labelRounds.place(x=-470, y=0)
+
+    # Button Rounds = 1
+    buttonRounds1 = Button(rounds_frame, text='1 Round', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: chooseNumberRounds(1))
+    buttonRounds1.place(x=-307, y=0)
+
+    # Button Rounds = 2
+    buttonRounds2 = Button(rounds_frame, text='3 Rounds', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: chooseNumberRounds(3))
+    buttonRounds2.place(x=-120, y=0)
+
+    # Button Rounds = 3
+    buttonRounds3 = Button(rounds_frame, text='5 Rounds', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: chooseNumberRounds(5))
+    buttonRounds3.place(x=70, y=0)
+
+    # Button Sounds
+    buttonSounds = Button(bottomButtons, text='Sounds', bg='white', font=("Helvetica", 10), width=15, border=1, command=isSoundActivated)
+    buttonSounds.place(x=-100, y=0)
+
+    # Button Hitbox
+    buttonHitbox = Button(bottomButtons, text='Hitbox', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=showHitbox)
+    buttonHitbox.place(x=100, y=0)
+
+    # Button Play
+    buttonPlay = Button(bottomButtons, text='Play', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=launchGame)
+    buttonPlay.place(x=300, y=0)
+
+    # Icon Naruto Player 1
+    iconNaruto = PhotoImage(file='../Sprite/Naruto/Icon/Sprite 1.png')
+    labelIconNaruto = Label(image_player1_frame, image=iconNaruto)
+    labelIconNaruto.grid(row=0, column=1, sticky=W, padx=10)
+
+    # Icon Naruto Player 2
+    iconNaruto2 = PhotoImage(file='../Sprite/Naruto/Icon/Sprite 1.png')
+    labelIconNaruto2 = Label(image_player2_frame, image=iconNaruto2)
+    labelIconNaruto2.grid(row=0, column=1, sticky=W, padx=10)
+
+    # Icon Sasuke Player 1
+    iconSasuke = PhotoImage(file='../Sprite/Sasuke/Icon/Sprite 2.png')
+    labelIconSasuke = Label(image_player1_frame, image=iconSasuke)
+    labelIconSasuke.grid(row=0, column=2, sticky=W, padx=40)
+
+    # Icon Sasuke Player 2
+    iconSasuke2 = PhotoImage(file='../Sprite/Sasuke/Icon/Sprite 2.png')
+    labelIconSasuke2 = Label(image_player2_frame, image=iconSasuke2)
+    labelIconSasuke2.grid(row=0, column=2, sticky=W, padx=40)
+
+    # Icon Itachi Player 1
+    iconItachi = PhotoImage(file='../Sprite/Itachi/Icon/Sprite 1.png')
+    labelIconItachi = Label(image_player1_frame, image=iconItachi)
+    labelIconItachi.grid(row=0, column=3, sticky=W, padx=20)
+
+    # Icon Itachi Player 2
+    iconItachi2 = PhotoImage(file='../Sprite/Itachi/Icon/Sprite 1.png')
+    labelIconItachi2 = Label(image_player2_frame, image=iconItachi2)
+    labelIconItachi2.grid(row=0, column=3, sticky=W, padx=20)
+
+    # Player 1 Label (Void)
+    labelPlayer1Image = Label(image_player1_frame, text='', bg='white', font=("Helvetica", 10), width=15, border=1)
+    labelPlayer1Image.grid(row=0, column=0, sticky=W, padx=30)
+
+    # Player 1 Label
+    labelPlayer1 = Label(select_player1_frame, text='Player 1 Character :', bg='lightgrey', font=("Helvetica", 10), width=15, border=1)
+    labelPlayer1.grid(row=0, column=0, sticky=W, padx=30)
+
+    # Player 2 Label (Void)
+    labelPlayer2Image = Label(image_player2_frame, text='', bg='white', font=("Helvetica", 10), width=15, border=1)
+    labelPlayer2Image.grid(row=0, column=0, sticky=W, padx=30)
+
+    # Player 2 Label
+    labelPlayer2 = Label(select_player2_frame, text='Player 2 Character :', bg='lightgrey', font=("Helvetica", 10), width=15, border=1)
+    labelPlayer2.grid(row=0, column=0, sticky=W, padx=30)
+
+    # Button Naruto Player 1
+    player1Naruto = Button(select_player1_frame, text='Naruto', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player1ChooseCharacter(1))
+    player1Naruto.grid(row=0, column=1, sticky=W, padx=10)
+
+    # Button Sasuke Player 1
+    player1Sasuke = Button(select_player1_frame, text='Sasuke', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player1ChooseCharacter(2))
+    player1Sasuke.grid(row=0, column=2, sticky=W, padx=50)
+
+    # Button Itachi Player 1
+    player1Itachi = Button(select_player1_frame, text='Itachi', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player1ChooseCharacter(3))
+    player1Itachi.grid(row=0, column=3, sticky=W, padx=10)
+
+    # Button Naruto Player 2
+    player2Naruto = Button(select_player2_frame, text='Naruto', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player2ChooseCharacter(1))
+    player2Naruto.grid(row=0, column=4, sticky=W, padx=10)
+
+    # Button Sasuke Player 2
+    player2Sasuke = Button(select_player2_frame, text='Sasuke', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player2ChooseCharacter(2))
+    player2Sasuke.grid(row=0, column=5, sticky=W, padx=50)
+
+    # Button Itachi Player 2
+    player2Itachi = Button(select_player2_frame, text='Itachi', bg='lightgrey', font=("Helvetica", 10), width=15, border=1, command=lambda: player2ChooseCharacter(3))
+    player2Itachi.grid(row=0, column=6, sticky=W, padx=10)
+
+    # Affichage de toute la frame (l'ensemble de ce qu'il faut afficher)
+    frame.grid(ipadx=50, ipady=50)
+
+    winSelect.mainloop()
+
+launched = False
+def launchGame():
+    """Function that allows to launch the game"""
+    global launched
+    launched = True
+    winSelect.destroy()
+
+#Importation et affichage de l'image de fond d'écran de la fênetre
+shonen = PhotoImage(file='naruto_bg.png')
+labelShonen = Label(main, image=shonen)
+labelShonen.place(x=0, y=0, relwidth=1, relheight=1)
+
+# Button Play
+buttonJouer = Button(main, text="Jouer", font=("Helvetica", 22), bg="white", bd=3, relief=SUNKEN, width=10, command=selectCharacter)
+buttonJouer.place(x=120, y=85)
+
+# Button Settings
+buttonSettings = Button(main, text="Options", font=("Helvetica", 22), bg="white", bd=3, relief=SUNKEN, width=10, command=settings)
+buttonSettings.place(x=120, y=175)
+
+# Button Leave
+buttonLeave = Button(main, text="Quitter", font=("Helvetica", 22), bg="white", bd=3, relief=SUNKEN, width=10, command=main.destroy)
+buttonLeave.place(x=120, y=265)
+
+main.mainloop()
 
 # /////////// PYGAME ///////////
 
@@ -16,25 +290,12 @@ win = pygame.display.set_mode(win_res)
 pygame.display.set_caption("Shonen Fighter")
 clock = pygame.time.Clock()
 
-font = pygame.font.Font("../Sprite/Helvetica/Helvetica.ttf", 30)  # Font importé pour le score
+font = pygame.font.Font("Helvetica.ttf", 30)  # Font importé pour le score
 player2Score = 0
 player1Score = 0
 
-player1Character = 2
-player2Character = 3
-
-rounds = 3
-current_round = 1
-
-bg = pygame.image.load('../Sprite/bg.jpg')
-bg_1 = pygame.image.load('../Sprite/bg_1.jpg')
-bg2 = pygame.image.load('../Sprite/Bg_2.jpg')
-bg3 = pygame.image.load('../Sprite/Bg_3.jpg')
-bg4 = pygame.image.load('../Sprite/Bg_4.jpg')
-background = bg
-
-kunaiSpriteRight = pygame.image.load('../Sprite/Kunai/sprite.png')
-kunaiSpriteLeft = pygame.transform.flip(kunaiSpriteRight, True, False)
+rect1 = pygame.Rect(250, 70, 65, 65)  # Constructeur d'objet --> Rectangle, Arg: x, y, w, h
+rect2 = pygame.Rect(350, 70, 65, 65)  # Constructeur d'objet --> Rectangle, Arg: x, y, w, h
 
 red = (255, 0, 0)
 green = (0, 255, 0)
@@ -43,6 +304,12 @@ grey = (109, 111, 111)
 blue_mana = (0, 186, 240)
 yellow = (255, 232, 1)
 purple = (66, 0, 255)
+
+kunaiSpriteRight = pygame.image.load('../Sprite/Kunai/sprite.png')
+kunaiSpriteLeft = pygame.transform.flip(kunaiSpriteRight, True, False)
+
+kunaiOrientedSpriteRight = pygame.image.load('../Sprite/Kunai/sprite_oriented.png')
+kunaiOrientedSpriteLeft = pygame.transform.flip(kunaiOrientedSpriteRight, True, False)
 
 spawnEffect = False
 nextAnim = False
@@ -201,8 +468,10 @@ class Player(object):
             self.draw_naruto(win)
         if self.characterNumber == 2:
             self.draw_sasuke(win)
-        elif self.characterNumber == 3:
+        if self.characterNumber == 3:
             self.draw_itachi(win)
+        elif self.characterNumber == 4:
+            self.draw_minato(win)
 
     def draw_ath_player1(self, win):
         """Function that shows the ATH (Health bar, Mana bar, Awakening Bar) of the Player 1"""
@@ -592,6 +861,12 @@ class Player(object):
                             self.animator(Itachi['Combo2Left'], 0.4, 1)
                         elif self.facingRight:
                             self.animator(Itachi['Combo2Right'], 0.4, 1)
+            elif self.throw:
+                if self.facingLeft:
+                    self.animator(Itachi['ThrowLeft'], 1, 1)
+                if self.facingRight:
+                    self.animator(Itachi['ThrowRight'], 1, 1)
+                self.throw = False
             elif self.spell1:
                 if self.facingLeft:
                     self.x -= 10
@@ -601,9 +876,9 @@ class Player(object):
                     self.animator(Itachi['Spell1Right'], 0.45, 1)
             elif self.spell2:
                 if self.facingLeft:
-                    self.animator(Itachi['Spell2Left'], 0.5)
+                    self.animator(Itachi['Spell2Left'], 0.25, 1)
                 if self.facingRight:
-                    self.animator(Itachi['Spell2Right'], 0.5)
+                    self.animator(Itachi['Spell2Right'], 0.25, 1)
             elif self.molding:
                 if self.facingLeft:
                     self.animator(Itachi['MoldingLeft'], 1)
@@ -639,7 +914,7 @@ class Player(object):
                     self.left = False
                 elif self.right:
                     self.y = 280
-                    self.animator(Itachi['StandRight'], 1)
+                    self.animator(Itachi['StandRight'], 0.1)
                     self.facingRight = True
                     self.right = False
                 elif self.facingLeft:
@@ -649,12 +924,12 @@ class Player(object):
                     self.left = False
                 elif self.facingRight:
                     self.y = 280
-                    self.animator(Itachi['StandRight'], 1)
+                    self.animator(Itachi['StandRight'], 0.1)
                     self.facingRight = True
                     self.right = False
                 else:
                     self.y = 280
-                    self.animator(Itachi['StandRight'], 1)
+                    self.animator(Itachi['StandRight'], 0.1)
                     self.facingRight = True
                     self.right = False
             elif self.playerNumber == 2:
@@ -675,7 +950,7 @@ class Player(object):
                     self.left = False
                 if self.facingRight:
                     self.y = 280
-                    self.animator(Itachi['StandRight'], 1)
+                    self.animator(Itachi['StandRight'], 0.1)
                     self.facingRight = True
                     self.right = False
                 else:
@@ -729,6 +1004,49 @@ class Player(object):
                 if self.facingRight:
                     self.animator(Itachi['AwakeStandRight'], 1)
 
+    def draw_minato(self, win):
+        if not self.awaken:
+            if not self.standing:
+                if self.left:
+                    if self.isJumping and self.isFalling:
+                        self.animator(Minato['FallingLeft'], 1)
+                    elif self.isJumping:
+                        self.animator(Minato['JumpingLeft'], 0.3)
+                    else:
+                        self.animator(Minato['RunLeft'], 0.5)
+                elif self.right:
+                    if self.isJumping and self.isFalling:
+                        self.animator(Minato['FallingRight'], 1)
+                    elif self.isJumping:
+                        self.animator(Minato['JumpingRight'], 0.3)
+                    else:
+                        self.animator(Minato['RunRight'], 0.5)
+            elif self.isBlock:
+                if self.facingLeft:
+                    self.animator(Minato['BlockLeft'], 0.5)
+                if self.facingRight:
+                    self.animator(Minato['BlockRight'], 0.5)
+            elif self.combo1:
+                if self.facingLeft:
+                    self.animator(Minato['Combo1Left'], 0.5, 1)
+                if self.facingRight:
+                    self.animator(Minato['Combo1Right'], 0.5, 1)
+            elif self.molding:
+                if self.facingLeft:
+                    self.animator(Minato['MoldingLeft'], 1)
+                if self.facingRight:
+                    self.animator(Minato['MoldingRight'], 1)
+                self.molding = False
+            elif self.facingLeft:
+                self.animator(Minato['StandLeft'], 1)
+            elif self.facingRight:
+                self.animator(Minato['StandRight'], 1)
+            else:
+                if self.playerNumber == 1:
+                    self.animator(Minato['StandRight'], 1)
+                if self.playerNumber == 2:
+                    self.animator(Minato['StandLeft'], 1)
+
         global isHitbox
         if not self.awaken and not self.transforming and not self.left and not self.right and not self.combo1:
             self.hitbox = (self.x, self.y, 45, 85)
@@ -769,6 +1087,7 @@ class Player(object):
 
 class projectile(object):
     """Class Projectile : Animates and Draw Kunais"""
+    global isOriented
     def __init__(self, x, y, radius, color, facing):
         self.x = x
         self.y = y
@@ -785,15 +1104,29 @@ class projectile(object):
     def draw(self, win):
         global isHitbox
         if facing == 1:
-            win.blit(kunaiSpriteRight, (self.x, self.y))
-            self.hitbox = (self.x, self.y, 20, 15)
-            if isHitbox:
-                pygame.draw.rect(win, blue, self.hitbox, 2)
+            if isOriented:
+                print(True)
+                win.blit(kunaiOrientedSpriteRight, (self.x, self.y))
+                self.hitbox = (self.x, self.y, 20, 15)
+                if isHitbox:
+                    pygame.draw.rect(win, blue, self.hitbox, 2)
+            else:
+                win.blit(kunaiSpriteRight, (self.x, self.y))
+                self.hitbox = (self.x, self.y, 20, 15)
+                if isHitbox:
+                    pygame.draw.rect(win, blue, self.hitbox, 2)
         else:
-            win.blit(kunaiSpriteLeft, (self.x, self.y))
-            self.hitbox = (self.x, self.y, 20, 15)
-            if isHitbox:
-                pygame.draw.rect(win, blue, self.hitbox, 2)
+            if isOriented:
+                print(True)
+                win.blit(kunaiOrientedSpriteLeft, (self.x, self.y))
+                self.hitbox = (self.x, self.y, 20, 15)
+                if isHitbox:
+                    pygame.draw.rect(win, blue, self.hitbox, 2)
+            else:
+                win.blit(kunaiSpriteLeft, (self.x, self.y))
+                self.hitbox = (self.x, self.y, 20, 15)
+                if isHitbox:
+                    pygame.draw.rect(win, blue, self.hitbox, 2)
 
     def animator(self, list, increm):
         if self.current_sprite >= len(list) or 670 < fireball.x < -100:
@@ -896,6 +1229,46 @@ class fireball_projectile(object):
                 if isHitbox:
                     pygame.draw.rect(win, blue, self.hitbox, 2)
 
+class amaterasuFun(object):
+    """Class Projectile : Animates and Draw Amaterasu"""
+    def __init__(self, x, y, width, height, facing):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.facing = facing
+        self.current_sprite = 0
+        self.dealable = True
+        self.block = False
+        self.hitbox = (self.x, self.y, self.width, self.height)
+
+    def animator(self, list, increm):
+        if self.current_sprite >= len(list):
+            self.current_sprite = 0
+        win.blit(list[int(self.current_sprite)], (self.x, self.y)) #Affiche Image 1
+        self.current_sprite += increm # Passe à Image 2
+        print(self.current_sprite)
+
+    def draw_amaterasu(self, win):
+        global isHitbox, amaterasuLoop
+        if amaterasuLoop >= 1:
+            self.current_sprite = 0
+
+        if facing == 1:
+            #Le problème est ici : L'incrémentation se fait mal car on est pas réellement dans une boucle
+                amaterasu.animator(Itachi['EffectRight'], 1)
+                self.hitbox = (self.x, self.y, self.width, self.height)
+                if isHitbox:
+                    pygame.draw.rect(win, blue, self.hitbox, 2)
+
+        if facing == -1:
+            ItachiEffect = []
+            for i in Itachi['EffectLeft']:
+                ItachiEffect.append(i)
+                amaterasu.animator(ItachiEffect, 0.5)
+                self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
+                if isHitbox:
+                    pygame.draw.rect(win, blue, self.hitbox, 2)
 
 def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et plus dans la boucle principale
     """Draw and refresh the entire window, the Players, Projectiles, etc..."""
@@ -918,6 +1291,8 @@ def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et p
         fireball.draw_fireball(win)
     for fireball2 in fireballs2:
         fireball2.draw_fireball2(win)
+    for amaterasu in amaterasus:
+        amaterasu.draw_amaterasu(win)
     pygame.display.update()
 
 def endGame():
@@ -943,6 +1318,8 @@ fireballs = []
 fireballLoop = 0
 fireballs2 = []
 fireballLoop2 = 0
+amaterasus = []
+amaterasuLoop = 0
 player2 = Player(550, 300, 64, 64, 2, player2Character)
 kunais = []  # Liste des Kunais --> Joueur 1
 kunaiLoop = 0  # Permet d'ajouter un "Cooldown" aux kunais, un seul peut être lancer à la fois --> Joueur 1
@@ -962,6 +1339,11 @@ while launched:
     if player2.health <= 0:
         player1Score += 1
         player2.death(player1)
+
+    if player1.y > player2.y or player2.y > player1.y:
+        isOriented = True
+    else:
+        isOriented = False
 
     # Variable permettant de vérifier si une touché est pressée
     keys = pygame.key.get_pressed()
@@ -1030,7 +1412,24 @@ while launched:
                         else:
                             fireballs.append(fireball_projectile(player1.x - 150, player1.y - 65, 140, 120, facing))
                     fireballLoop = 1
-            # Itachi = Fireball Jutsu
+            # Itachi = Amaterasu
+            if player1.characterNumber == 3:
+                if player1.mana >= 50:
+                    player1.mana -= 50
+                    player1.spell2 = True
+                    player1.dealable = True
+                    if player1.facingLeft:
+                        facing = -1
+                    elif player1.facingRight:
+                        facing = 1
+                    else:
+                        facing = 1
+                    if len(amaterasus) < 3:
+                        if facing == 1:
+                            amaterasus.append(amaterasuFun(player1.x + 80, player1.y + 35, 140, 120, facing))
+                        else:
+                            amaterasus.append(amaterasuFun(player1.x + 80, player1.y + 35, 140, 120, facing))
+                    amaterasuLoop = 1
         # ////////// PLAYER 2 //////////
         # M = Player 2 Awakening
         if event.type == pygame.KEYDOWN and event.key == pygame.K_m:
@@ -1081,7 +1480,12 @@ while launched:
                         else:
                             fireballs2.append(fireball_projectile(player2.x - 150, player2.y - 65, 140, 120, facing))
                     fireballLoop2 = 1
-            # Itachi = Fireball Jutsu
+            # Itachi = Amaterasu
+            if player2.characterNumber == 3:
+                if player1.mana >= 50:
+                    player2.mana -= 50
+                    player2.spell2 = True
+                    player2.dealable = True
 
             # Undefined
 
@@ -1174,6 +1578,25 @@ while launched:
             fireball.hitbox[0] + fireball.hitbox[2]:
                             fireballs.pop(fireballs.index(fireball))
                             fireballs2.pop(fireballs2.index(fireball2))
+
+    # Amaterasu Hitbox Config Player 1
+    for amaterasu in amaterasus:
+        if 670 > amaterasu.x > -200:
+            if player2.hitbox[1] < amaterasu.hitbox[1] + amaterasu.hitbox[3] and player2.hitbox[1] + player2.hitbox[
+                3] > amaterasu.hitbox[1] and player2.hitbox[0] + player2.hitbox[2] > amaterasu.hitbox[0] and player2.hitbox[0] < amaterasu.hitbox[0] + amaterasu.hitbox[2]:
+                #if amaterasuFun.dealable:
+                    #if soundActivated:
+                    #    fireballImpactSound.play()
+                    if player2.characterNumber == 3 and player2.spell1:
+                        print("Dodged")
+                    else:
+                        player2.hit(2)
+                        player1.dealable = False
+                        if not player1.awaken:
+                            if player1.awakening < 200:
+                                player1.awakening += 20
+                        amaterasus.pop(amaterasus.index(amaterasu))
+                        amaterasuFun.dealable = False
 
     # ////////////// Player 1 //////////////
 
