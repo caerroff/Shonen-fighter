@@ -185,8 +185,10 @@ class Player(object):
             self.draw_naruto(win)
         if self.characterNumber == 2:
             self.draw_sasuke(win)
-        elif self.characterNumber == 3:
+        if self.characterNumber == 3:
             self.draw_itachi(win)
+        if self.characterNumber == 4:
+            self.draw_minato(win)
 
     def draw_ath_player1(self, win):
         """Function that shows the ATH (Health bar, Mana bar, Awakening Bar) of the Player 1"""
@@ -711,6 +713,49 @@ class Player(object):
                 if self.facingRight:
                     self.animator(Itachi['AwakeStandRight'], 1)
 
+    def draw_minato(self, win):
+        if not self.awaken:
+            if not self.standing:
+                if self.left:
+                    if self.isJumping and self.isFalling:
+                        self.animator(Minato['FallingLeft'], 1)
+                    elif self.isJumping:
+                        self.animator(Minato['JumpingLeft'], 0.3)
+                    else:
+                        self.animator(Minato['RunLeft'], 0.5)
+                elif self.right:
+                    if self.isJumping and self.isFalling:
+                        self.animator(Minato['FallingRight'], 1)
+                    elif self.isJumping:
+                        self.animator(Minato['JumpingRight'], 0.3)
+                    else:
+                        self.animator(Minato['RunRight'], 0.5)
+            elif self.isBlock:
+                if self.facingLeft:
+                    self.animator(Minato['BlockLeft'], 0.5)
+                if self.facingRight:
+                    self.animator(Minato['BlockRight'], 0.5)
+            elif self.combo1:
+                if self.facingLeft:
+                    self.animator(Minato['Combo1Left'], 0.5, 1)
+                if self.facingRight:
+                    self.animator(Minato['Combo1Right'], 0.5, 1)
+            elif self.molding:
+                if self.facingLeft:
+                    self.animator(Minato['MoldingLeft'], 1)
+                if self.facingRight:
+                    self.animator(Minato['MoldingRight'], 1)
+                self.molding = False
+            elif self.facingLeft:
+                self.animator(Minato['StandLeft'], 1)
+            elif self.facingRight:
+                self.animator(Minato['StandRight'], 1)
+            else:
+                if self.playerNumber == 1:
+                    self.animator(Minato['StandRight'], 1)
+                if self.playerNumber == 2:
+                    self.animator(Minato['StandLeft'], 1)
+
         if not self.awaken and not self.transforming and not self.left and not self.right and not self.combo1:
             self.hitbox = (self.x, self.y, 45, 85)
             if gui.isHitbox:
@@ -967,11 +1012,15 @@ while launched:
             if not player1.awaken and player1.characterNumber == 2 and player1.awakening == 200:
                 player1.transforming = True
                 player1.y = 295
+            if player1.awaken and player1.characterNumber == 2:
+                player1.awaken = False
             # Itachi = Susanoo
             if not player1.awaken and player1.characterNumber == 3 and player1.awakening == 200:
                 player1.transforming = True
                 player1.y = 220
                 player1.x = player1.x - 30
+            if player1.awaken and player1.characterNumber == 3:
+                player1.awaken = False
         # G = Player 1 Combo 1
         if event.type == pygame.KEYDOWN and event.key == pygame.K_g:
             player1.combo1 = True
@@ -1018,11 +1067,15 @@ while launched:
             if not player2.awaken and player2.characterNumber == 2 and player2.awakening == 200:
                 player2.transforming = True
                 player2.y = 295
+            if player2.awaken and player2.characterNumber == 2:
+                player2.awaken = False
             # Itachi = Susanoo
             if not player2.awaken and player2.characterNumber == 3 and player2.awakening == 200:
                 player2.transforming = True
                 player2.y = 220
                 player2.x = player2.x - 30
+            if player2.awaken and player2.characterNumber == 3:
+                player2.awaken = False
         # O = Player 2 Combo 1 ---> Objectif : Interrompre la marche pour utiliser le combo
         if event.type == pygame.KEYDOWN and event.key == pygame.K_o:
             if not player2.transforming:

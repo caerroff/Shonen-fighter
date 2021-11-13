@@ -18,8 +18,7 @@ background = bg
 rounds = 3
 current_round = 1
 
-global player1Character, player2Character
-player1Character = 2
+player1Character = 4
 player2Character = 3
 
 isHitbox = False
