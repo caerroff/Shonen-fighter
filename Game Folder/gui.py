@@ -8,7 +8,22 @@ main.geometry("1023x682")
 main.minsize(1023, 682)
 main.maxsize(1023, 682)
 
+bg = pygame.image.load('../Sprite/bg.jpg')
+bg_1 = pygame.image.load('../Sprite/bg_1.jpg')
+bg2 = pygame.image.load('../Sprite/Bg_2.jpg')
+bg3 = pygame.image.load('../Sprite/Bg_3.jpg')
+bg4 = pygame.image.load('../Sprite/Bg_4.jpg')
+background = bg
 
+rounds = 3
+current_round = 1
+
+global player1Character, player2Character
+player1Character = 2
+player2Character = 3
+
+isHitbox = False
+soundActivated = False
 
 def soundsFunction():
     """Function that imports the differents sounds of the game """

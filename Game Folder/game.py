@@ -3,9 +3,6 @@ import pygame, time, gui
 from perso_os import *
 from random import *
 
-isHitbox = False
-soundActivated = False
-
 # /////////// PYGAME ///////////
 
 pygame.init()
@@ -19,19 +16,6 @@ clock = pygame.time.Clock()
 font = pygame.font.Font("../Sprite/Helvetica/Helvetica.ttf", 30)  # Font importé pour le score
 player2Score = 0
 player1Score = 0
-
-player1Character = 2
-player2Character = 3
-
-rounds = 3
-current_round = 1
-
-bg = pygame.image.load('../Sprite/bg.jpg')
-bg_1 = pygame.image.load('../Sprite/bg_1.jpg')
-bg2 = pygame.image.load('../Sprite/Bg_2.jpg')
-bg3 = pygame.image.load('../Sprite/Bg_3.jpg')
-bg4 = pygame.image.load('../Sprite/Bg_4.jpg')
-background = bg
 
 kunaiSpriteRight = pygame.image.load('../Sprite/Kunai/sprite.png')
 kunaiSpriteLeft = pygame.transform.flip(kunaiSpriteRight, True, False)
@@ -324,14 +308,13 @@ class Player(object):
                 self.animator(Naruto['StandRight'], 1)
                 self.standingRight = True
 
-        global isHitbox
         if not self.awaken:
             self.hitbox = (self.x, self.y, 47, 54)
-            if isHitbox:
+            if gui.isHitbox:
                 pygame.draw.rect(win, blue, self.hitbox, 2)
         else:
             self.hitbox = (self.x, self.y, 65, 80)
-            if isHitbox:
+            if gui.isHitbox:
                 pygame.draw.rect(win, red, self.hitbox, 2)
 
     def draw_sasuke(self, win):
@@ -536,18 +519,17 @@ class Player(object):
                     self.animator(Sasuke['AwakeStandRight'], 0.1)
                     self.standingRight = True
 
-        global isHitbox
         if not self.awaken and not self.transforming:
             self.hitbox = (self.x, self.y, 50, 85)
-            if isHitbox:
+            if gui.isHitbox:
                 pygame.draw.rect(win, blue, self.hitbox, 2)
         if self.transforming:
             self.hitbox = (self.x, self.y, 70, 90)
-            if isHitbox:
+            if gui.isHitbox:
                 pygame.draw.rect(win, purple, self.hitbox, 2)
         if self.awaken:
             self.hitbox = (self.x, self.y, 70, 90)
-            if isHitbox:
+            if gui.isHitbox:
                 pygame.draw.rect(win, red, self.hitbox, 2)
 
     def draw_itachi(self, win):
@@ -729,42 +711,41 @@ class Player(object):
                 if self.facingRight:
                     self.animator(Itachi['AwakeStandRight'], 1)
 
-        global isHitbox
         if not self.awaken and not self.transforming and not self.left and not self.right and not self.combo1:
             self.hitbox = (self.x, self.y, 45, 85)
-            if isHitbox:
+            if gui.isHitbox:
                 pygame.draw.rect(win, purple, self.hitbox, 2)
         if self.left and not self.awaken or self.right and not self.awaken:
             self.hitbox = (self.x, self.y, 65, 65)
-            if isHitbox:
+            if gui.isHitbox:
                 pygame.draw.rect(win, purple, self.hitbox, 2)
         if self.combo1 and not self.awaken:
             self.hitbox = (self.x, self.y, 80, 85)
-            if isHitbox:
+            if gui.isHitbox:
                 pygame.draw.rect(win, red, self.hitbox, 2)
         if self.awaken:
             self.hitbox = (self.x, self.y, 225, 265)
-            if isHitbox:
+            if gui.isHitbox:
                 pygame.draw.rect(win, red, self.hitbox, 2)
 
     def hit(self, damages):
         if self.health > 0:
             self.damaged = True
             self.health -= damages
-            win.blit(bg, (-3, 0))
+            win.blit(gui.bg, (-3, 0))
             print("Touché !", "Hp : ", self.health)
 
     def death(self, other):
         """Function that reset the game after one Player dies"""
-        global rounds, current_round, player1Score, player2Score,launched
-        if current_round < rounds:
+        global player1Score, player2Score,launched
+        if gui.current_round < gui.rounds:
             resetGameWindow()
             current_round += 1
         else:
             if player1Score >= player2Score:
-                print('Le Player 1 a gagné avec', rounds, 'rounds gagnants !')
+                print('Le Player 1 a gagné avec', gui.rounds, 'rounds gagnants !')
             if player2Score >= player1Score:
-                print('Le Player 2 a gagné avec', rounds, 'rounds gagnants !')
+                print('Le Player 2 a gagné avec', gui.rounds, 'rounds gagnants !')
             launched = False
 
 class projectile(object):
@@ -783,16 +764,15 @@ class projectile(object):
         self.fb_hitbox = (self.x + 25, self.y + 40, 110, 90)
 
     def draw(self, win):
-        global isHitbox
         if facing == 1:
             win.blit(kunaiSpriteRight, (self.x, self.y))
             self.hitbox = (self.x, self.y, 20, 15)
-            if isHitbox:
+            if gui.isHitbox:
                 pygame.draw.rect(win, blue, self.hitbox, 2)
         else:
             win.blit(kunaiSpriteLeft, (self.x, self.y))
             self.hitbox = (self.x, self.y, 20, 15)
-            if isHitbox:
+            if gui.isHitbox:
                 pygame.draw.rect(win, blue, self.hitbox, 2)
 
     def animator(self, list, increm):
@@ -843,7 +823,7 @@ class fireball_projectile(object):
                 self.current_sprite += increm
 
     def draw_fireball(self, win):
-        global fireballLoop, isHitbox
+        global fireballLoop
         if fireballLoop >= 1:
             self.current_sprite = 0
 
@@ -854,7 +834,7 @@ class fireball_projectile(object):
                 SasukeEffectRightRotated.append(a)
                 fireball.animator(SasukeEffectRightRotated, 0.04)
                 self.hitbox = (self.x + 10, self.y + 35 , self.width - 5, self.height - 25)
-                if isHitbox:
+                if gui.isHitbox:
                     pygame.draw.rect(win, blue, self.hitbox, 2)
 
         if facing == -1:
@@ -864,11 +844,11 @@ class fireball_projectile(object):
                 SasukeEffectLeftRotated.append(a)
                 fireball.animator(SasukeEffectLeftRotated, 0.04)
                 self.hitbox = (self.x + 10, self.y + 35 , self.width - 5, self.height - 25)
-                if isHitbox:
+                if gui.isHitbox:
                     pygame.draw.rect(win, blue, self.hitbox, 2)
 
     def draw_fireball2(self, win):
-        global fireballLoop2, isHitbox
+        global fireballLoop2
         if fireballLoop2 >= 1:
             self.current_sprite = 0
 
@@ -881,7 +861,7 @@ class fireball_projectile(object):
                 if self.current_sprite == len(SasukeEffectRightRotated):
                     self.block = True
                 self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
-                if isHitbox:
+                if gui.isHitbox:
                     pygame.draw.rect(win, blue, self.hitbox, 2)
 
         if facing == -1:
@@ -893,18 +873,18 @@ class fireball_projectile(object):
                 if self.current_sprite == len(SasukeEffectLeftRotated):
                     self.block = True
                 self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
-                if isHitbox:
+                if gui.isHitbox:
                     pygame.draw.rect(win, blue, self.hitbox, 2)
 
 
 def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et plus dans la boucle principale
     """Draw and refresh the entire window, the Players, Projectiles, etc..."""
-    win.blit(background, (-3, 0))  # Black
+    win.blit(gui.background, (-3, 0))  # Black
     score1 = font.render("Score :" + str(player1Score), 1, (0, 0, 0))
     win.blit(score1, (20, 65))
     score2 = font.render("Score :" + str(player2Score), 1, (0, 0, 0))
     win.blit(score2, (565, 65))
-    printRound = font.render("Round : " + str(current_round), 1, (0, 0, 0))
+    printRound = font.render("Round : " + str(gui.current_round), 1, (0, 0, 0))
     win.blit(printRound, (290, 20))
     player1.character()
     player2.character()
@@ -938,12 +918,12 @@ def resetGameWindow():
     player2.x = 550
 
 # MAINLOOP
-player1 = Player(100, 280, 64, 64, 1, player1Character)
+player1 = Player(100, 280, 64, 64, 1, gui.player1Character)
 fireballs = []
 fireballLoop = 0
 fireballs2 = []
 fireballLoop2 = 0
-player2 = Player(550, 300, 64, 64, 2, player2Character)
+player2 = Player(550, 300, 64, 64, 2, gui.player2Character)
 kunais = []  # Liste des Kunais --> Joueur 1
 kunaiLoop = 0  # Permet d'ajouter un "Cooldown" aux kunais, un seul peut être lancer à la fois --> Joueur 1
 kunais2 = []  # Liste des Kunais --> Joueur 2
@@ -967,12 +947,12 @@ while launched:
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_b]:
-        soundActivated = True
+        gui.soundActivated = True
         soundsFunction()
 
     if keys[pygame.K_n]:
-        if soundActivated:
-            soundActivated = False
+        if gui.soundActivated:
+            gui.soundActivated = False
             pygame.mixer.music.stop()
             soundsFunction()
 
@@ -1103,7 +1083,7 @@ while launched:
                     fireballs.pop(fireballs.index(fireball))
                 else:
                     if fireball_projectile.dealable:
-                        if soundActivated:
+                        if gui.soundActivated:
                             fireballImpactSound.play()
                         if player2.characterNumber == 3 and player2.spell1:
                             print("Dodged")
@@ -1140,7 +1120,7 @@ while launched:
                 else:
                     if fireball_projectile.dealable:
                         print(False)
-                        if soundActivated:
+                        if gui.soundActivated:
                             fireballImpactSound.play()
                         if player1.characterNumber == 3 and player1.spell1:
                             print("Dodged")
@@ -1202,7 +1182,7 @@ while launched:
                         print("Bloqué !!")
                         kunais2.pop(kunais2.index(kunai))
                     else:
-                        if soundActivated:
+                        if gui.soundActivated:
                             kunaiImpactSound.play()
                         if player2.characterNumber == 3 and player2.spell1:
                             print("Dodged")
@@ -1222,8 +1202,8 @@ while launched:
     # Kunai Throw --> Player 1 (F)
     if keys[pygame.K_f] and kunaiLoop2 == 0:
         player1.throw = True
-        if soundActivated:
-            kunaiSound.play()
+        if gui.soundActivated:
+            gui.kunaiSound.play()
         if player1.facingLeft:
             facing = -1
         elif player1.facingRight:
@@ -1350,7 +1330,7 @@ while launched:
                         print("Bloqué !!")
                         kunais.pop(kunais.index(kunai))
                     else:
-                        if soundActivated:
+                        if gui.soundActivated:
                             kunaiImpactSound.play()
                         if player1.characterNumber == 3 and player1.spell1:
                             print("Dodged")
@@ -1367,7 +1347,6 @@ while launched:
                 if 670 > kunai.x > 0:
                         if kunai.x + kunai.radius > kunai2.hitbox[0] and kunai.x - kunai.radius < kunai2.hitbox[0] + \
                                 kunai2.hitbox[2]:
-                            print(True)
                             kunais.pop(kunais.index(kunai))
                             kunais2.pop(kunais2.index(kunai2))
 
@@ -1379,8 +1358,8 @@ while launched:
     # Kunai Throw --> Player 2 (I)
     if keys[pygame.K_i] and kunaiLoop == 0:
         player2.throw = True
-        if soundActivated:
-            kunaiSound.play()
+        if gui.soundActivated:
+            gui.kunaiSound.play()
         if player2.facingLeft:
             facing = -1
         elif player2.facingRight:
