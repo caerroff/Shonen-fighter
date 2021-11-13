@@ -30,10 +30,10 @@ soundActivated = False
 def soundsFunction():
     """Function that imports the differents sounds of the game """
     global kunaiSound, kunaiImpactSound
-    kunaiSound = pygame.mixer.Sound("kunai_flying.wav")
-    kunaiImpactSound = pygame.mixer.Sound("kunai_impact.wav")
+    kunaiSound = pygame.mixer.Sound("../Sprite/Sounds/kunai_flying.wav")
+    kunaiImpactSound = pygame.mixer.Sound("../Sprite/Sounds/kunai_impact.wav")
 
-    pygame.mixer.music.load('naruto_theme.mp3')
+    pygame.mixer.music.load('../Sprite/Music/naruto_theme.mp3')
     pygame.mixer.music.play(-1)
 
 def isSoundActivated():
@@ -262,7 +262,7 @@ def launchGame():
     winSelect.destroy()
 
 #Importation et affichage de l'image de fond d'écran de la fênetre
-shonen = PhotoImage(file='naruto_bg.png')
+shonen = PhotoImage(file='../Sprite/naruto_bg.png')
 labelShonen = Label(main, image=shonen)
 labelShonen.place(x=0, y=0, relwidth=1, relheight=1)
 
@@ -290,7 +290,7 @@ win = pygame.display.set_mode(win_res)
 pygame.display.set_caption("Shonen Fighter")
 clock = pygame.time.Clock()
 
-font = pygame.font.Font("Helvetica.ttf", 30)  # Font importé pour le score
+font = pygame.font.Font("../Sprite/Helvetica/Helvetica.ttf", 30)  # Font importé pour le score
 player2Score = 0
 player1Score = 0
 
