@@ -585,9 +585,9 @@ class Player(object):
                     self.animator(Itachi['Spell1Right'], 0.45, 1)
             elif self.spell2:
                 if self.facingLeft:
-                    self.animator(Itachi['Spell2Left'], 0.5)
+                    self.animator(Itachi['Spell2Left'], 0.40, 1)
                 if self.facingRight:
-                    self.animator(Itachi['Spell2Right'], 0.5)
+                    self.animator(Itachi['Spell2Right'], 0.40, 1)
             elif self.molding:
                 if self.facingLeft:
                     self.animator(Itachi['MoldingLeft'], 1)
@@ -746,14 +746,27 @@ class Player(object):
                 if self.facingRight:
                     self.animator(Minato['MoldingRight'], 1)
                 self.molding = False
+            elif self.isJumping:
+                if self.facingRight:
+                    if self.isFalling:
+                        self.animator(Minato['FallingRight'], 1)
+                    else:
+                        self.animator(Minato['JumpingRight'], 1)
+                if self.facingLeft:
+                    if self.isFalling:
+                        self.animator(Minato['FallingLeft'], 1)
+                    else:
+                        self.animator(Minato['JumpingLeft'], 1)
             elif self.facingLeft:
                 self.animator(Minato['StandLeft'], 1)
             elif self.facingRight:
                 self.animator(Minato['StandRight'], 1)
             else:
                 if self.playerNumber == 1:
+                    self.facingRight = True
                     self.animator(Minato['StandRight'], 1)
                 if self.playerNumber == 2:
+                    self.facingLeft = True
                     self.animator(Minato['StandLeft'], 1)
 
         if not self.awaken and not self.transforming and not self.left and not self.right and not self.combo1:
@@ -1060,6 +1073,12 @@ while launched:
                             fireballs.append(fireball_projectile(player1.x - 150, player1.y - 65, 140, 120, facing))
                     fireballLoop = 1
             # Itachi = Fireball Jutsu
+            if player1.characterNumber == 3:
+                if player1.mana >= 50:
+                    player1.mana -= 50
+                    player1.spell2 = True
+                    player1.dealable = True
+
         # ////////// PLAYER 2 //////////
         # M = Player 2 Awakening
         if event.type == pygame.KEYDOWN and event.key == pygame.K_m:
