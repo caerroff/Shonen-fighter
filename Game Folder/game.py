@@ -934,6 +934,31 @@ class fireball_projectile(object):
                 if gui.isHitbox:
                     pygame.draw.rect(win, blue, self.hitbox, 2)
 
+    def draw_crows(self, win):
+        global fireballLoop
+        if fireballLoop >= 1:
+            self.current_sprite = 0
+
+        if facing == 1:
+            SasukeEffectRightRotated = []
+            for i in Sasuke['EffectRight']:
+                a = pygame.transform.rotate(i, 45)
+                SasukeEffectRightRotated.append(a)
+                fireball.animator(SasukeEffectRightRotated, 0.04)
+                self.hitbox = (self.x + 10, self.y + 35 , self.width - 5, self.height - 25)
+                if gui.isHitbox:
+                    pygame.draw.rect(win, blue, self.hitbox, 2)
+
+        if facing == -1:
+            SasukeEffectLeftRotated = []
+            for i in Sasuke['EffectLeft']:
+                a = pygame.transform.rotate(i, 325)
+                SasukeEffectLeftRotated.append(a)
+                fireball.animator(SasukeEffectLeftRotated, 0.04)
+                self.hitbox = (self.x + 10, self.y + 35 , self.width - 5, self.height - 25)
+                if gui.isHitbox:
+                    pygame.draw.rect(win, blue, self.hitbox, 2)
+
 
 def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et plus dans la boucle principale
     """Draw and refresh the entire window, the Players, Projectiles, etc..."""
@@ -1134,7 +1159,11 @@ while launched:
                             fireballs2.append(fireball_projectile(player2.x - 150, player2.y - 65, 140, 120, facing))
                     fireballLoop2 = 1
             # Itachi = Fireball Jutsu
-
+            if player2.characterNumber == 3:
+                if player2.mana >= 50:
+                    player2.mana -= 50
+                    player2.spell2 = True
+                    player2.dealable = True
             # Undefined
 
     # Fireball Loop Player 1
