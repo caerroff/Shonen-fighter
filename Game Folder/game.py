@@ -585,9 +585,9 @@ class Player(object):
                     self.animator(Itachi['Spell1Right'], 0.45, 1)
             elif self.spell2:
                 if self.facingLeft:
-                    self.animator(Itachi['Spell2Left'], 0.5)
+                    self.animator(Itachi['SpellXLeft'], 0.4, 1)
                 if self.facingRight:
-                    self.animator(Itachi['Spell2Right'], 0.5)
+                    self.animator(Itachi['SpellXRight'], 0.45, 1)
             elif self.molding:
                 if self.facingLeft:
                     self.animator(Itachi['MoldingLeft'], 1)
@@ -833,7 +833,7 @@ class projectile(object):
 
 class fireball_projectile(object):
     """Class Projectile : Animates and Draw Fireballs"""
-    def __init__(self, x, y, width, height, facing):
+    def __init__(self, x, y, width, height, facing, characterNumber):
         self.x = x
         self.y = y
         self.width = width
@@ -844,6 +844,7 @@ class fireball_projectile(object):
         self.dealable = True
         self.block = False
         self.hitbox = (self.x + 10, self.y + 35 , self.width - 5, self.height - 25)
+        self.characterNumber = characterNumber
 
     def animator(self, list, increm):
         if self.current_sprite >= len(list) or 670 < fireball.x < -100:
@@ -872,54 +873,104 @@ class fireball_projectile(object):
         if fireballLoop >= 1:
             self.current_sprite = 0
 
-        if facing == 1:
-            SasukeEffectRightRotated = []
-            for i in Sasuke['EffectRight']:
-                a = pygame.transform.rotate(i, 45)
-                SasukeEffectRightRotated.append(a)
-                fireball.animator(SasukeEffectRightRotated, 0.04)
-                self.hitbox = (self.x + 10, self.y + 35 , self.width - 5, self.height - 25)
-                if gui.isHitbox:
-                    pygame.draw.rect(win, blue, self.hitbox, 2)
+        if self.characterNumber == 2:
+            if facing == 1:
+                SasukeEffectRightRotated = []
+                for i in Sasuke['EffectRight']:
+                    a = pygame.transform.rotate(i, 45)
+                    SasukeEffectRightRotated.append(a)
+                    fireball.animator(SasukeEffectRightRotated, 0.04)
+                    self.hitbox = (self.x + 10, self.y + 35 , self.width - 5, self.height - 25)
+                    if gui.isHitbox:
+                        pygame.draw.rect(win, blue, self.hitbox, 2)
 
-        if facing == -1:
-            SasukeEffectLeftRotated = []
-            for i in Sasuke['EffectLeft']:
-                a = pygame.transform.rotate(i, 325)
-                SasukeEffectLeftRotated.append(a)
-                fireball.animator(SasukeEffectLeftRotated, 0.04)
-                self.hitbox = (self.x + 10, self.y + 35 , self.width - 5, self.height - 25)
-                if gui.isHitbox:
-                    pygame.draw.rect(win, blue, self.hitbox, 2)
+            if facing == -1:
+                SasukeEffectLeftRotated = []
+                for i in Sasuke['EffectLeft']:
+                    a = pygame.transform.rotate(i, 325)
+                    SasukeEffectLeftRotated.append(a)
+                    fireball.animator(SasukeEffectLeftRotated, 0.04)
+                    self.hitbox = (self.x + 10, self.y + 35 , self.width - 5, self.height - 25)
+                    if gui.isHitbox:
+                        pygame.draw.rect(win, blue, self.hitbox, 2)
+        else:
+            self.vel = 0
+            self.hitbox = (self.x, self.y, self.width, self.height)
+            if facing == 1:
+                ItachiEffectRightRotated = []
+                for i in Itachi['EffectRight']:
+                    a = pygame.transform.rotate(i, 0)
+                    ItachiEffectRightRotated.append(a)
+                    fireball.animator(ItachiEffectRightRotated, 0.04)
+                    self.hitbox = (self.x, self.y, self.width - 5, self.height - 25)
+                    if gui.isHitbox:
+                        pygame.draw.rect(win, blue, self.hitbox, 2)
+
+            if facing == -1:
+                ItachiEffectLeftRotated = []
+                for i in Itachi['EffectLeft']:
+                    a = pygame.transform.rotate(i, 325)
+                    ItachiEffectLeftRotated.append(a)
+                    fireball.animator(ItachiEffectLeftRotated, 0.04)
+                    self.hitbox = (self.x + 10, self.y + 35 , self.width - 5, self.height - 25)
+                    if gui.isHitbox:
+                        pygame.draw.rect(win, blue, self.hitbox, 2)
 
     def draw_fireball2(self, win):
         global fireballLoop2
         if fireballLoop2 >= 1:
             self.current_sprite = 0
 
-        if facing == 1:
-            SasukeEffectRightRotated = []
-            for i in Sasuke['EffectRight']:
-                a = pygame.transform.rotate(i, 45)
-                SasukeEffectRightRotated.append(a)
-                fireball2.animator2(SasukeEffectRightRotated, 0.04)
-                if self.current_sprite == len(SasukeEffectRightRotated):
-                    self.block = True
-                self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
-                if gui.isHitbox:
-                    pygame.draw.rect(win, blue, self.hitbox, 2)
+        if self.characterNumber == 2:
+            if facing == 1:
+                SasukeEffectRightRotated = []
+                for i in Sasuke['EffectRight']:
+                    a = pygame.transform.rotate(i, 45)
+                    SasukeEffectRightRotated.append(a)
+                    fireball2.animator2(SasukeEffectRightRotated, 0.04)
+                    if self.current_sprite == len(SasukeEffectRightRotated):
+                        self.block = True
+                    self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
+                    if gui.isHitbox:
+                        pygame.draw.rect(win, blue, self.hitbox, 2)
 
-        if facing == -1:
-            SasukeEffectLeftRotated = []
-            for i in Sasuke['EffectLeft']:
-                a = pygame.transform.rotate(i, 325)
-                SasukeEffectLeftRotated.append(a)
-                fireball2.animator2(SasukeEffectLeftRotated, 0.04)
-                if self.current_sprite == len(SasukeEffectLeftRotated):
-                    self.block = True
-                self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
-                if gui.isHitbox:
-                    pygame.draw.rect(win, blue, self.hitbox, 2)
+            if facing == -1:
+                SasukeEffectLeftRotated = []
+                for i in Sasuke['EffectLeft']:
+                    a = pygame.transform.rotate(i, 325)
+                    SasukeEffectLeftRotated.append(a)
+                    fireball2.animator2(SasukeEffectLeftRotated, 0.04)
+                    if self.current_sprite == len(SasukeEffectLeftRotated):
+                        self.block = True
+                    self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
+                    if gui.isHitbox:
+                        pygame.draw.rect(win, blue, self.hitbox, 2)
+
+        else:
+            self.vel = 0
+            if facing == 1:
+                ItachiEffectRightRotated = []
+                for i in Itachi['EffectRight']:
+                    a = pygame.transform.rotate(i, 0)
+                    ItachiEffectRightRotated.append(a)
+                    fireball2.animator2(ItachiEffectRightRotated, 0.04)
+                    if self.current_sprite == len(ItachiEffectRightRotated):
+                        self.block = True
+                    self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
+                    if gui.isHitbox:
+                        pygame.draw.rect(win, blue, self.hitbox, 2)
+
+            if facing == -1:
+                ItachiEffectLeftRotated = []
+                for i in Itachi['EffectLeft']:
+                    a = pygame.transform.rotate(i, 0)
+                    ItachiEffectLeftRotated.append(a)
+                    fireball2.animator2(ItachiEffectLeftRotated, 0.04)
+                    if self.current_sprite == len(ItachiEffectLeftRotated):
+                        self.block = True
+                    self.hitbox = (self.x + 10, self.y + 35, self.width - 5, self.height - 25)
+                    if gui.isHitbox:
+                        pygame.draw.rect(win, blue, self.hitbox, 2)
 
 
 def redrawGameWindow():  # Toutes les modifications visuelles se feront ici et plus dans la boucle principale
@@ -1055,11 +1106,28 @@ while launched:
                         facing = 1
                     if len(fireballs) < 3:
                         if facing == 1:
-                            fireballs.append(fireball_projectile(player1.x, player1.y - 65, 140, 120, facing))
+                            fireballs.append(fireball_projectile(player1.x, player1.y - 65, 140, 120, facing, 2))
                         else:
-                            fireballs.append(fireball_projectile(player1.x - 150, player1.y - 65, 140, 120, facing))
+                            fireballs.append(fireball_projectile(player1.x - 150, player1.y - 65, 140, 120, facing, 2))
                     fireballLoop = 1
             # Itachi = Fireball Jutsu
+            if not player1.transforming and not player1.spell1 and player1.characterNumber == 3:
+                if player1.mana >= 50:
+                    player1.mana -= 50
+                    player1.spell2 = True
+                    fireball_projectile.dealable = True
+                    if player1.facingLeft:
+                        facing = -1
+                    elif player1.facingRight:
+                        facing = 1
+                    else:
+                        facing = 1
+                    if len(fireballs) < 3:
+                        if facing == 1:
+                            fireballs.append(fireball_projectile(player1.x + 20, player1.y, 70, 70, facing, 3))
+                        else:
+                            fireballs.append(fireball_projectile(player1.x - 30, player1.y - 35, 70, 70, facing, 3))
+                    fireballLoop = 1
         # ////////// PLAYER 2 //////////
         # M = Player 2 Awakening
         if event.type == pygame.KEYDOWN and event.key == pygame.K_m:
@@ -1110,12 +1178,28 @@ while launched:
                         facing = 1
                     if len(fireballs2) < 3:
                         if facing == 1:
-                            fireballs2.append(fireball_projectile(player2.x, player2.y - 65, 140, 120, facing))
+                            fireballs2.append(fireball_projectile(player2.x, player2.y - 65, 140, 120, facing, 2))
                         else:
-                            fireballs2.append(fireball_projectile(player2.x - 150, player2.y - 65, 140, 120, facing))
+                            fireballs2.append(fireball_projectile(player2.x - 150, player2.y - 65, 140, 120, facing, 2))
                     fireballLoop2 = 1
             # Itachi = Fireball Jutsu
-
+            if not player2.transforming and not player2.spell1 and len(fireballs2) < 1 and player2.characterNumber == 3:
+                if player2.mana >= 50:
+                    player2.mana -= 50
+                    player2.spell2 = True
+                    fireball_projectile.dealable = True
+                    if player2.facingLeft:
+                        facing = -1
+                    elif player2.facingRight:
+                        facing = 1
+                    else:
+                        facing = 1
+                    if len(fireballs2) < 3:
+                        if facing == 1:
+                            fireballs2.append(fireball_projectile(player2.x, player2.y - 65, 140, 120, facing, 3))
+                        else:
+                            fireballs2.append(fireball_projectile(player2.x - 150, player2.y - 65, 140, 120, facing, 3))
+                    fireballLoop2 = 1
             # Undefined
 
     # Fireball Loop Player 1

@@ -18,8 +18,8 @@ background = bg
 rounds = 3
 current_round = 1
 
-player1Character = 4
-player2Character = 3
+player1Character = 3
+player2Character = 4
 
 isHitbox = False
 soundActivated = False
