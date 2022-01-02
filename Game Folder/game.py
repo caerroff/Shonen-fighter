@@ -857,6 +857,7 @@ class fireball_projectile(object):
             else:
                 self.current_sprite += increm
 
+
     def animator2(self, list, increm):
         if self.current_sprite >= len(list) or 670 < fireball2.x < -100:
             self.block = False
