@@ -1,6 +1,8 @@
 #include "GUI.hpp"
 #include <iostream>
 
+//COUCOU
+
 void menu(sf::RenderWindow *window){
     bool click = false;
     sf::Mouse mouse;
