@@ -1,7 +1,7 @@
 #include "GUI.hpp"
 #include <iostream>
 
-//COUCOU
+//COUCOU, je m'appelle Mohamed 
 
 void menu(sf::RenderWindow *window){
     bool click = false;
