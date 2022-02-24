@@ -898,27 +898,27 @@ class Player(object):
             elif self.playerNumber == 1:
                 if self.left:
                     self.y = 280
-                    self.animator(Itachi['StandLeft'], 1)
+                    self.animator(Itachi['StandLeft'], 1, 1)
                     self.facingLeft = True
                     self.left = False
                 elif self.right:
                     self.y = 280
-                    self.animator(Itachi['StandRight'], 1)
+                    self.animator(Itachi['StandRight'], 1, 1)
                     self.facingRight = True
                     self.right = False
                 elif self.facingLeft:
                     self.y = 280
-                    self.animator(Itachi['StandLeft'], 1)
+                    self.animator(Itachi['StandLeft'], 1, 1)
                     self.facingLeft = True
                     self.left = False
                 elif self.facingRight:
                     self.y = 280
-                    self.animator(Itachi['StandRight'], 1)
+                    self.animator(Itachi['StandRight'], 1, 1)
                     self.facingRight = True
                     self.right = False
                 else:
                     self.y = 280
-                    self.animator(Itachi['StandRight'], 1)
+                    self.animator(Itachi['StandRight'], 1, 1)
                     self.facingRight = True
                     self.right = False
             elif self.playerNumber == 2:

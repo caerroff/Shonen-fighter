@@ -1045,13 +1045,13 @@ while launched:
 
     if keys[pygame.K_b]:
         gui.soundActivated = True
-        soundsFunction()
+        #soundsFunction()
 
     if keys[pygame.K_n]:
         if gui.soundActivated:
             gui.soundActivated = False
             pygame.mixer.music.stop()
-            soundsFunction()
+            #soundsFunction()
 
     # Permet de quitter le jeu avec la croix ou le bouton entrer
     for event in pygame.event.get():
@@ -1221,8 +1221,8 @@ while launched:
                     fireballs.pop(fireballs.index(fireball))
                 else:
                     if fireball_projectile.dealable:
-                        if gui.soundActivated:
-                            fireballImpactSound.play()
+                        #if gui.soundActivated:
+                        #    fireballImpactSound.play()
                         if player2.characterNumber == 3 and player2.spell1:
                             print("Dodged")
                         else:
@@ -1258,8 +1258,8 @@ while launched:
                 else:
                     if fireball_projectile.dealable:
                         print(False)
-                        if gui.soundActivated:
-                            fireballImpactSound.play()
+                        #if gui.soundActivated:
+                            #fireballImpactSound.play()
                         if player1.characterNumber == 3 and player1.spell1:
                             print("Dodged")
                         else:
@@ -1320,8 +1320,8 @@ while launched:
                         print("Bloqué !!")
                         kunais2.pop(kunais2.index(kunai))
                     else:
-                        if gui.soundActivated:
-                            kunaiImpactSound.play()
+                        #if gui.soundActivated:
+                        #    kunaiImpactSound.play()
                         if player2.characterNumber == 3 and player2.spell1:
                             print("Dodged")
                         else:
@@ -1496,8 +1496,8 @@ while launched:
     # Kunai Throw --> Player 2 (I)
     if keys[pygame.K_i] and kunaiLoop == 0:
         player2.throw = True
-        if gui.soundActivated:
-            gui.kunaiSound.play()
+        #if gui.soundActivated:
+        #    gui.kunaiSound.play()
         if player2.facingLeft:
             facing = -1
         elif player2.facingRight:
