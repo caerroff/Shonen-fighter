@@ -1,0 +1,6 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/home/caerroff/GitHub/Shonen-fighter'
+make: Leaving directory '/home/caerroff/GitHub/Shonen-fighter'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+
