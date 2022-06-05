@@ -21,6 +21,7 @@ int main()
     sf::Texture playerTexture; 
     //playerTexture.loadFromFile("Sprites/Sprites.png");
     playerTexture.loadFromFile("Sprites/Sprites_Itachi.png");
+    playerTexture.loadFromFile("/Users/mohamed/Documents/GitHub/Shonen-fighter/ShonenFighter/Sprites/Sprites_Itachi.png");
     
     Player player(&playerTexture, sf::Vector2u(12, 30), 0.15f, 500.0f, 400.0f); //16, 14
 
@@ -34,6 +35,7 @@ int main()
     sf::Texture grass;
     //grass.loadFromFile("Sprites/grass_cuted.jpg");
     grass.loadFromFile("Sprites/grass_cuted.jpg");
+    grass.loadFromFile("/Users/mohamed/Documents/GitHub/Shonen-fighter/ShonenFighter/Sprites/grass_cuted.jpg");
 
     platforms.push_back(Platform(&grass, sf::Vector2f(400.0f, 150.0f), sf::Vector2f(500.0f, 150.0f))); 
     platforms.push_back(Platform(&grass, sf::Vector2f(2000.0f, 200.0f), sf::Vector2f(000.0f, 500.0f)));

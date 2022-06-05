@@ -8,3 +8,5 @@ Game Folder/__pycache__/perso.cpython-39.pyc
 .idea/misc.xml
 .idea/Shonen-fighter.iml
 Game Folder/__pycache__/perso_os.cpython-39.pyc
+*.gch
+*.o
