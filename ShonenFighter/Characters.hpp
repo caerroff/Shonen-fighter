@@ -11,8 +11,10 @@ private:
 public:
     Characters();
     void setTabSprites(int tabSprites[]);
+    int getValueTabSprite(int indice) {return this->tabSprites[indice];}
     int getIdCharacter();
-    void setIdCharacter(int id); 
+    void setIdCharacter(int id);
+    int getLengthTab() {return lengthTab ;}
     
 };
 

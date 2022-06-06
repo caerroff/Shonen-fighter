@@ -28,7 +28,7 @@ int main()
     //player selected = Itachi : (Add menu)
     //Characters itachi;
     Itachi itachi;
-    //player.animation.setCharacter(itachi); 
+    player.animation.setCharacter(itachi); 
     
     std::vector<Platform> platforms;
 

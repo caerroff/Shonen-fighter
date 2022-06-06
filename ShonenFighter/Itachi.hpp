@@ -9,7 +9,9 @@ class Itachi : public Characters{
 private:
     
 public:
-    Itachi(); 
+    Itachi();
+    void setCharactersSprites(int tabSprites []);
+
 };
 
 #endif /* Itachi_hpp */

@@ -7,8 +7,8 @@
 Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed, float jumpHeight) :
     animation(texture, imageCount, switchTime)
 {
-    this->speed = speed; 
-    this->jumpHeight = jumpHeight; 
+    this->speed = speed;
+    this->jumpHeight = jumpHeight;
     row = 0; 
     faceRight = true; 
 
@@ -18,12 +18,19 @@ Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
     body.setTexture(texture);
 }
 
+/*
+ resetMoveKey : Once an animation is completed, the animation of a current animation will be reset
+                It allows to begin each animation from 0 and not with the current moment of the last one
+ */
 void Player::resetMoveKey() {
     for(int i = 0; i < nbMoveKey; i++) {
         moveKey[i] = false; 
     }
 }
 
+/*
+ update : update the movements of the character
+ */
 void Player::Update(float deltaTime) {
 
     velocity.x = 0.0f; 
@@ -87,6 +94,10 @@ void Player::Update(float deltaTime) {
     body.move(velocity * deltaTime); 
 }
 
+/*
+ OnCollision : Detect the collision (hitbox) with other objects of the scene, and block the player if he reachs
+                one of them
+ */
 void Player::OnCollision(sf::Vector2f direction) {
 
     if(direction.x < 0.0f) {
@@ -105,10 +116,16 @@ void Player::OnCollision(sf::Vector2f direction) {
     }
 }
 
+/*
+ draw : draw the character on the scene
+ */
 void Player::Draw(sf::RenderWindow& window) {
     window.draw(body);
 }
 
+/*
+ setIdPlayer : set the id of the player : each player has is own id
+ */
 void Player::setIdPlayer(int idPlayer) {
     this->idPlayer = idPlayer; 
 }

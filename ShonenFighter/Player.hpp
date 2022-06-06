@@ -9,7 +9,7 @@
 class Player {
     private:
         sf::RectangleShape body; 
-        Animation animation; 
+         
         unsigned int row; 
         float speed; 
         bool faceRight;
@@ -24,7 +24,8 @@ class Player {
     
         int idPlayer;
         
-    public: 
+    public:
+    Animation animation;
         Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed, float jumpHeight); 
         void Update(float deltaTime);
         void Draw(sf::RenderWindow& window);  

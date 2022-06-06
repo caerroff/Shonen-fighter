@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>logFormatVersion</key>
+	<integer>10</integer>
+	<key>logs</key>
+	<dict>
+		<key>33FFAFDB-18DF-432A-BA4E-2BBC47E5DFDB</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogMajorGroupSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.target.product-type.application</string>
+			<key>fileName</key>
+			<string>33FFAFDB-18DF-432A-BA4E-2BBC47E5DFDB.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>signature</key>
+			<string>ShonenFighter-bnvpnofgrkygercbicjanbftasgs</string>
+			<key>timeStartedRecording</key>
+			<real>676245073.31950104</real>
+			<key>timeStoppedRecording</key>
+			<real>676245073.94419301</real>
+			<key>title</key>
+			<string>Build target ShonenFighter</string>
+			<key>uniqueIdentifier</key>
+			<string>33FFAFDB-18DF-432A-BA4E-2BBC47E5DFDB</string>
+		</dict>
+	</dict>
+	<key>preserveOldLogs</key>
+	<true/>
+</dict>
+</plist>

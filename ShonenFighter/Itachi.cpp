@@ -14,3 +14,13 @@ Itachi::Itachi() {
     this->setTabSprites(spritesItachi); 
 }
 
+/*
+ setCharactersSprites : Give the tabSprites of Itachi to his mother (Characters), to charge it if the player
+                            wants to play Itachi
+ */
+void Itachi::setCharactersSprites(int tabSprites []) {
+    for(int i = 0; i < getLengthTab(); i++) {
+        tabSprites[i] = this->getValueTabSprite(i); 
+    }
+}
+

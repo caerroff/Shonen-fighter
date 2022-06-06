@@ -1,0 +1,61 @@
+{
+  "_buildCommand2" : {
+    "command" : "prepareForIndexing",
+    "enableIndexBuildArena" : true,
+    "targets" : null
+  },
+  "buildCommand" : "build",
+  "configuredTargets" : [
+    {
+      "guid" : "edc125aaad93cf3b1fe83acd1abc7dc639b939f3d15d123c373ac8c4de2db3fc"
+    }
+  ],
+  "containerPath" : "/Users/mohamed/Documents/GitHub/Shonen-fighter/ShonenFighter.xcodeproj",
+  "continueBuildingAfterErrors" : true,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "indexbuild",
+    "activeArchitecture" : "x86_64",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : false,
+      "platform" : "macosx",
+      "sdk" : "macosx12.3",
+      "sdkVariant" : "macos",
+      "supportedArchitectures" : [
+        "arm64e",
+        "arm64",
+        "x86_64"
+      ],
+      "targetArchitecture" : "x86_64"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Users/mohamed/Documents/GitHub/Shonen-fighter/DerivedData/ShonenFighter/Index/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Users/mohamed/Documents/GitHub/Shonen-fighter/DerivedData/ShonenFighter/Index/Build/Products",
+      "derivedDataPath" : "/Users/mohamed/Documents/GitHub/Shonen-fighter/DerivedData",
+      "indexDataStoreFolderPath" : "/Users/mohamed/Documents/GitHub/Shonen-fighter/DerivedData/ShonenFighter/Index/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/mohamed/Documents/GitHub/Shonen-fighter/DerivedData/ShonenFighter/Index/PrecompiledHeaders",
+      "pchPath" : "/Users/mohamed/Documents/GitHub/Shonen-fighter/DerivedData/ShonenFighter/Index/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Debug",
+    "overrides" : {
+      "synthesized" : {
+        "table" : {
+          "ENABLE_PREVIEWS" : "NO",
+          "INDEX_ARENA_INFO_REGULAR_BUILD_PRODUCTS_DIR" : "/Users/mohamed/Documents/GitHub/Shonen-fighter/DerivedData/ShonenFighter/Build/Products",
+          "ONLY_ACTIVE_ARCH" : "YES"
+        }
+      }
+    }
+  },
+  "qos" : "utility",
+  "schemeCommand" : "launch",
+  "schemeCommand2" : "launch",
+  "shouldCollectMetrics" : false,
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}
