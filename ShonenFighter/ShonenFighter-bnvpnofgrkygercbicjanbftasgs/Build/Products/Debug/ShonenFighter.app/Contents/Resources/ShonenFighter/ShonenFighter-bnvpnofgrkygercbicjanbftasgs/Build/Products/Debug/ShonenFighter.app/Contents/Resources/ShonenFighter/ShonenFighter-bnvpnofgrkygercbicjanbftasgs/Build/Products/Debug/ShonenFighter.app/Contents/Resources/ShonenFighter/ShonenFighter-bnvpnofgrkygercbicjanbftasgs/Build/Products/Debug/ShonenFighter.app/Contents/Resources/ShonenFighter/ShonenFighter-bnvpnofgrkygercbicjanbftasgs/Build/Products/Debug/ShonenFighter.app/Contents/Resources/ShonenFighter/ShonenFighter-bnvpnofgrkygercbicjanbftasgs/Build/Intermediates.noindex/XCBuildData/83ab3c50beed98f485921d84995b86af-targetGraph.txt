@@ -1,0 +1,2 @@
+Target dependency graph (1 target)
+ShonenFighter in ShonenFighter, no dependencies

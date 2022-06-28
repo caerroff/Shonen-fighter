@@ -6,7 +6,7 @@
 	<integer>10</integer>
 	<key>logs</key>
 	<dict>
-		<key>33FFAFDB-18DF-432A-BA4E-2BBC47E5DFDB</key>
+		<key>40BA1C07-5AED-4F25-8719-CE8CECFA7618</key>
 		<dict>
 			<key>className</key>
 			<string>IDEActivityLogMajorGroupSection</string>
@@ -15,24 +15,24 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.target.product-type.application</string>
 			<key>fileName</key>
-			<string>33FFAFDB-18DF-432A-BA4E-2BBC47E5DFDB.xcactivitylog</string>
+			<string>40BA1C07-5AED-4F25-8719-CE8CECFA7618.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
 			<dict>
 				<key>highLevelStatus</key>
-				<string>W</string>
+				<string>E</string>
 			</dict>
 			<key>signature</key>
 			<string>ShonenFighter-bnvpnofgrkygercbicjanbftasgs</string>
 			<key>timeStartedRecording</key>
-			<real>676245073.31950104</real>
+			<real>678128437.46531606</real>
 			<key>timeStoppedRecording</key>
-			<real>676245073.94419301</real>
+			<real>678128444.61774802</real>
 			<key>title</key>
 			<string>Build target ShonenFighter</string>
 			<key>uniqueIdentifier</key>
-			<string>33FFAFDB-18DF-432A-BA4E-2BBC47E5DFDB</string>
+			<string>40BA1C07-5AED-4F25-8719-CE8CECFA7618</string>
 		</dict>
 	</dict>
 	<key>preserveOldLogs</key>

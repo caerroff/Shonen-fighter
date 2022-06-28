@@ -11,7 +11,7 @@ private:
 public:
     Itachi();
     void setCharactersSprites(int tabSprites []);
-
+    
 };
 
 #endif /* Itachi_hpp */

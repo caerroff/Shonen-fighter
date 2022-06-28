@@ -6,8 +6,9 @@
 #include "Perso.hpp"
 #include "Characters.hpp"
 #include "Itachi.hpp"
+#include "Ath.hpp"
 
-static const float VIEW_HEIGHT = 1200.0f;
+static const float VIEW_HEIGHT = 1000.0f;
 
 void ResizeView(const sf::RenderWindow& window, sf::View& view) {
     float aspectRatio = float(window.getSize().x) / float(window.getSize().y);
@@ -16,19 +17,20 @@ void ResizeView(const sf::RenderWindow& window, sf::View& view) {
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(2560, 1600), "Shonen Fighter - CPP", sf::Style::Close | sf::Style::Resize);
+    sf::RenderWindow window(sf::VideoMode(2560, 1600), "Shonen Fighter - CPP", sf::Style::Close);
     sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
     sf::Texture playerTexture; 
-    //playerTexture.loadFromFile("Sprites/Sprites.png");
     playerTexture.loadFromFile("Sprites/Sprites_Itachi.png");
     playerTexture.loadFromFile("/Users/mohamed/Documents/GitHub/Shonen-fighter/ShonenFighter/Sprites/Sprites_Itachi.png");
     
-    Player player(&playerTexture, sf::Vector2u(12, 30), 0.15f, 500.0f, 400.0f); //16, 14
+    Player player(&playerTexture, sf::Vector2u(12, 30), 0.15f, 500.0f, 400.0f, -300.0f);
+    Player player2(&playerTexture, sf::Vector2u(12, 30), 0.15f, 500.0f, 400.0f, 200.0f);
 
     //player selected = Itachi : (Add menu)
-    //Characters itachi;
     Itachi itachi;
-    player.animation.setCharacter(itachi); 
+    player.animation.setCharacter(itachi);
+    player2.animation.setCharacter(itachi);
+    player2.setIdPlayer(2); 
     
     std::vector<Platform> platforms;
 
@@ -60,20 +62,28 @@ int main()
                     break;
             }
         }
-
+        
     player.Update(deltaTime);
+    player2.Update(deltaTime);
+        
+    player.printPosition(); 
 
     sf::Vector2f direction; 
 
     for(Platform& platform : platforms) 
         if(platform.GetCollider().CheckCollision(player.GetCollider(), direction, 1.0f)) 
-            player.OnCollision(direction); 
+            player.OnCollision(direction);
+        
+    for(Platform& platform : platforms)
+        if(platform.GetCollider().CheckCollision(player2.GetCollider(), direction, 1.0f))
+            player2.OnCollision(direction);
         
     //view.setCenter(player.GetPosition());
-
+        
     window.clear(sf::Color(150, 150, 150)); 
     window.setView(view); 
-    player.Draw(window); 
+    player.Draw(window);
+    player2.Draw(window);
     for(Platform& platform : platforms)
         platform.Draw(window); 
 

@@ -1,0 +1,1514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>files</key>
+	<dict>
+		<key>Resources/Sprites/Itachi/AwakeCombo1/Sprite 1.png</key>
+		<data>
+		btxLuhnv5V93UPPOJJbriFJkeug=
+		</data>
+		<key>Resources/Sprites/Itachi/AwakeCombo1/Sprite 2.png</key>
+		<data>
+		WegsvoFMDmE2uOAdG859Ur4spKg=
+		</data>
+		<key>Resources/Sprites/Itachi/AwakeCombo1/Sprite 3.png</key>
+		<data>
+		P6DKnM6Yqdi2SLhB4TUh1JdgkqM=
+		</data>
+		<key>Resources/Sprites/Itachi/AwakeStand/Sprite 1.png</key>
+		<data>
+		4dw3nMdIpiES0F8P5K5kJt49mRQ=
+		</data>
+		<key>Resources/Sprites/Itachi/Awakening/Oui/Sprite 5.png</key>
+		<data>
+		vCTxZEuiGUXbl5cBmciV0FX1cJc=
+		</data>
+		<key>Resources/Sprites/Itachi/Awakening/Sprite 1.png</key>
+		<data>
+		zalg0E0UC3eAVbS1ZhYyLKFTXrk=
+		</data>
+		<key>Resources/Sprites/Itachi/Awakening/Sprite 2.png</key>
+		<data>
+		VQPq5XQ8KL+1BZ4BU4CE4ZQBkjw=
+		</data>
+		<key>Resources/Sprites/Itachi/Awakening/Sprite 3.png</key>
+		<data>
+		jL5HDVVB82r+M3CfqKTZ8K98yEA=
+		</data>
+		<key>Resources/Sprites/Itachi/Awakening/Sprite 4.png</key>
+		<data>
+		+/7Bn4kScDIC0c3pPxPUiUuFWbg=
+		</data>
+		<key>Resources/Sprites/Itachi/Awakening/Sprite 5.png</key>
+		<data>
+		vCTxZEuiGUXbl5cBmciV0FX1cJc=
+		</data>
+		<key>Resources/Sprites/Itachi/Block/Sprite 1.png</key>
+		<data>
+		GV/n4hcGGIrOMmKM24cLMG8wgMU=
+		</data>
+		<key>Resources/Sprites/Itachi/Combo1/Sprite 1.png</key>
+		<data>
+		d7zQ6Dwjp7onUaCqcssevXIbdpU=
+		</data>
+		<key>Resources/Sprites/Itachi/Combo1/Sprite 2.png</key>
+		<data>
+		d7OdQuCYfxWBRvjg/abwBZPrEbg=
+		</data>
+		<key>Resources/Sprites/Itachi/Combo1/Sprite 3.png</key>
+		<data>
+		XZoCZ015xjc0AKp77fkfmoKcrgE=
+		</data>
+		<key>Resources/Sprites/Itachi/Combo1/Sprite 4.png</key>
+		<data>
+		8UyWetN678/0qD6Fgu3UzMd+P7g=
+		</data>
+		<key>Resources/Sprites/Itachi/Combo1Air/Sprite 1.png</key>
+		<data>
+		krBEa+S/8z6eibh9uldAT/X7OEg=
+		</data>
+		<key>Resources/Sprites/Itachi/Combo1Air/Sprite 2.png</key>
+		<data>
+		AN0YDKAljEoIygxwXUkhvBSXUiA=
+		</data>
+		<key>Resources/Sprites/Itachi/Combo1Air/Sprite 3.png</key>
+		<data>
+		3mRMgdjWA3tnWJx/ZUXLY3K3CCQ=
+		</data>
+		<key>Resources/Sprites/Itachi/Combo1Air/Sprite 4.png</key>
+		<data>
+		fISMSsKJrt0e+0GdXDzFMohSKpA=
+		</data>
+		<key>Resources/Sprites/Itachi/Combo1Air/Sprite 5.png</key>
+		<data>
+		xWm7/A7dZNYLG3iellhM3TEGjC0=
+		</data>
+		<key>Resources/Sprites/Itachi/Combo2/Sprite 1.png</key>
+		<data>
+		E/GE8ny00mBvvmVZ0GT89Weg+i4=
+		</data>
+		<key>Resources/Sprites/Itachi/Combo2/Sprite 2.png</key>
+		<data>
+		xFnoMAhqvYYfed1cJjTE+eAzXr4=
+		</data>
+		<key>Resources/Sprites/Itachi/Combo2/Sprite 3.png</key>
+		<data>
+		8tUkt1iRtbzvhEZA5X68k7XRnvU=
+		</data>
+		<key>Resources/Sprites/Itachi/Combo2/Sprite 4.png</key>
+		<data>
+		s+9frJg69VfCZJNIK8DxBwb/WOg=
+		</data>
+		<key>Resources/Sprites/Itachi/Combo2/Sprite 5.png</key>
+		<data>
+		5e+i3+C2lwaNpqQo4UWYaOebAtI=
+		</data>
+		<key>Resources/Sprites/Itachi/Damaged/Sprite 1.png</key>
+		<data>
+		3uAfS2Q5h90vOSOCvC4XerlJB1k=
+		</data>
+		<key>Resources/Sprites/Itachi/Damaged/Sprite 2.png</key>
+		<data>
+		hgAmNSPRKUqH6VV8zxf5AaTRLbo=
+		</data>
+		<key>Resources/Sprites/Itachi/Damaged/Sprite 3.png</key>
+		<data>
+		kBfi3xJEivqc80b+ogE6/U9US1c=
+		</data>
+		<key>Resources/Sprites/Itachi/Effect/Sprite 1.png</key>
+		<data>
+		Iy7kugMZwqgrPZKq3PW8WFVomro=
+		</data>
+		<key>Resources/Sprites/Itachi/Effect/Sprite 2.png</key>
+		<data>
+		nHhpGVgTP+8SnddZHzB7e1Et77I=
+		</data>
+		<key>Resources/Sprites/Itachi/Effect/Sprite 3.png</key>
+		<data>
+		rpKHi+fBHKO2t/Yw1U9NxFmjedw=
+		</data>
+		<key>Resources/Sprites/Itachi/Effect/Sprite 4.png</key>
+		<data>
+		bUzDcI5YAQ14Yof+g2Jb2R1iv/A=
+		</data>
+		<key>Resources/Sprites/Itachi/Effect2/Sprite 1.png</key>
+		<data>
+		lmCsoR4bvlmF4Jfrl+LAq8y4Do4=
+		</data>
+		<key>Resources/Sprites/Itachi/Effect2/Sprite 2.png</key>
+		<data>
+		vS2NY/szRMZG3PiS6sZgVbf7K1o=
+		</data>
+		<key>Resources/Sprites/Itachi/Effect2/Sprite 3.png</key>
+		<data>
+		5r+axllCMZuhn31UkbBUp3KMPzQ=
+		</data>
+		<key>Resources/Sprites/Itachi/Effect2/Sprite 4.png</key>
+		<data>
+		Qmppnagj+/JrJjUSwysEjRbFUd0=
+		</data>
+		<key>Resources/Sprites/Itachi/Effect2/Sprite 5.png</key>
+		<data>
+		d/FevPx9G5z7csAEjJBIFyc9a1E=
+		</data>
+		<key>Resources/Sprites/Itachi/Effect2/Sprite 6.png</key>
+		<data>
+		hpsw7jnymO+N2yLgM2UcQCMd+KM=
+		</data>
+		<key>Resources/Sprites/Itachi/Falling/Sprite 2.png</key>
+		<data>
+		QqRnEQFJ+IYSJmr/PBexXU746hc=
+		</data>
+		<key>Resources/Sprites/Itachi/Icon/Sprite 1.png</key>
+		<data>
+		WeG0gt90Ca6/6ZouKyF2kHdzL70=
+		</data>
+		<key>Resources/Sprites/Itachi/Itachi_Sprite.png</key>
+		<data>
+		HEVOO958Q24tylFoEnIC1Qh1zwQ=
+		</data>
+		<key>Resources/Sprites/Itachi/Jump/Sprite 1.png</key>
+		<data>
+		o9SGpMs0h9ALcueNKThpkk6jhT8=
+		</data>
+		<key>Resources/Sprites/Itachi/Jump/Sprite 2.png</key>
+		<data>
+		QqRnEQFJ+IYSJmr/PBexXU746hc=
+		</data>
+		<key>Resources/Sprites/Itachi/Jumping/Sprite 1.png</key>
+		<data>
+		o9SGpMs0h9ALcueNKThpkk6jhT8=
+		</data>
+		<key>Resources/Sprites/Itachi/Molding/Sprite 1.png</key>
+		<data>
+		Qh/89GTBg1MyIiEsHJUtpucJUME=
+		</data>
+		<key>Resources/Sprites/Itachi/Run/Sprite 1.png</key>
+		<data>
+		xfPYCCnmu0wJMTXzfigxgXtLxek=
+		</data>
+		<key>Resources/Sprites/Itachi/Run/Sprite 2.png</key>
+		<data>
+		IcWL0r+xQ1k1kp0a+VYBvGDbFBY=
+		</data>
+		<key>Resources/Sprites/Itachi/Run/Sprite 3.png</key>
+		<data>
+		jrP/5cfeP0Mv5mfAj8vOPAxnOzc=
+		</data>
+		<key>Resources/Sprites/Itachi/Run/Sprite 4.png</key>
+		<data>
+		qY3ITgyMCEIjfrcjkBXiBarFtzY=
+		</data>
+		<key>Resources/Sprites/Itachi/Run/Sprite 5.png</key>
+		<data>
+		Lc1oeA+RXR/pKordHR71JayTMEo=
+		</data>
+		<key>Resources/Sprites/Itachi/Run/Sprite 6.png</key>
+		<data>
+		RRMhjWlg1wleEtF8LbcsrXwOf44=
+		</data>
+		<key>Resources/Sprites/Itachi/Spell1/Sprite 1.png</key>
+		<data>
+		PtC4HZr/U4GGqEd9y1AUoY5UJ3Y=
+		</data>
+		<key>Resources/Sprites/Itachi/Spell1/Sprite 2.png</key>
+		<data>
+		TnR/CWY7o4ROrc47n6MwJpp3N/I=
+		</data>
+		<key>Resources/Sprites/Itachi/Spell1/Sprite 3.png</key>
+		<data>
+		0DsnG/3Q53ycx9w8xVFlI2tLRW4=
+		</data>
+		<key>Resources/Sprites/Itachi/Spell1/Sprite 4.png</key>
+		<data>
+		W+gG1FDwwDDEQoCwHNZqD7CYJ84=
+		</data>
+		<key>Resources/Sprites/Itachi/Spell1/Sprite 5.png</key>
+		<data>
+		jHa+eq29acsJq08QLWY2YzSQ7I0=
+		</data>
+		<key>Resources/Sprites/Itachi/Spell1/Sprite 6.png</key>
+		<data>
+		fkWv3q/7FrJVQYm8+YWDy/grJiE=
+		</data>
+		<key>Resources/Sprites/Itachi/Spell1/Sprite 7.png</key>
+		<data>
+		0ZpO8/b0cXAHA0mU1i/7ZcTEe1c=
+		</data>
+		<key>Resources/Sprites/Itachi/Spell1/Sprite 8.png</key>
+		<data>
+		mJcaRmiTThOhuXXm+gP8dpcqSeY=
+		</data>
+		<key>Resources/Sprites/Itachi/Spell1/Sprite 9.png</key>
+		<data>
+		uthPAbiY7YGqg5OuDpjbrYASls8=
+		</data>
+		<key>Resources/Sprites/Itachi/Spell2/Obsolete/Sprite 1.png</key>
+		<data>
+		SFpNaSiZ3eSJsacDhiQcB7o9OLA=
+		</data>
+		<key>Resources/Sprites/Itachi/Spell2/Obsolete/Sprite 2.png</key>
+		<data>
+		2/qYa9G/XGXqdKB4Tgk4EVTuKjY=
+		</data>
+		<key>Resources/Sprites/Itachi/Spell2/Sprite 1.png</key>
+		<data>
+		2MauaQK7u5+OqXOeqUj5gJwDTXg=
+		</data>
+		<key>Resources/Sprites/Itachi/Spell2/Sprite 2.png</key>
+		<data>
+		OcNEZsPs/jMOicyTd+NjinFeeA8=
+		</data>
+		<key>Resources/Sprites/Itachi/Spell2/Sprite 3.png</key>
+		<data>
+		JI2T45IXXYNFrOpMS92gigobGd0=
+		</data>
+		<key>Resources/Sprites/Itachi/Spell2/Sprite 4.png</key>
+		<data>
+		bc0jBbLJdR0RWC1XHqFVK0bJXW8=
+		</data>
+		<key>Resources/Sprites/Itachi/Spell3/Sprite 1.png</key>
+		<data>
+		SFpNaSiZ3eSJsacDhiQcB7o9OLA=
+		</data>
+		<key>Resources/Sprites/Itachi/Spell3/Sprite 2.png</key>
+		<data>
+		2/qYa9G/XGXqdKB4Tgk4EVTuKjY=
+		</data>
+		<key>Resources/Sprites/Itachi/SpellX/Sprite 1.png</key>
+		<data>
+		K1GZwqkyPcbf7Q8ZKUfXrmrpqBA=
+		</data>
+		<key>Resources/Sprites/Itachi/SpellX/Sprite 2.png</key>
+		<data>
+		5RPXWJjR35FbcIRDOJave1rgoYg=
+		</data>
+		<key>Resources/Sprites/Itachi/SpellX/Sprite 3.png</key>
+		<data>
+		170wCg+o9k46PTc/4IKt28l0S+g=
+		</data>
+		<key>Resources/Sprites/Itachi/SpellX/Sprite 4.png</key>
+		<data>
+		gpqXwSm6X8h/2r7LM7pTgfOzA3g=
+		</data>
+		<key>Resources/Sprites/Itachi/SpellX/Sprite 5.png</key>
+		<data>
+		Iz5U1fTk8x0pX+hS3Q/M1SomnRA=
+		</data>
+		<key>Resources/Sprites/Itachi/SpellX/Sprite 6.png</key>
+		<data>
+		qXcEu1JEZYQjlsV1cP2a2A9vDL4=
+		</data>
+		<key>Resources/Sprites/Itachi/Stand/Animation/Sprite 2.png</key>
+		<data>
+		Ec2sEvbEar5DTfC7AnAGsw3AlTE=
+		</data>
+		<key>Resources/Sprites/Itachi/Stand/Animation/Sprite 3.png</key>
+		<data>
+		QsZtYkVCIKdo/pVs91oB3OmgSBQ=
+		</data>
+		<key>Resources/Sprites/Itachi/Stand/Animation/Sprite 4.png</key>
+		<data>
+		kTu8uQHUFqEEKdrRHhdpIOFi9CE=
+		</data>
+		<key>Resources/Sprites/Itachi/Stand/Animation/Sprite 5.png</key>
+		<data>
+		AcA+KCtf8va5XFbH9/zXZ8DG1wQ=
+		</data>
+		<key>Resources/Sprites/Itachi/Stand/Animation/Sprite 6.png</key>
+		<data>
+		tCKfUIlgouWDWZwH8pgABicCMFw=
+		</data>
+		<key>Resources/Sprites/Itachi/Stand/Animation/Sprite 7.png</key>
+		<data>
+		nbRYcR9KUUkCSVMpZvWCQDS8Srs=
+		</data>
+		<key>Resources/Sprites/Itachi/Stand/Other Sprites/Sprite 2.png</key>
+		<data>
+		Ec2sEvbEar5DTfC7AnAGsw3AlTE=
+		</data>
+		<key>Resources/Sprites/Itachi/Stand/Other Sprites/Sprite 3.png</key>
+		<data>
+		QsZtYkVCIKdo/pVs91oB3OmgSBQ=
+		</data>
+		<key>Resources/Sprites/Itachi/Stand/Other Sprites/Sprite 4.png</key>
+		<data>
+		kTu8uQHUFqEEKdrRHhdpIOFi9CE=
+		</data>
+		<key>Resources/Sprites/Itachi/Stand/Other Sprites/Sprite 5.png</key>
+		<data>
+		AcA+KCtf8va5XFbH9/zXZ8DG1wQ=
+		</data>
+		<key>Resources/Sprites/Itachi/Stand/Other Sprites/Sprite 6.png</key>
+		<data>
+		tCKfUIlgouWDWZwH8pgABicCMFw=
+		</data>
+		<key>Resources/Sprites/Itachi/Stand/Other Sprites/Sprite 7.png</key>
+		<data>
+		nbRYcR9KUUkCSVMpZvWCQDS8Srs=
+		</data>
+		<key>Resources/Sprites/Itachi/Stand/Sprite 1.png</key>
+		<data>
+		sexUyQLDl2GfGggLzfNFEQYjeSI=
+		</data>
+		<key>Resources/Sprites/Itachi/Throw/Old/Sprite 3.png</key>
+		<data>
+		8UyWetN678/0qD6Fgu3UzMd+P7g=
+		</data>
+		<key>Resources/Sprites/Itachi/Throw/Sprite 1.png</key>
+		<data>
+		d7zQ6Dwjp7onUaCqcssevXIbdpU=
+		</data>
+		<key>Resources/Sprites/Itachi/Throw/Sprite 2.png</key>
+		<data>
+		XZoCZ015xjc0AKp77fkfmoKcrgE=
+		</data>
+		<key>Resources/Sprites/Itachi_Sprite.png</key>
+		<data>
+		HEVOO958Q24tylFoEnIC1Qh1zwQ=
+		</data>
+		<key>Resources/Sprites/Naruto/Block/Sprite 1.png</key>
+		<data>
+		f/kFamCgfivUEpugnrx05VaIMX0=
+		</data>
+		<key>Resources/Sprites/Naruto/Combo1/Sprite 1.png</key>
+		<data>
+		Gan9y/Y8rHSYauOP6IqlbP3QnJU=
+		</data>
+		<key>Resources/Sprites/Naruto/Combo1/Sprite 2.png</key>
+		<data>
+		eMnsSt4cpVovgvlqwmP3g+/dEOE=
+		</data>
+		<key>Resources/Sprites/Naruto/Combo1/Sprite 3.png</key>
+		<data>
+		pjySKG2q2shCBqV0OaTh22uc5Xo=
+		</data>
+		<key>Resources/Sprites/Naruto/Combo1/Sprite 4.png</key>
+		<data>
+		Gan9y/Y8rHSYauOP6IqlbP3QnJU=
+		</data>
+		<key>Resources/Sprites/Naruto/Combo1/Sprite 5.png</key>
+		<data>
+		eMnsSt4cpVovgvlqwmP3g+/dEOE=
+		</data>
+		<key>Resources/Sprites/Naruto/Damaged/Sprite 1.png</key>
+		<data>
+		eCoQR3g61fqjhptIWlvPSiUFWis=
+		</data>
+		<key>Resources/Sprites/Naruto/Falling/Sprite 3.png</key>
+		<data>
+		Pz3elZ6ZntGWK3qv3LctKlxIZ+I=
+		</data>
+		<key>Resources/Sprites/Naruto/Icon/Sprite 1.png</key>
+		<data>
+		w3PgzTzgl1wIvYJiuLwHRGzDy+M=
+		</data>
+		<key>Resources/Sprites/Naruto/Jump/Sprite 1.png</key>
+		<data>
+		iSVbgz9zD+HceoOko35KiHry09M=
+		</data>
+		<key>Resources/Sprites/Naruto/Jump/Sprite 2.png</key>
+		<data>
+		iSVbgz9zD+HceoOko35KiHry09M=
+		</data>
+		<key>Resources/Sprites/Naruto/Jump/Sprite 3.png</key>
+		<data>
+		Pz3elZ6ZntGWK3qv3LctKlxIZ+I=
+		</data>
+		<key>Resources/Sprites/Naruto/Jump/Sprite 4.png</key>
+		<data>
+		7+dLgfYwghIypDR6kaVdGq/HLgA=
+		</data>
+		<key>Resources/Sprites/Naruto/Jumping/Sprite 1.png</key>
+		<data>
+		iSVbgz9zD+HceoOko35KiHry09M=
+		</data>
+		<key>Resources/Sprites/Naruto/Run/Sprite 1.png</key>
+		<data>
+		4MMhZHF3nqEjzy5Z2YUUZiGNgp0=
+		</data>
+		<key>Resources/Sprites/Naruto/Run/Sprite 2.png</key>
+		<data>
+		TZ3Y7fOV+o96VgrAIGSXAkKYuaI=
+		</data>
+		<key>Resources/Sprites/Naruto/Run/Sprite 3.png</key>
+		<data>
+		uHHF6JVCnC4sSqIT0i4FS2V2moE=
+		</data>
+		<key>Resources/Sprites/Naruto/Run/Sprite 4.png</key>
+		<data>
+		eZzsGuDMmWG3zpxUVKvW4D/t9JQ=
+		</data>
+		<key>Resources/Sprites/Naruto/Run/Sprite 5.png</key>
+		<data>
+		J73UFt9TZPBqmgiLN7IZAkV5BsM=
+		</data>
+		<key>Resources/Sprites/Naruto/Run/Sprite 6.png</key>
+		<data>
+		P+9otzvUXcO7WkmY0y38c0w5iBk=
+		</data>
+		<key>Resources/Sprites/Naruto/Spell1/Sprite 1.png</key>
+		<data>
+		qku4HpQnm9solVaWl7cOaHg+yGw=
+		</data>
+		<key>Resources/Sprites/Naruto/Stand/Sprite1.png</key>
+		<data>
+		3iD8hC4Q45PeodfzXUW4VESZgKc=
+		</data>
+		<key>Resources/Sprites/Naruto/Throw/Sprite 1.png</key>
+		<data>
+		V5eOzWxNS6g50nbrepobwPGFiWE=
+		</data>
+		<key>Resources/Sprites/Naruto/Throw/Sprite 2.png</key>
+		<data>
+		qxfdz93T5QfOKiM4NxdMMaqUhZQ=
+		</data>
+		<key>Resources/Sprites/Naruto/Throw/Sprite 3.png</key>
+		<data>
+		izgh5kQYWfMMxalZ52e4WWBzIXk=
+		</data>
+		<key>Resources/Sprites/Naruto/Walk/Sprite 1.png</key>
+		<data>
+		ib767WdqEF7LiC8Biww3iJqQxAc=
+		</data>
+		<key>Resources/Sprites/Naruto/Walk/Sprite 2.png</key>
+		<data>
+		OruqsP/CuOxjhplq716ShRQqT8I=
+		</data>
+		<key>Resources/Sprites/Naruto/Walk/Sprite 3.png</key>
+		<data>
+		IbXpIROqNZC6PkO3znfkkwt69jk=
+		</data>
+		<key>Resources/Sprites/Naruto/Walk/Sprite 4.png</key>
+		<data>
+		gJoGqcyzHzI1fDNs6dEfA036opA=
+		</data>
+		<key>Resources/Sprites/Naruto/Walk/Sprite 5.png</key>
+		<data>
+		Q+X59ISmVGFBWU3tfkMJHFvUgDI=
+		</data>
+		<key>Resources/Sprites/Naruto/Walk/Sprite 6.png</key>
+		<data>
+		HN9+1qQnnauhw/f+sZlS4fHZagQ=
+		</data>
+		<key>Resources/Sprites/Sprites_Itachi.png</key>
+		<data>
+		8bQqAIm3I4smRS3JTY6llv6Isxs=
+		</data>
+		<key>Resources/Sprites/Sprites_Itachi.xcf</key>
+		<data>
+		SyBUr67u7lhIRfHKW+4h0cVGPWk=
+		</data>
+		<key>Resources/Sprites/Sprites_Minato.png</key>
+		<data>
+		74cBxMd6xI9+tEPf1SPkx6cvcRE=
+		</data>
+		<key>Resources/Sprites/Sprites_Minato.xcf</key>
+		<data>
+		BB9hLXSaB96C3C+J7wRG3hxFGXQ=
+		</data>
+		<key>Resources/Sprites/grass_cuted.jpg</key>
+		<data>
+		LCgWGw2VgZRAJghm6GhNdpNvzOg=
+		</data>
+	</dict>
+	<key>files2</key>
+	<dict>
+		<key>Resources/Sprites/Itachi/AwakeCombo1/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			n956ClY5GyXvIgHZUghg7GyvyW9W8o6TQTP+nhxcaAk=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/AwakeCombo1/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			+gnwcQLLNYEYSTfRnUMbx7NCCcF/dwThFmTF6x8rVrg=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/AwakeCombo1/Sprite 3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			CINgGjXBRERD5fU8JOipaoeZAQr3qxf/2S4ARaE1X+s=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/AwakeStand/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			7hs4/18dTfke+X/0ot2xQl3jwtLnGlGaP4kGFZGwvBw=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Awakening/Oui/Sprite 5.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			A9UR8BRY5QhXHgE764yxyEoS8pfEaAt0hq2nrPNETKk=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Awakening/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Kqlg/y5rfx0UDW3OGJpuYgptq7kJRbZ7yeXrRWCluPk=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Awakening/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			jAha0U0fwz3fHNUNZzKUI/lt83Ctyq5VLt7vQt13AUs=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Awakening/Sprite 3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ohUNdZNIqddX75vK/dQBB/9it9RjPjbwveaZ3OnRSuE=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Awakening/Sprite 4.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			7Vv7qRYwoBTSLPh+OUu8IPKC+IK/dxXnBMUGekuo3aM=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Awakening/Sprite 5.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			A9UR8BRY5QhXHgE764yxyEoS8pfEaAt0hq2nrPNETKk=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Block/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			7mo66USzZ0yy35d9Fk/L5or2mgC/BibMmTsGGIOgWyM=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Combo1/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			859aGOdhGh2WFeJwYYtSfmMp75RT0Wd380++nSA79Ko=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Combo1/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			PZDNxs6fdsMFeJjLvJvNpH+eL88VCh+qKJGUMV/6chk=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Combo1/Sprite 3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			B79rjsIr8BJcA/H4Y5JRNfOEEoqFFieIhUvsx8M0iVs=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Combo1/Sprite 4.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			TTsxZSL7agjEnzPeRIAxWXbNAGITppi5Ebhg0Rowehs=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Combo1Air/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			x7PhsbiqkWPQFgvs9MtJWh0A6Jxp1+Y/y4Et/XsTBE4=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Combo1Air/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			kUzSx3jBl4FeKhUayOfnD8a8XU5jWcFnn/OzjQz4dAc=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Combo1Air/Sprite 3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9EwOI6QswVr1rkS6ZqCcYrMTeQ0LaTUu7r/7sMKJszI=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Combo1Air/Sprite 4.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			0zlUQHbupahFzwCtQlp6OoA5lsqidcOdSFJqU7O+Opk=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Combo1Air/Sprite 5.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			fPRnIUCO19toOfH8iW58G+ntK41ui8LcrQjutoZe8z0=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Combo2/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			6lBBrkM36WFXpnFcbbDKSrHMaw9obHEcF8PRMs5Io8w=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Combo2/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Fn5QzfOQKdLhUOQCuNtb6cYL8/lkSYFUE1k74+4OYA0=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Combo2/Sprite 3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			/xUf5K0O0P5NpI49y5L47yEWXhgt/8oKwcMHak15GFw=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Combo2/Sprite 4.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Wl04sAO6+XWzT/J4kJ8ArWLVA0v5QZQUHXJB0wUvAGs=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Combo2/Sprite 5.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			nq6eHPvC2tFQ7J+hNc1cVOBHst6Lf4V+Md/LMUaVXyA=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Damaged/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			59ft+Fh+e7P/X5/MBm1xwQuo5jr3e5ZNvGGcaYA2OHQ=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Damaged/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			jJpLoOF15RKZVp9fH4hnqPjMeADJb5Gx+giYNJyHnrY=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Damaged/Sprite 3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ZW2UTTkF1VnqNBdp8PLQq2CP5u2KxIcyavJ20iubq4A=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Effect/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			4kWppfDwySOwRqBKZcllMPdTkkv1KDRgggpOxEE6hiM=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Effect/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			zp7nyDUoQ+6l1fsvoiymrQAY37E0qGBhpPSZcANvSQo=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Effect/Sprite 3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			DmFyUydNLc/bKeE7fPfnuPXb5dehyY9O4FlOvZYMfRY=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Effect/Sprite 4.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Pf+V7GiGPvS98Ch6F6V4EayC+2I5nYE1LeJD3+Yc+VA=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Effect2/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			hvdloFF66UhjL7Y//LMxf/JATFVnR8mDgjcpl1FxlxE=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Effect2/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			DO4xGGICUu6OUL5e7g/Ng8a3s9FXVxILJkmzxjY28hc=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Effect2/Sprite 3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			CtkigUindIMpDhbkKUXWtjyH9eB5jtzlZTEOQPQgtfQ=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Effect2/Sprite 4.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			pnzp/huDNiPfxPKWTM9J1GElix2G1LCKxalqiVfWTrI=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Effect2/Sprite 5.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			PfNv4kMbcDWuLmWJsbL4m32F8EDrXzZxTKGbR/oC4jA=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Effect2/Sprite 6.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			p0He/b6taAVRzzoiyDaXTXlllwqq1Se6mS/066wOu1w=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Falling/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			QgP2yVzGXr7er1kbcZsOdAGZsYICDZXbpViOJl1nzvM=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Icon/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			wbIdGuaB0WDqJ1/BmrXA5BBGMx6IL9314/NV2ztdmjQ=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Itachi_Sprite.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			jeTUw8dArNcIOafV+StzrYQ1CBgxJ1MlvGqR54nisbs=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Jump/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			MjHIrLY0PV1NoQwfCsPzH9S0t1U6+xwgL27wGlDkSwQ=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Jump/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			QgP2yVzGXr7er1kbcZsOdAGZsYICDZXbpViOJl1nzvM=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Jumping/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			MjHIrLY0PV1NoQwfCsPzH9S0t1U6+xwgL27wGlDkSwQ=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Molding/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			S15HBpXALTXtYnHJ0Z9DNbLEdO0MgJa965kigMmK4oI=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Run/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			10CNlbpNT/qhA2m3DgIeKvxTUGt0ad2HKnNAaODsfWY=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Run/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			REXDJrWMo6kln6OS3zsO1UnAjNy7DjfRv5vI07xKeWc=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Run/Sprite 3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Eoee6uMp31FEjIAG4s4MQbTWfQGB0AeeRapaK0Eoid8=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Run/Sprite 4.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			laQy8EQw6Jg0cYkUjQ4YTEDdEIHFc7pOOL/+Wuj04HE=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Run/Sprite 5.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			stxVRHQGE/fEdE625zwalcpP917Ezk3KMG/+j67BtyM=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Run/Sprite 6.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			eTK6Fv47tmlOyaOtFLJATBmjbHhM9GI9lZvf4MatahU=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Spell1/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			TWy+GLCyIShJFp3XMk7NGpU/qmQhZdk7a3olCx125H4=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Spell1/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			mKzJSI9uRpZKS9cUHpDGzQNqrlpPPUHDFQHaYJn3w5E=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Spell1/Sprite 3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			3CpRbdS06IogshbtE1KqcaY1qiBnNgsvQRVlY5wfJaY=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Spell1/Sprite 4.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			igP1lBg6Dldl0+TImRcLEPuRghQ3OaeXq+BJTnmKEPI=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Spell1/Sprite 5.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			scc/sdKFlwyf5cmbzaOZlj332DgQU0MywcpBzp8SP1g=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Spell1/Sprite 6.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			hOGonbQG+JsMJqKz3X5RrPE85u4gF0NKp/jvbBPXNQc=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Spell1/Sprite 7.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			vGLKfrScxEyymFwYT2nrfk7CwleH3Vco5GDYV849AWA=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Spell1/Sprite 8.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			aGjhfh4Hf3ZR27OcO4Yc7DYyAsj7udxqhlP8+WyF6UA=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Spell1/Sprite 9.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Nw2OAImnTYHwXYwjUQzt8h9PluThbI91yBVRVgCZDe0=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Spell2/Obsolete/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			CSeyrbka3tpNdkS/Rvjd+wlKKeohApih2JtO1YXFvuE=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Spell2/Obsolete/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			4K/FzOnNhFz9330LIFd8x/VMy8ZmWdz/pEoUVg2TlhM=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Spell2/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			KeNOgkNkjMyuHCes/YSMAebe4kBXoXb18MH1RhqF1MM=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Spell2/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			+atpk+MiFhDNk03Xul7yasEHCc9c5juFdjjTwjtU+TQ=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Spell2/Sprite 3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			0WltdcFkZGa0ULrhfPyq6LcinnSy5/1mKiu2wNfPiZQ=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Spell2/Sprite 4.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			e8kMPRgw84ir9EiOrrY4/KXBTwzn0DAKnq6SL4u5fKo=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Spell3/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			CSeyrbka3tpNdkS/Rvjd+wlKKeohApih2JtO1YXFvuE=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Spell3/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			4K/FzOnNhFz9330LIFd8x/VMy8ZmWdz/pEoUVg2TlhM=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/SpellX/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			QepYHGplD7WFCK7oWsWxU5ouRKPVhPB9ke1BDiTv4wQ=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/SpellX/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ijKFHBw73dqYdbr+5l6dTszwx8TKuubwD3FRDIHeatw=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/SpellX/Sprite 3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			0Kkg0Hq+uUYZzaZfVwE49H8cHhdKrOQdvdIV8PV7ImM=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/SpellX/Sprite 4.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			bZEgKfgXt4inpMRDFH5pYLC29cK9iWMMZp8HqgTb5/s=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/SpellX/Sprite 5.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			RArTLlhuizXEEsFhc8HsrV7inGXmw0JQMjNv9hNdTIc=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/SpellX/Sprite 6.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			5y0M77GxfSg+65xj931ZbFsz/xKiXx5dGbOUo8SkwcY=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Stand/Animation/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			qDqGXNQejWayGOADa2qvKz0ILtiz41OAMujlIlFCQ8g=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Stand/Animation/Sprite 3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			44MOB9ExqyDr6S8F8Ux1qIS7s78mZ9q1riC2GZ3ecyQ=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Stand/Animation/Sprite 4.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			2LTCFD0WhFbq9IESITcT1COC0Ze0Z4A/L6hTpEZAdiU=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Stand/Animation/Sprite 5.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ykM88rbVGdMy77CXLUJQQ6Ql4yPpSGrZvC9cEQdrlJk=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Stand/Animation/Sprite 6.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			meTy4EgGPjNR7VNsfeFUO2S+YTYeLiz0qBGz2u8PJZ0=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Stand/Animation/Sprite 7.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			wVWaEmBvW9MixRCY49zSK3BXB0YkGzrBB2EWBjWP7XM=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Stand/Other Sprites/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			qDqGXNQejWayGOADa2qvKz0ILtiz41OAMujlIlFCQ8g=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Stand/Other Sprites/Sprite 3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			44MOB9ExqyDr6S8F8Ux1qIS7s78mZ9q1riC2GZ3ecyQ=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Stand/Other Sprites/Sprite 4.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			2LTCFD0WhFbq9IESITcT1COC0Ze0Z4A/L6hTpEZAdiU=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Stand/Other Sprites/Sprite 5.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ykM88rbVGdMy77CXLUJQQ6Ql4yPpSGrZvC9cEQdrlJk=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Stand/Other Sprites/Sprite 6.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			meTy4EgGPjNR7VNsfeFUO2S+YTYeLiz0qBGz2u8PJZ0=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Stand/Other Sprites/Sprite 7.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			wVWaEmBvW9MixRCY49zSK3BXB0YkGzrBB2EWBjWP7XM=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Stand/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			l545yn+wrAtO4pJ5h+qYE6Lqvxdb9DwyHqmM+k7Y4o4=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Throw/Old/Sprite 3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			TTsxZSL7agjEnzPeRIAxWXbNAGITppi5Ebhg0Rowehs=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Throw/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			859aGOdhGh2WFeJwYYtSfmMp75RT0Wd380++nSA79Ko=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi/Throw/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			B79rjsIr8BJcA/H4Y5JRNfOEEoqFFieIhUvsx8M0iVs=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Itachi_Sprite.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			jeTUw8dArNcIOafV+StzrYQ1CBgxJ1MlvGqR54nisbs=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Block/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			7I7RQje5sZmTgKCsQF4DcRer+i1QoDliCVrkzPgyXlU=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Combo1/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			2dq0HJKsoHHA/MKF2BZxI47oE/hbMbKq7rEaZzsmkHo=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Combo1/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			To60iuGRU1BG73elD+yN8IDTAvIkyKYHkmhRCjdI+pU=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Combo1/Sprite 3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			MofNTDkUtbrcxkh79AcYTNUb9uiBmYJku6XM2uKdBZo=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Combo1/Sprite 4.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			2dq0HJKsoHHA/MKF2BZxI47oE/hbMbKq7rEaZzsmkHo=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Combo1/Sprite 5.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			To60iuGRU1BG73elD+yN8IDTAvIkyKYHkmhRCjdI+pU=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Damaged/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			6XCJYHiMIxtwAtAtjLIWIFxZeB7qeWWEmqZT8QpkxIA=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Falling/Sprite 3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			EiaHn/ncJFvi5XLzXARnLbUjdJaEkCale0t9y5YiFVc=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Icon/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			5/Of2LHj3/WLkVEsqb3P/ornVZD04vp7b1k38jWfG84=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Jump/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9qMrw0DvVfZmLfUnsFHDOCjOVMsyulRdweQNBj+yjEg=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Jump/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9qMrw0DvVfZmLfUnsFHDOCjOVMsyulRdweQNBj+yjEg=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Jump/Sprite 3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			EiaHn/ncJFvi5XLzXARnLbUjdJaEkCale0t9y5YiFVc=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Jump/Sprite 4.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			EGEpaE7G0EnguTY9PHw6P+awScgKvc3PdRALviQDM/g=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Jumping/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9qMrw0DvVfZmLfUnsFHDOCjOVMsyulRdweQNBj+yjEg=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Run/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ROFAzdrBEkvRCT+QDLwq9UFOUmGUPn/do1CfvWYn6HA=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Run/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			EU1jWBNeir/3EDQvEi8yoousuN/BI9/8JMQ86pvA8H4=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Run/Sprite 3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			NnovKsTm/O/CKFT2uTOKNCeTPGX2s04CaQarCc8FDlM=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Run/Sprite 4.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			y+Png7lyYUgJ5lW8iVav4odt9REwr7VpVRBZtCabi3U=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Run/Sprite 5.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			HHf/gFYPpBRdZinILXneKuWaDqadwizBrCeTMjU3348=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Run/Sprite 6.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Q2+oMCw81sqWE8/zXwhtk4SbqTAwJV6IcDlyHrZB3U8=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Spell1/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			15v2qsmdaELSxcvkEK/OGSaeMzbuJcCxMLtEM1Haqo0=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Stand/Sprite1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			SZ/0d0l2KeN38ClzgZfmmk9NLniNvpjRt/fkkwoafrc=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Throw/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			VGX4/hUm4TP+9OzYrw+F80QYHcx3PnhnRGBQDpQZMTQ=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Throw/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			TyJIJHvZt6a3n/cMeHIy9nGGsr7qDqhuaGKRiPunpKE=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Throw/Sprite 3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			QyEU2+Rt0UvPv7ggGYv5WQ3ei7zeNESK6HOKi2w5lSU=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Walk/Sprite 1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			SCk4/fgObb1pta4bpY5oldJHQ933saEJ3kWtuAhfzHM=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Walk/Sprite 2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			zw2TjiNnkUQQEOELOHRL2D4mQadrkR5jO/MCE1XQBYM=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Walk/Sprite 3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			UIlx2IKxw6c5hZFgF7XIZacAVHtQVDw4DLj2WH97Y6o=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Walk/Sprite 4.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			apoVxqNKh8rsChIqV6a1zBw0IsaOHuC3yUqlFBIMfuY=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Walk/Sprite 5.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			rqJpBuUYX2+y0jK5DZ0YCkbS4DLZN3OHYOSWct3HKHM=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Naruto/Walk/Sprite 6.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			BbAdF3+A8IUI/nARR9bGX7TVYh+KM0X9pDSNxW8DgQ0=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Sprites_Itachi.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			dpnfkHpVvRiitE8lPPFKfrO2PL1vHvfe8PiVVZy8h0g=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Sprites_Itachi.xcf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			BP722vA9etxe0yQynuHtIdkxGBsL1tb3LRz1/vEviWw=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Sprites_Minato.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Gg4fsn7SX+DX44rSU5k/PASJoWSv86dkar7XU5MHZzQ=
+			</data>
+		</dict>
+		<key>Resources/Sprites/Sprites_Minato.xcf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			xLEAfp1JuKUXUJnxhhViUnf7AlUaPeGlAz8aNBbhVtI=
+			</data>
+		</dict>
+		<key>Resources/Sprites/grass_cuted.jpg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			okLsBKczZtMU4H3NuAe3alnmZGV0HQG+wwWDbkHWhgg=
+			</data>
+		</dict>
+	</dict>
+	<key>rules</key>
+	<dict>
+		<key>^Resources/</key>
+		<true/>
+		<key>^Resources/.*\.lproj/</key>
+		<dict>
+			<key>optional</key>
+			<true/>
+			<key>weight</key>
+			<real>1000</real>
+		</dict>
+		<key>^Resources/.*\.lproj/locversion.plist$</key>
+		<dict>
+			<key>omit</key>
+			<true/>
+			<key>weight</key>
+			<real>1100</real>
+		</dict>
+		<key>^Resources/Base\.lproj/</key>
+		<dict>
+			<key>weight</key>
+			<real>1010</real>
+		</dict>
+		<key>^version.plist$</key>
+		<true/>
+	</dict>
+	<key>rules2</key>
+	<dict>
+		<key>.*\.dSYM($|/)</key>
+		<dict>
+			<key>weight</key>
+			<real>11</real>
+		</dict>
+		<key>^(.*/)?\.DS_Store$</key>
+		<dict>
+			<key>omit</key>
+			<true/>
+			<key>weight</key>
+			<real>2000</real>
+		</dict>
+		<key>^(Frameworks|SharedFrameworks|PlugIns|Plug-ins|XPCServices|Helpers|MacOS|Library/(Automator|Spotlight|LoginItems))/</key>
+		<dict>
+			<key>nested</key>
+			<true/>
+			<key>weight</key>
+			<real>10</real>
+		</dict>
+		<key>^.*</key>
+		<true/>
+		<key>^Info\.plist$</key>
+		<dict>
+			<key>omit</key>
+			<true/>
+			<key>weight</key>
+			<real>20</real>
+		</dict>
+		<key>^PkgInfo$</key>
+		<dict>
+			<key>omit</key>
+			<true/>
+			<key>weight</key>
+			<real>20</real>
+		</dict>
+		<key>^Resources/</key>
+		<dict>
+			<key>weight</key>
+			<real>20</real>
+		</dict>
+		<key>^Resources/.*\.lproj/</key>
+		<dict>
+			<key>optional</key>
+			<true/>
+			<key>weight</key>
+			<real>1000</real>
+		</dict>
+		<key>^Resources/.*\.lproj/locversion.plist$</key>
+		<dict>
+			<key>omit</key>
+			<true/>
+			<key>weight</key>
+			<real>1100</real>
+		</dict>
+		<key>^Resources/Base\.lproj/</key>
+		<dict>
+			<key>weight</key>
+			<real>1010</real>
+		</dict>
+		<key>^[^/]+$</key>
+		<dict>
+			<key>nested</key>
+			<true/>
+			<key>weight</key>
+			<real>10</real>
+		</dict>
+		<key>^embedded\.provisionprofile$</key>
+		<dict>
+			<key>weight</key>
+			<real>20</real>
+		</dict>
+		<key>^version\.plist$</key>
+		<dict>
+			<key>weight</key>
+			<real>20</real>
+		</dict>
+	</dict>
+</dict>
+</plist>

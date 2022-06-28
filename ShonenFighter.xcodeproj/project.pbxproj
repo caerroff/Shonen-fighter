@@ -15,7 +15,9 @@
 		D93DF31D28019842005A4B57 /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D93DF31728019842005A4B57 /* Animation.cpp */; };
 		D93DF31E28019842005A4B57 /* Platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D93DF31928019842005A4B57 /* Platform.cpp */; };
 		D93DF32028019892005A4B57 /* Sprites in Resources */ = {isa = PBXBuildFile; fileRef = D93DF31F28019892005A4B57 /* Sprites */; };
+		D956B698286A35E500BDAC6A /* ShonenFighter in Resources */ = {isa = PBXBuildFile; fileRef = D956B697286A35E500BDAC6A /* ShonenFighter */; };
 		D95AC8532801857500C8FBF6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D95AC8522801857500C8FBF6 /* main.cpp */; };
+		D97975232867AF0600A61B9E /* Ath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D97975212867AF0600A61B9E /* Ath.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,8 +35,11 @@
 		D93DF31828019842005A4B57 /* Platform.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Platform.hpp; sourceTree = "<group>"; };
 		D93DF31928019842005A4B57 /* Platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Platform.cpp; sourceTree = "<group>"; };
 		D93DF31F28019892005A4B57 /* Sprites */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sprites; sourceTree = "<group>"; };
+		D956B697286A35E500BDAC6A /* ShonenFighter */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ShonenFighter; sourceTree = "<group>"; };
 		D95AC84A2801857500C8FBF6 /* ShonenFighter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShonenFighter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D95AC8522801857500C8FBF6 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		D97975212867AF0600A61B9E /* Ath.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Ath.cpp; sourceTree = "<group>"; };
+		D97975222867AF0600A61B9E /* Ath.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Ath.hpp; sourceTree = "<group>"; };
 		D9BF84B62804114B00A609E7 /* ShonenFighter.profdata */ = {isa = PBXFileReference; lastKnownFileType = file; path = ShonenFighter.profdata; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,20 +74,23 @@
 		D95AC84C2801857500C8FBF6 /* ShonenFighter */ = {
 			isa = PBXGroup;
 			children = (
-				D93DF31228019842005A4B57 /* Animation.hpp */,
 				D93DF31728019842005A4B57 /* Animation.cpp */,
-				D933ACE9284247F500A2EA7B /* Itachi.cpp */,
-				D933ACEA284247F500A2EA7B /* Itachi.hpp */,
+				D93DF31228019842005A4B57 /* Animation.hpp */,
+				D97975212867AF0600A61B9E /* Ath.cpp */,
+				D97975222867AF0600A61B9E /* Ath.hpp */,
 				D933ACEC2842488700A2EA7B /* Characters.cpp */,
 				D933ACED2842488700A2EA7B /* Characters.hpp */,
 				D93DF31428019842005A4B57 /* Collider.cpp */,
 				D93DF31328019842005A4B57 /* Collider.hpp */,
+				D933ACE9284247F500A2EA7B /* Itachi.cpp */,
+				D933ACEA284247F500A2EA7B /* Itachi.hpp */,
 				D95AC8522801857500C8FBF6 /* main.cpp */,
 				D93DF31628019842005A4B57 /* Perso.cpp */,
 				D93DF31928019842005A4B57 /* Platform.cpp */,
 				D93DF31828019842005A4B57 /* Platform.hpp */,
 				D93DF31128019842005A4B57 /* Player.cpp */,
 				D93DF31528019842005A4B57 /* Player.hpp */,
+				D956B697286A35E500BDAC6A /* ShonenFighter */,
 				D93DF31F28019892005A4B57 /* Sprites */,
 			);
 			path = ShonenFighter;
@@ -156,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D93DF32028019892005A4B57 /* Sprites in Resources */,
+				D956B698286A35E500BDAC6A /* ShonenFighter in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,6 +198,7 @@
 				D93DF31A28019842005A4B57 /* Player.cpp in Sources */,
 				D933ACEB284247F500A2EA7B /* Itachi.cpp in Sources */,
 				D93DF31B28019842005A4B57 /* Collider.cpp in Sources */,
+				D97975232867AF0600A61B9E /* Ath.cpp in Sources */,
 				D95AC8532801857500C8FBF6 /* main.cpp in Sources */,
 				D93DF31C28019842005A4B57 /* Perso.cpp in Sources */,
 				D93DF31E28019842005A4B57 /* Platform.cpp in Sources */,

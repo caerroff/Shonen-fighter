@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "Characters.hpp"
+#include <iostream>
 
 Characters::Characters() {
     
@@ -20,4 +21,13 @@ void Characters::setTabSprites(int *tabSprites) {
  */
 void Characters::setIdCharacter(int id) {
     this->idCharacter = id; 
+}
+
+/*
+ fillTab : fill the tab given in entry(int tab[]) with the tab of the current character
+ */
+void Characters::fillTab(int tab[]) {
+    for(int i = 0; i < lengthTab; i++) {
+        tab[i] = this->tabSprites[i];
+    }
 }

@@ -1,4 +1,5 @@
 #include "Animation.hpp"
+#include <iostream>
 
 Animation::Animation(sf::Texture* texture, sf::Vector2u imageCount, float switchTime) {
     this->imageCount = imageCount; 
@@ -9,10 +10,6 @@ Animation::Animation(sf::Texture* texture, sf::Vector2u imageCount, float switch
 
     uvRect.width = texture->getSize().x / float(imageCount.x); 
     uvRect.height = texture->getSize().y / float(imageCount.y);
-    
-    for(int i = 0; i < this->character.getLengthTab(); i++) {
-        this->sprites[i] = this->character.getValueTabSprite(i);
-    }
 }
 
 /*
@@ -28,7 +25,7 @@ void Animation::setNbSprites(int indice)
                 If row = 0, it matches with "Idle", so it'll return the number of sprites used for the idle
  */
 int Animation::getSprites(int row) {
-    return this->sprites[row];
+    return this->nbSprites[row];
 }
 
 /*
@@ -41,10 +38,9 @@ void Animation::Update(int row, float deltaTime, bool faceRight) {
 
     if(totalTime >= switchTime) {
         totalTime -= switchTime; 
-        currentImage.x++; 
-
+        currentImage.x++;
         if(currentImage.x >= this->nbSprites[row]) {
-            currentImage.x = 0; 
+            currentImage.x = 0;
         }
     }
 
@@ -66,4 +62,5 @@ void Animation::Update(int row, float deltaTime, bool faceRight) {
  */
 void Animation::setCharacter(Characters charac) {
     this->character = charac;
+    this->character.fillTab(nbSprites);
 }

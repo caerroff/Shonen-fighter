@@ -5,6 +5,7 @@
 #include "Animation.hpp"
 #include "Collider.hpp"
 #include "Characters.hpp"
+#include "Ath.hpp"
 
 class Player {
     private:
@@ -20,19 +21,23 @@ class Player {
         float jumpHeight;
 
         bool moveKey[100]; 
-        int nbMoveKey = 5; //Default 5 : Idle, Moving (Left / Right), Jumping, Falling, Block: Add +1 when new movement (spell, throw, other actions..)
+        int nbMoveKey = 20; //Default 5 : Idle, Moving (Left / Right), Jumping, Falling, Block: Add +1 when new movement (spell, throw, other actions..)
     
-        int idPlayer;
+        int idPlayer = 1;
+        int hp = 100;
+        int mana = 0;     
         
     public:
     Animation animation;
-        Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed, float jumpHeight); 
+        Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed, float jumpHeight, float posX); 
         void Update(float deltaTime);
         void Draw(sf::RenderWindow& window);  
         void OnCollision(sf::Vector2f direction); 
-
+        bool isOnScreen();  
         void resetMoveKey(); 
 
+        int printPosition(); 
+    
         sf::Vector2f GetPosition() { return body.getPosition(); }
         Collider GetCollider() { return Collider(body); }
     

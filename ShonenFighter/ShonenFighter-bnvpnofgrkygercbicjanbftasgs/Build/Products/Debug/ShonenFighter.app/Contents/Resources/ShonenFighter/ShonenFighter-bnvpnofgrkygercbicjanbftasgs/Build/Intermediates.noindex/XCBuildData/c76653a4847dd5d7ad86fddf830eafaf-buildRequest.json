@@ -1,0 +1,56 @@
+{
+  "_buildCommand2" : {
+    "command" : "build",
+    "skipDependencies" : false,
+    "style" : "buildOnly"
+  },
+  "buildCommand" : "build",
+  "configuredTargets" : [
+    {
+      "guid" : "edc125aaad93cf3b1fe83acd1abc7dc639b939f3d15d123c373ac8c4de2db3fc"
+    }
+  ],
+  "containerPath" : "/Users/mohamed/Documents/GitHub/Shonen-fighter/ShonenFighter.xcodeproj",
+  "continueBuildingAfterErrors" : false,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "activeArchitecture" : "x86_64",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : true,
+      "platform" : "macosx",
+      "sdk" : "macosx12.3",
+      "sdkVariant" : "macos",
+      "supportedArchitectures" : [
+        "x86_64"
+      ],
+      "targetArchitecture" : "x86_64"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Users/mohamed/Documents/GitHub/Shonen-fighter/ShonenFighter/ShonenFighter-bnvpnofgrkygercbicjanbftasgs/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Users/mohamed/Documents/GitHub/Shonen-fighter/ShonenFighter/ShonenFighter-bnvpnofgrkygercbicjanbftasgs/Build/Products",
+      "derivedDataPath" : "/Users/mohamed/Documents/GitHub/Shonen-fighter/ShonenFighter",
+      "indexDataStoreFolderPath" : "/Users/mohamed/Documents/GitHub/Shonen-fighter/ShonenFighter/ShonenFighter-bnvpnofgrkygercbicjanbftasgs/Index/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/mohamed/Documents/GitHub/Shonen-fighter/ShonenFighter/ShonenFighter-bnvpnofgrkygercbicjanbftasgs/Index/PrecompiledHeaders",
+      "pchPath" : "/Users/mohamed/Documents/GitHub/Shonen-fighter/ShonenFighter/ShonenFighter-bnvpnofgrkygercbicjanbftasgs/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Debug",
+    "overrides" : {
+      "synthesized" : {
+        "table" : {
+          "ENABLE_PREVIEWS" : "NO"
+        }
+      }
+    }
+  },
+  "schemeCommand" : "launch",
+  "schemeCommand2" : "launch",
+  "shouldCollectMetrics" : false,
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}
